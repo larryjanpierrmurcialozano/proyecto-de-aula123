@@ -521,9 +521,12 @@ def api_asignacion_crear():
         cursor.execute("""
             INSERT INTO asignaciones_docente (id_usuario, id_materia, id_grado, id_grupo, año_lectivo, estado)
             VALUES (%s, %s, %s, %s, %s, 'Activa')
+            ON CONFLICT (id_usuario, id_materia, id_grado, id_grupo)
+            DO UPDATE SET estado = 'Activa', año_lectivo = EXCLUDED.año_lectivo
+            RETURNING id_asignacion
         """, (data['id_usuario'], data['id_materia'], data['id_grado'], data['id_grupo'], año_lectivo))
+        new_id = cursor.fetchone()[0]
         conn.commit()
-        new_id = cursor.lastrowid
         cursor.close()
         conn.close()
         return jsonify({'status': 'ok', 'id_asignacion': new_id}), 201
@@ -551,5 +554,4 @@ def api_asignacion_eliminar(id):
         return jsonify({'status': 'ok'}), 200
     except Exception as e:
         return _error_interno(e)
-
 

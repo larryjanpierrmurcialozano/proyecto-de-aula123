@@ -7,7 +7,7 @@
     border-radius: 12px;
     overflow: hidden;
     background: linear-gradient(180deg, #ffffff 0%, #fffaf4 100%);
-    box-shadow: 0 10px 26px rgba(75, 57, 53, 0.08);
+    box-shadow: 0 10px 26px rgba(71, 85, 105, 0.08);
 }
 
 .horarios-shell .card-header-flex {
@@ -77,8 +77,8 @@
 
 .horario-filtros .form-group select:focus {
     outline: none;
-    border-color: #d97706;
-    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.18);
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
 }
 
 /* --- Contenedores de grilla --- */
@@ -153,7 +153,7 @@
     top: 0;
     z-index: 1;
     padding: 0.68rem 0.52rem;
-    background: linear-gradient(135deg, #5c4128 0%, #7a5634 100%);
+    background: linear-gradient(135deg, #0A4D2E 0%, #0F6B42 100%);
     color: #fff7ed;
     font-size: 0.78rem;
     font-weight: 700;
@@ -172,7 +172,7 @@
 }
 
 .horario-grid thead .hora-col {
-    background: linear-gradient(135deg, #5c4128 0%, #7a5634 100%);
+    background: linear-gradient(135deg, #0A4D2E 0%, #0F6B42 100%);
 }
 
 .hora-sub {
@@ -240,9 +240,9 @@
     margin: 6px;
     padding: 0.52rem;
     border-radius: 8px;
-    background: var(--horario-color, #f59e0b);
-    border: 1px solid rgba(75, 57, 53, 0.16);
-    box-shadow: 0 3px 10px rgba(75, 57, 53, 0.12);
+    background: var(--horario-color, #D4AF37);
+    border: 1px solid rgba(71, 85, 105, 0.16);
+    box-shadow: 0 3px 10px rgba(71, 85, 105, 0.12);
 }
 
 .horario-materia {
@@ -329,7 +329,7 @@
 .horario-chip {
     background: var(--horario-color, #fde68a) !important;
     color: #1f2937 !important;
-    border: 1px solid rgba(75, 57, 53, 0.16) !important;
+    border: 1px solid rgba(71, 85, 105, 0.16) !important;
     border-radius: 12px !important;
     padding: 0.25rem 0.75rem !important;
     font-size: 0.8rem !important;
@@ -416,7 +416,7 @@
 }
 
 .tabla-horario-docente th {
-    background: linear-gradient(135deg, #5c4128 0%, #7a5634 100%);
+    background: linear-gradient(135deg, #0A4D2E 0%, #0F6B42 100%);
     color: #fff7ed;
     font-weight: 700;
     font-size: 0.82rem;
@@ -459,14 +459,14 @@
 }
 
 .libre-cell {
-    color: #9b8d7a;
+    color: #475569;
     font-style: italic;
     background: #fffefc;
 }
 
 .descanso-cell {
-    background: linear-gradient(135deg, #fde68a, #f59e0b);
-    color: #4b2e15;
+    background: linear-gradient(135deg, #fde68a, #D4AF37);
+    color: #475569;
     font-weight: 600;
 }
 
@@ -478,12 +478,12 @@
     margin-top: 1.5rem;
     padding: 1rem;
     background: linear-gradient(180deg, #fff7ed 0%, #ffedd5 100%);
-    border: 1px solid #fdba74;
+    border: 1px solid #D4AF37;
     border-radius: 10px;
 }
 
 .horario-leyenda h4 {
-    color: #7c2d12;
+    color: #475569;
     margin-bottom: 0.75rem;
     font-size: 0.95rem;
 }
@@ -499,7 +499,7 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
-    color: #7c2d12;
+    color: #475569;
 }
 
 .leyenda-color {
@@ -520,7 +520,7 @@
 
 .leyenda-color.libre {
     background: var(--blanco);
-    border: 1px solid #fdba74;
+    border: 1px solid #D4AF37;
 }
 
 @media (max-width: 768px) {

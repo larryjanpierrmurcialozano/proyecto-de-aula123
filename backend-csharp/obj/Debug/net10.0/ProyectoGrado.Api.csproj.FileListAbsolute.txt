@@ -45,3 +45,84 @@ C:\Users\Larry\AppData\Local\Temp\proyecto-grado-build\ProyectoGrado.Api.deps.js
 C:\Users\Larry\AppData\Local\Temp\proyecto-grado-build\ProyectoGrado.Api.runtimeconfig.json
 C:\Users\Larry\AppData\Local\Temp\proyecto-grado-build\ProyectoGrado.Api.dll
 C:\Users\Larry\AppData\Local\Temp\proyecto-grado-build\ProyectoGrado.Api.pdb
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\appsettings.Development.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\appsettings.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.staticwebassets.endpoints.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.exe
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.deps.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.runtimeconfig.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.dll
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.pdb
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\BCrypt.Net-Next.dll
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\bin\Debug\net10.0\Npgsql.dll
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.csproj.AssemblyReference.cache
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.AssemblyInfoInputs.cache
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.AssemblyInfo.cs
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.csproj.CoreCompileInputs.cache
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.sourcelink.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\rjimswa.dswa.cache.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\scopedcss\bundle\ProyectoGrado.Api.styles.css
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\staticwebassets.build.json.cache
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\staticwebassets.development.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\swae.build.ex.cache
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\Proyecto.3BA5C14C.Up2Date
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.dll
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\refint\ProyectoGrado.Api.dll
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.pdb
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.genruntimeconfig.cache
+C:\Users\Yised\Desktop\PROYECTO DE AULA\proyecto-de-aula123\backend-csharp\obj\Debug\net10.0\ref\ProyectoGrado.Api.dll
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoValidation\appsettings.Development.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoValidation\appsettings.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoValidation\ProyectoGrado.Api.staticwebassets.endpoints.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoValidation\ProyectoGrado.Api.exe
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoValidation\ProyectoGrado.Api.deps.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoValidation\ProyectoGrado.Api.runtimeconfig.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoValidation\ProyectoGrado.Api.dll
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoValidation\ProyectoGrado.Api.pdb
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoNameValidation\appsettings.Development.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoNameValidation\appsettings.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoNameValidation\ProyectoGrado.Api.staticwebassets.endpoints.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoNameValidation\ProyectoGrado.Api.exe
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoNameValidation\ProyectoGrado.Api.deps.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoNameValidation\ProyectoGrado.Api.runtimeconfig.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoNameValidation\ProyectoGrado.Api.dll
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoNameValidation\ProyectoGrado.Api.pdb
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoPhoneValidation\appsettings.Development.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoPhoneValidation\appsettings.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoPhoneValidation\ProyectoGrado.Api.staticwebassets.endpoints.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoPhoneValidation\ProyectoGrado.Api.exe
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoPhoneValidation\ProyectoGrado.Api.deps.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoPhoneValidation\ProyectoGrado.Api.runtimeconfig.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoPhoneValidation\ProyectoGrado.Api.dll
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoPhoneValidation\ProyectoGrado.Api.pdb
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoDocumentValidation\appsettings.Development.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoDocumentValidation\appsettings.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoDocumentValidation\ProyectoGrado.Api.staticwebassets.endpoints.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoDocumentValidation\ProyectoGrado.Api.exe
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoDocumentValidation\ProyectoGrado.Api.deps.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoDocumentValidation\ProyectoGrado.Api.runtimeconfig.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoDocumentValidation\ProyectoGrado.Api.dll
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoDocumentValidation\ProyectoGrado.Api.pdb
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserDocument\appsettings.Development.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserDocument\appsettings.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserDocument\ProyectoGrado.Api.staticwebassets.endpoints.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserDocument\ProyectoGrado.Api.exe
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserDocument\ProyectoGrado.Api.deps.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserDocument\ProyectoGrado.Api.runtimeconfig.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserDocument\ProyectoGrado.Api.dll
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserDocument\ProyectoGrado.Api.pdb
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\appsettings.Development.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\appsettings.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.Api.staticwebassets.endpoints.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.Api.exe
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.Api.deps.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.Api.runtimeconfig.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.Api.dll
+C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.Api.pdb

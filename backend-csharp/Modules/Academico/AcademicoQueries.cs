@@ -276,7 +276,10 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
 
         await using var command = new NpgsqlCommand("""
             INSERT INTO asignaciones_docente (id_usuario, id_materia, id_grado, id_grupo, año_lectivo, estado)
-            VALUES ($1, $2, $3, $4, $5, 'Activa') RETURNING id_asignacion
+            VALUES ($1, $2, $3, $4, $5, 'Activa')
+            ON CONFLICT (id_usuario, id_materia, id_grado, id_grupo)
+            DO UPDATE SET estado = 'Activa', año_lectivo = EXCLUDED.año_lectivo
+            RETURNING id_asignacion
             """, connection, transaction);
         command.Parameters.AddWithValue(request.IdUsuario);
         command.Parameters.AddWithValue(request.IdMateria);

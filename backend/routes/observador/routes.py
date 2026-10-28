@@ -4,19 +4,34 @@ import os
 import textwrap
 from datetime import datetime
 
-try:
-	from reportlab.pdfgen import canvas
-	from reportlab.lib.pagesizes import A4
-	from reportlab.lib.utils import ImageReader
-except Exception:
-	canvas = None
-	A4 = (595.27, 841.89)
-	ImageReader = None
+canvas = None
+A4 = (595.27, 841.89)
+ImageReader = None
 
 from utils.database import get_db
-from utils.helpers import _error_interno
+from utils.helpers import _error_interno, validar_fecha_no_futura
 
 observador_bp = Blueprint('observador', __name__)
+
+
+def _load_reportlab():
+	global canvas, A4, ImageReader
+	if canvas is not None:
+		return True
+
+	try:
+		from reportlab.pdfgen import canvas as reportlab_canvas
+		from reportlab.lib.pagesizes import A4 as a4_page_size
+		from reportlab.lib.utils import ImageReader as image_reader
+	except ModuleNotFoundError as error:
+		if error.name == 'reportlab':
+			return False
+		raise
+
+	canvas = reportlab_canvas
+	A4 = a4_page_size
+	ImageReader = image_reader
+	return True
 
 
 def _get_observador_columns(cursor):
@@ -36,6 +51,20 @@ def _get_usuario_column(cols):
 		return 'id_usuario'
 	if 'id_registrado_por' in cols:
 		return 'id_registrado_por'
+	return None
+
+
+def _validar_fechas_observador(data):
+	for campo, etiqueta in (
+		('fecha_observacion', 'La fecha y hora de la observación'),
+		('fecha', 'La fecha de la observación'),
+		('fecha_seguimiento', 'La fecha de seguimiento'),
+		('fecha_remision', 'La fecha de remisión'),
+		('fecha_notificacion', 'La fecha y hora de notificación')
+	):
+		error = validar_fecha_no_futura(data.get(campo), etiqueta)
+		if error:
+			return error
 	return None
 
 
@@ -445,6 +474,9 @@ def api_observador_crear():
 			return jsonify({'error': 'id_estudiante es obligatorio'}), 400
 		if not descripcion:
 			return jsonify({'error': 'La descripción es obligatoria'}), 400
+		error_fecha = _validar_fechas_observador(data)
+		if error_fecha:
+			return jsonify({'error': error_fecha}), 400
 
 		conn = get_db()
 		cursor = conn.cursor(dictionary=True)
@@ -511,6 +543,10 @@ def api_observador_actualizar(id_observacion):
 	"""Actualiza una observación existente."""
 	try:
 		data = request.get_json() or {}
+		error_fecha = _validar_fechas_observador(data)
+		if error_fecha:
+			return jsonify({'error': error_fecha}), 400
+
 		conn = get_db()
 		cursor = conn.cursor(dictionary=True)
 		cols = _get_observador_columns(cursor)
@@ -586,7 +622,7 @@ def api_observador_actualizar(id_observacion):
 def api_observador_formato_pdf_blanco():
 	"""Genera formato institucional del observador en PDF (version en blanco)."""
 	try:
-		if canvas is None:
+		if not _load_reportlab():
 			return jsonify({'error': 'Exportacion PDF no disponible: instala reportlab'}), 500
 
 		conn = get_db()
@@ -612,7 +648,7 @@ def api_observador_formato_pdf_blanco():
 def api_observador_formato_pdf(id_observacion):
 	"""Genera formato institucional del observador en PDF con datos del registro."""
 	try:
-		if canvas is None:
+		if not _load_reportlab():
 			return jsonify({'error': 'Exportacion PDF no disponible: instala reportlab'}), 500
 
 		conn = get_db()

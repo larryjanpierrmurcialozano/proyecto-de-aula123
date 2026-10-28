@@ -2,11 +2,25 @@
 # BLUEPRINT: HORARIOS — CRUD de bloques horarios por grupo/docente
 # ════════════════════════════════════════════════════════════════════════════════
 
+from datetime import time, timedelta
+
 from flask import Blueprint, jsonify, request, session
 from utils.database import get_db
 from utils.helpers import _error_interno, log_action
 
 horarios_bp = Blueprint('horarios', __name__)
+
+
+def _format_time(value):
+    if value is None or isinstance(value, str):
+        return value
+    if isinstance(value, time):
+        return value.strftime('%H:%M')
+    if isinstance(value, timedelta):
+        total = int(value.total_seconds())
+        return f"{total // 3600:02d}:{(total % 3600) // 60:02d}"
+    raise TypeError(f"Formato de hora no compatible: {type(value).__name__}")
+
 
 # ── Listar horarios (con filtros opcionales) ─────────────────────────────────
 
@@ -56,15 +70,9 @@ def api_horarios():
         cursor.execute(query, tuple(params))
         horarios = cursor.fetchall()
 
-        # Convertir timedelta a string "HH:MM"
         for h in horarios:
             for campo in ('hora_inicio', 'hora_fin'):
-                val = h.get(campo)
-                if val is not None and not isinstance(val, str):
-                    total = int(val.total_seconds())
-                    horas   = total // 3600
-                    minutos = (total % 3600) // 60
-                    h[campo] = f"{horas:02d}:{minutos:02d}"
+                h[campo] = _format_time(h.get(campo))
 
         cursor.close()
         conn.close()
@@ -97,10 +105,7 @@ def api_horario_get(id):
             return jsonify({'error': 'Horario no encontrado'}), 404
 
         for campo in ('hora_inicio', 'hora_fin'):
-            val = horario.get(campo)
-            if val is not None and not isinstance(val, str):
-                total = int(val.total_seconds())
-                horario[campo] = f"{total // 3600:02d}:{(total % 3600) // 60:02d}"
+            horario[campo] = _format_time(horario.get(campo))
 
         return jsonify({'status': 'ok', 'horario': horario}), 200
     except Exception as e:
@@ -243,13 +248,8 @@ def api_horario_update(id):
         aula       = data.get('aula',          existente.get('aula', ''))
         obs        = data.get('observaciones', existente.get('observaciones', ''))
 
-        # Convertir timedelta si es necesario
-        if not isinstance(h_inicio, str):
-            t = int(h_inicio.total_seconds())
-            h_inicio = f"{t//3600:02d}:{(t%3600)//60:02d}"
-        if not isinstance(h_fin, str):
-            t = int(h_fin.total_seconds())
-            h_fin = f"{t//3600:02d}:{(t%3600)//60:02d}"
+        h_inicio = _format_time(h_inicio)
+        h_fin = _format_time(h_fin)
 
         # Choque de grupo (excluir este registro)
         cursor.execute("""

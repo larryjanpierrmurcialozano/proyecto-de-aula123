@@ -368,6 +368,48 @@ function toDateTimeLocalInputValue(value) {
     return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
+function observadorFechaHoraLocalActual() {
+    return toDateTimeLocalInputValue(new Date());
+}
+
+function observadorFechaLocalActual() {
+    return observadorFechaHoraLocalActual().slice(0, 10);
+}
+
+function limitarFechaObservacionAHoraActual() {
+    const fechaHoraMaxima = observadorFechaHoraLocalActual();
+    const fechaMaxima = fechaHoraMaxima.slice(0, 10);
+    for (const id of ['obs-fecha-observacion', 'obs-fecha-notificacion']) {
+        const input = document.getElementById(id);
+        if (input) input.max = fechaHoraMaxima;
+    }
+    for (const id of ['obs-fecha-seguimiento', 'obs-fecha-remision']) {
+        const input = document.getElementById(id);
+        if (input) input.max = fechaMaxima;
+    }
+}
+
+function validarFechasObservadorFormulario() {
+    limitarFechaObservacionAHoraActual();
+    const ahora = observadorFechaHoraLocalActual();
+    const hoy = observadorFechaLocalActual();
+    const campos = [
+        ['obs-fecha-observacion', ahora, 'La fecha y hora de la observación'],
+        ['obs-fecha-seguimiento', hoy, 'La fecha de seguimiento'],
+        ['obs-fecha-remision', hoy, 'La fecha de remisión'],
+        ['obs-fecha-notificacion', ahora, 'La fecha y hora de notificación']
+    ];
+    for (const [id, maximo, etiqueta] of campos) {
+        const input = document.getElementById(id);
+        if (input?.value && input.value > maximo) {
+            mostrarAlerta(`${etiqueta} no puede estar en el futuro.`, 'error');
+            input.focus();
+            return false;
+        }
+    }
+    return true;
+}
+
 function _schemaEnabled(key) {
     return !!OBSERVADOR_SCHEMA[key];
 }
@@ -932,7 +974,8 @@ function abrirModalObservacion(id = null) {
         materiaSelect.disabled = materiasSelect.disabled;
     }
 
-    document.getElementById('obs-fecha-observacion').value = toDateTimeLocalInputValue(new Date().toISOString());
+    document.getElementById('obs-fecha-observacion').value = observadorFechaHoraLocalActual();
+    limitarFechaObservacionAHoraActual();
     if (document.getElementById('obs-protocolo')) document.getElementById('obs-protocolo').value = 'TIPO_1';
     if (document.getElementById('obs-estado-caso')) document.getElementById('obs-estado-caso').value = 'Abierto';
 
@@ -999,6 +1042,7 @@ function abrirModalObservacion(id = null) {
         cargarOpcionesEstudiantesObservador();
     }
 
+    limitarFechaObservacionAHoraActual();
     actualizarReglasFormularioObservador();
     abrirModal('modal-observacion');
 }
@@ -1008,7 +1052,8 @@ async function submitObservacion(event) {
 
     const id = document.getElementById('obs-id').value;
     const materiaSelect = document.getElementById('obs-materia');
-    const fechaObsInput = document.getElementById('obs-fecha-observacion')?.value || toDateTimeLocalInputValue(new Date().toISOString());
+    const fechaObsInput = document.getElementById('obs-fecha-observacion')?.value || observadorFechaHoraLocalActual();
+    if (!validarFechasObservadorFormulario()) return;
     const payload = {
         id_estudiante: Number(document.getElementById('obs-estudiante').value),
         tipo_observacion: document.getElementById('obs-tipo').value,

@@ -3,8 +3,8 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 from flask import Blueprint, jsonify, request, session, send_file
 from utils.database import get_db
-from utils.helpers import _error_interno
-from datetime import datetime
+from utils.helpers import _error_interno, validar_fecha_no_futura
+from datetime import date, datetime
 import io
 import os
 import openpyxl
@@ -334,7 +334,7 @@ def api_asistencia_guardar():
     Crea la sesión (asistencias_diarias) si no existe, luego inserta/actualiza detalle_asistencia.
     Recalcula asistencias_por_periodo al finalizar."""
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
         grupo_id = data.get('grupo_id')
         materia_id = data.get('materia_id')
         periodo_id = data.get('periodo_id')
@@ -343,6 +343,14 @@ def api_asistencia_guardar():
 
         if not grupo_id or not materia_id or not periodo_id or not fecha or not registros:
             return jsonify({'error': 'Datos incompletos'}), 400
+        try:
+            fecha_validada = date.fromisoformat(fecha)
+        except (TypeError, ValueError):
+            return jsonify({'error': 'La fecha debe tener el formato AAAA-MM-DD.'}), 400
+        if fecha_validada.isoformat() != fecha:
+            return jsonify({'error': 'La fecha debe tener el formato AAAA-MM-DD.'}), 400
+        if fecha_validada > date.today():
+            return jsonify({'error': 'No se puede registrar asistencia en una fecha futura.'}), 400
 
         user_id = session.get('user_id')
         conn = get_db()
@@ -603,6 +611,9 @@ def api_asistencia_crear_justificante():
 
         if not id_estudiante:
             return jsonify({'error': 'id_estudiante es obligatorio'}), 400
+        error_fecha = validar_fecha_no_futura(fecha_documento, 'La fecha del documento')
+        if error_fecha:
+            return jsonify({'error': error_fecha}), 400
 
         if tipo_justificante not in _TIPOS_JUSTIFICANTE:
             return jsonify({'error': 'tipo_justificante inválido'}), 400

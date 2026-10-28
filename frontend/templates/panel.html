@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/static/css/comunicados.css">
     <link rel="stylesheet" href="/static/css/periodos.css">
     <link rel="stylesheet" href="/static/css/observador.css">
+    <link rel="stylesheet" href="/static/css/institutional-theme.css?v=20261027-palette">
 </head>
 <body>
     <!-- MODAL GRADO -->
@@ -216,11 +217,15 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Nombre</label>
-                        <input type="text" id="usuario-nombre" placeholder="Nombre" required>
+                        <input type="text" id="usuario-nombre" placeholder="Nombre"
+                               pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*" required
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Apellido</label>
-                        <input type="text" id="usuario-apellido" placeholder="Apellido" required>
+                        <input type="text" id="usuario-apellido" placeholder="Apellido"
+                               pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*" required
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
                     </div>
                 </div>
                 
@@ -232,7 +237,9 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fas fa-id-card"></i> Documento</label>
-                        <input type="text" id="usuario-documento" placeholder="Número de documento" required>
+                        <input type="text" id="usuario-documento" placeholder="Número de documento"
+                               inputmode="numeric" pattern="[0-9]+" required
+                               title="El documento solo puede contener números.">
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-shield-alt"></i> Rol</label>
@@ -309,15 +316,19 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fas fa-id-card"></i> Documento</label>
-                        <input type="text" id="estudiante-documento" placeholder="Número de documento" required>
+                        <input type="text" id="estudiante-documento" placeholder="Número de documento"
+                               inputmode="numeric" pattern="[0-9]+" required
+                               title="El documento solo puede contener números.">
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Nombres</label>
-                        <input type="text" id="estudiante-nombre" placeholder="Nombre" required>
+                        <input type="text" id="estudiante-nombre" placeholder="Nombre" pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*" required
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-user"></i> Apellidos</label>
-                        <input type="text" id="estudiante-apellido" placeholder="Apellido" required>
+                        <input type="text" id="estudiante-apellido" placeholder="Apellido" pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*" required
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
                     </div>
                 </div>
 
@@ -350,11 +361,15 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label><i class="fas fa-user-friends"></i> Acudiente</label>
-                        <input type="text" id="estudiante-acudiente-nombre" placeholder="Nombre del acudiente">
+                        <input type="text" id="estudiante-acudiente-nombre" placeholder="Nombre del acudiente"
+                               pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*"
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
                     </div>
                     <div class="form-group">
                         <label><i class="fas fa-phone"></i> Teléfono acudiente</label>
-                        <input type="text" id="estudiante-acudiente-telefono" placeholder="Teléfono">
+                        <input type="tel" id="estudiante-acudiente-telefono" placeholder="Teléfono"
+                               inputmode="numeric" pattern="[0-9]*" maxlength="15"
+                               title="Ingresa solo números en el teléfono.">
                     </div>
                 </div>
 
@@ -610,8 +625,9 @@
                         <label>Dirigido a</label>
                         <select id="com-audiencia">
                             <option value="Todos">Todos</option>
-                            <option value="Estudiantes">Estudiantes</option>
+                            <option value="Estudiantes" hidden>Estudiantes</option>
                             <option value="Docentes">Docentes</option>
+                            <option value="Coordinación">Coordinación</option>
                             <option value="Administrativo">Administrativo</option>
                         </select>
                     </div>
@@ -825,9 +841,9 @@
                         <i class="fas fa-trash"></i> Eliminar
                     </button>
                 </div>
-                <div class="card" style="background: #f2e5da; border: 1px solid #d7bba2; color: #3d2a1b;">
-                    <h3 style="margin-top:0; color:#3d2a1b;">Marcar como inactivo</h3>
-                    <p style="color:#3d2a1b;">Si no quieres perder el registro, puedes marcarlo como Inactivo y conservar los datos históricos.</p>
+                <div class="card" style="background: #f2e5da; border: 1px solid #CBD5E1; color: #475569;">
+                    <h3 style="margin-top:0; color:#475569;">Marcar como inactivo</h3>
+                    <p style="color:#475569;">Si no quieres perder el registro, puedes marcarlo como Inactivo y conservar los datos históricos.</p>
                     <button class="btn btn-cafe" id="btn-inactivar-estudiante">
                         <i class="fas fa-ban"></i> Marcar Inactivo
                     </button>
@@ -850,8 +866,8 @@
     <script src="/static/js/panel.js"></script>
     <script src="/static/js/modules/asistencia.js"></script>
     <script src="/static/js/modules/calificaciones.js"></script>
-    <script src="/static/js/modules/usuarios.js?v=20261021-docentes-usuarios-fix4"></script>
-    <script src="/static/js/modules/estudiantes.js"></script>
+    <script src="/static/js/modules/usuarios.js?v=20261025-nombres-sin-numeros-1"></script>
+    <script src="/static/js/modules/estudiantes.js?v=20261025-documento-numerico-1"></script>
     <script src="/static/js/modules/docentes.js?v=20261021-docentes-usuarios-fix4"></script>
     <script src="/static/js/modules/grados.js"></script>
     <script src="/static/js/modules/materias.js"></script>

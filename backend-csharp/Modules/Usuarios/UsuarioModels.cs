@@ -29,13 +29,13 @@ public sealed record RolItem(int IdRol, string NombreRol, string? Descripcion);
 /// <summary>Datos necesarios para crear un usuario administrativo.</summary>
 public sealed record CreateUsuarioRequest
 {
-    [Required, MaxLength(100)]
+    [Required, MaxLength(100), RegularExpression(@"^[0-9]+$", ErrorMessage = "El documento solo puede contener números.")]
     public required string Documento { get; init; }
 
-    [Required, MaxLength(100)]
+    [Required, MaxLength(100), RegularExpression(@"^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$", ErrorMessage = "El nombre solo puede contener letras, espacios, apóstrofes o guiones.")]
     public required string Nombre { get; init; }
 
-    [Required, MaxLength(100)]
+    [Required, MaxLength(100), RegularExpression(@"^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$", ErrorMessage = "El apellido solo puede contener letras, espacios, apóstrofes o guiones.")]
     public required string Apellido { get; init; }
 
     [Required, EmailAddress, MaxLength(255)]
@@ -51,13 +51,13 @@ public sealed record CreateUsuarioRequest
 /// <summary>Datos editables de un usuario.</summary>
 public sealed record UpdateUsuarioRequest
 {
-    [Required, MaxLength(100)]
+    [Required, MaxLength(100), RegularExpression(@"^[0-9]+$", ErrorMessage = "El documento solo puede contener números.")]
     public required string Documento { get; init; }
 
-    [Required, MaxLength(100)]
+    [Required, MaxLength(100), RegularExpression(@"^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$", ErrorMessage = "El nombre solo puede contener letras, espacios, apóstrofes o guiones.")]
     public required string Nombre { get; init; }
 
-    [Required, MaxLength(100)]
+    [Required, MaxLength(100), RegularExpression(@"^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$", ErrorMessage = "El apellido solo puede contener letras, espacios, apóstrofes o guiones.")]
     public required string Apellido { get; init; }
 
     [Required, EmailAddress, MaxLength(255)]

@@ -239,6 +239,20 @@ def api_docente_guardar_asignaciones(id):
         conn.commit()
         cursor.close()
         conn.close()
+
+        if session.get('user_id'):
+            detalle_asignaciones = ', '.join(
+                f"materia={fila['id_materia']}/grado={fila['id_grado']}/grupo={fila['id_grupo']}"
+                for fila in normalizadas
+            ) or 'sin asignaciones activas'
+            log_action(
+                session.get('user_id'),
+                'UPDATE',
+                f"Asignaciones del docente {id} actualizadas: {detalle_asignaciones}",
+                tabla_afectada='asignaciones_docente',
+                registro_id=int(id)
+            )
+
         return jsonify({'status': 'ok'}), 200
     except psycopg.errors.UniqueViolation:
         if conn:

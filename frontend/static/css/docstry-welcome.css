@@ -1,8 +1,8 @@
 :root {
-    --cafe-oscuro: #4B3935;
-    --cafe-medio: #51372f;
-    --cafe-claro: #836d66;;
-    --cafe-suave: #948585;
+    --cafe-oscuro: #0A4D2E;
+    --cafe-medio: #0F6B42;
+    --cafe-claro: #E2E8F0;
+    --cafe-suave: #475569;
     --crema-fondo: #f6f3ef;
     --crema-claro: #FAF9F6;
     --blanco: #ffffff;
@@ -31,7 +31,7 @@ body {
 header {
     width: 100vw;
     height: 10vh;
-    background: linear-gradient(180deg, rgba(75, 57, 53, 0.573) 0%, rgba(222, 216, 210, 0.8) 51%, rgba(255, 255, 255, 0.9) 100%);
+    background: linear-gradient(180deg, rgba(71, 85, 105, 0.573) 0%, rgba(222, 216, 210, 0.8) 51%, rgba(255, 255, 255, 0.9) 100%);
     padding: 0 50px;
     position: fixed;
     z-index: 1000;
@@ -58,7 +58,7 @@ nav {
 
 .nav-links {
     text-decoration: none;
-    color: #4a342e;          
+    color: #475569;
     font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 1px;
@@ -74,7 +74,7 @@ nav {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #674a42;
+    background-color: #0F6B42;
     transform: scaleX(0);
     transform-origin: center;
     transition: transform 0.3s ease;
@@ -97,10 +97,6 @@ nav {
     align-items: center;
     width: 65px;
     height: 65px;
-    background: white;
-    border-radius: 50%;
-    border: 3px solid #674a42cf;
-    box-shadow: 0 4px 10px rgba(63, 44, 36, 0.152);
     transition: transform 0.3s ease;
 }
 
@@ -109,7 +105,8 @@ nav {
 }
 
 .logo-img {
-    width: 4vw;
+    width: 58px;
+    height: 58px;
     object-fit: contain;
 }
 .auth-btn {
@@ -121,7 +118,7 @@ nav {
 .auth-btn1 {
     text-decoration: none;
     color: white;
-    background-color: #4a342e;
+    background-color: #0A4D2E;
     font-size: 0.85rem;
     font-weight: 600;
     padding: 5px 20px;
@@ -132,7 +129,7 @@ nav {
 }
 
 .auth-btn1:hover {
-    background-color: #674a42;
+    background-color: #0F6B42;
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
@@ -201,8 +198,8 @@ nav {
 .primary-button:hover { transform: scale(1.05); }
 
 .trust-bar {
-    background: #674A42;
-    background: linear-gradient(90deg,rgba(103, 74, 66, 0.837) 8%, rgba(169, 140, 132, 0.844) 37%, rgba(169, 140, 132, 0.844) 37%, rgba(169, 140, 132, 0.844) 37%, rgba(103, 74, 66, 0.837) 92%);
+    background: #0F6B42;
+    background: linear-gradient(90deg,rgba(15, 107, 66, 0.837) 8%, rgba(15, 107, 66, 0.12) 37%, rgba(15, 107, 66, 0.12) 37%, rgba(15, 107, 66, 0.12) 37%, rgba(15, 107, 66, 0.837) 92%);
     display: flex;
     justify-content: space-around;
     padding: 2rem 2rem;
@@ -339,26 +336,26 @@ nav {
     width: 45px; 
     height: 45px;
     background: linear-gradient(135deg, #f6f3ef 0%, #e8e3dd 100%);
-    color: #4B3935;
+    color: #475569;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
     margin-bottom: 15px;
-    border: 1px solid rgba(75, 57, 53, 0.1);
+    border: 1px solid rgba(71, 85, 105, 0.1);
 }
 
 .service-title {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #4B3935;
+    color: #475569;
     margin-bottom: 8px;
 }
 
 .service-description {
     font-size: 0.85rem;
-    color: #674a42;
+    color: #475569;
     line-height: 1.5;
     margin-bottom: 15px;
 }
@@ -373,12 +370,12 @@ nav {
 
 .service-features li {
     font-size: 11px;
-    color: #4B3935;
+    color: #475569;
     display: flex;
     align-items: center;
     gap: 6px;
     padding: 4px 8px;
-    background: rgba(131, 109, 102, 0.05);
+    background: rgba(71, 85, 105, 0.05);
     border-radius: 6px;
 }
 
@@ -400,7 +397,7 @@ nav {
 .section-title2 {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #4B3935;
+    color: #475569;
     text-align: center;
     margin-bottom: 10px;
 }
@@ -424,18 +421,18 @@ nav {
     background: #ffffff;
     padding: 20px;
     border-radius: 12px;
-    border: 3.5px dotted rgba(75, 57, 53, 0.15);
+    border: 3.5px dotted rgba(71, 85, 105, 0.15);
     display: flex;
     flex-direction: column;
     gap: 10px;
-    box-shadow: 0 4px 12px rgba(74, 52, 47, 0.1);
+    box-shadow: 0 4px 12px rgba(71, 85, 105, 0.1);
     transition: transform 0.2s ease;
 }
 
 .feature-icon {
     width: 42px;
     height: 42px;
-    background-color: #836d66;
+    background-color: #475569;
     color: #f6f3ef;
     border-radius: 10px;
     display: flex;
@@ -445,14 +442,14 @@ nav {
 }
 
 .feature-item h4 {
-    color: #4B3935;
+    color: #475569;
     font-size: 1rem;
     font-weight: 700;
     margin: 0;
 }
 
 .feature-item p {
-    color: #674a42;
+    color: #475569;
     font-size: 0.85rem;
     line-height: 1.4;
     margin: 0;
@@ -470,7 +467,7 @@ nav {
     width: 100%;
     height: auto;
     object-fit: contain;
-    filter: drop-shadow(0 15px 40px rgba(75, 57, 53, 0.599));
+    filter: drop-shadow(0 15px 40px rgba(71, 85, 105, 0.599));
 }
 
 .platform-preview {
@@ -555,7 +552,7 @@ nav {
 .showcase-item.active {
     background: var(--blanco);
     border-left-color: var(--cafe-medio);
-    box-shadow: 0 8px 20px rgba(75, 57, 53, 0.1);
+    box-shadow: 0 8px 20px rgba(71, 85, 105, 0.1);
 }
 
 .item-icon {
@@ -605,8 +602,8 @@ nav {
     background: var(--blanco);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 30px 60px rgba(75, 57, 53, 0.18), 
-                0 50px 100px rgba(75, 57, 53, 0.12);
+    box-shadow: 0 30px 60px rgba(71, 85, 105, 0.18),
+                0 50px 100px rgba(71, 85, 105, 0.12);
     position: relative;
 }
 
@@ -664,7 +661,7 @@ nav {
     width: 100vw;
     height: auto;
     object-fit: contain;
-    filter: drop-shadow(10px 10px 30px rgba(39, 24, 20, 0.426));
+    filter: drop-shadow(10px 10px 30px rgba(15, 23, 42, 0.426));
 }
 
 @media (max-width: 1024px) {
@@ -727,7 +724,7 @@ nav {
 }
 
 .docstry-footer {
-    background: #4B3935;
+    background: #0A4D2E;
     color: var(--blanco);
     padding: 50px 20px 20px;
 }
@@ -739,7 +736,7 @@ nav {
     max-width: 1200px;
     margin: 0 auto 30px;
     padding-bottom: 30px;
-    border-bottom: 1px solid rgba(173, 148, 134, 0.156);
+    border-bottom: 1px solid rgba(71, 85, 105, 0.156);
 }
 
 .footer-section h4 {

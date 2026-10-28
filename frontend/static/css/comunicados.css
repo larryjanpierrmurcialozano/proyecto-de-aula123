@@ -205,13 +205,13 @@
 
 .com-btn-ver { background: #e3f2fd; color: #1976d2; }
 .com-btn-ver:hover { background: #bbdefb; }
-.com-btn-editar { background: #fff3e0; color: #f57c00; }
+.com-btn-editar { background: #fff3e0; color: #475569; }
 .com-btn-editar:hover { background: #ffe0b2; }
 .com-btn-eliminar { background: #ffebee; color: #e53935; }
 .com-btn-eliminar:hover { background: #ffcdd2; }
 
-.badge-naranja { background: #fff3e0; color: #f57c00; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; }
-.badge-amarillo { background: #fffde7; color: #f9a825; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; }
+.badge-naranja { background: #fff3e0; color: #475569; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; }
+.badge-amarillo { background: #fffde7; color: #475569; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; }
 .badge-azul { background: #e3f2fd; color: #1976d2; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; }
 .badge-gris { background: var(--crema-fondo); color: var(--cafe-suave); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem; }
 

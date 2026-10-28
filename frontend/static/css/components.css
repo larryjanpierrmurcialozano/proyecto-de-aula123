@@ -1,15 +1,15 @@
 /* ════════════════════════════════════════════════════════════════════════════════
    ESTILOS - COMPONENTES ADMIN (MODAL, TABLA, FORMULARIO)
-   Paleta Marrón Docstry: #443211 (principal), #352410 (oscuro), #5c4620 (claro)
+   Paleta institucional: #0F6B42 (principal), #0A4D2E (oscuro)
    ════════════════════════════════════════════════════════════════════════════════ */
 
 :root {
-    --primary: #443211;
-    --primary-dark: #352410;
-    --primary-light: #5c4620;
+    --primary: #0F6B42;
+    --primary-dark: #0A4D2E;
+    --primary-light: #0F6B42;
     --success: #27ae60;
     --danger: #e74c3c;
-    --warning: #f39c12;
+    --warning: #D4AF37;
     --info: #3498db;
     --light-gray: #ecf0f1;
     --border-gray: #bdc3c7;
@@ -24,7 +24,7 @@
 .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(30, 22, 20, 0.6);
+    background: rgba(15, 23, 42, 0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,7 +43,7 @@
 .modal {
     background: var(--blanco);
     border-radius: 16px;
-    box-shadow: 0 25px 50px -12px rgba(43, 31, 28, 0.25), 0 0 0 1px rgba(75, 57, 53, 0.05); /* Sombra elegante multicapa */
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(71, 85, 105, 0.05); /* Sombra elegante multicapa */
     border-top: 5px solid var(--cafe-oscuro); /* Acento visual en la parte superior */
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     transform: translateY(30px) scale(0.96);
@@ -68,7 +68,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem 2rem 1.25rem 2rem; /* Más espacio en los bordes */
-    border-bottom: 1px solid rgba(75, 57, 53, 0.06);
+    border-bottom: 1px solid rgba(71, 85, 105, 0.06);
     background: var(--blanco);
 }
 
@@ -88,7 +88,7 @@
 }
 
 .modal-close {
-    background: rgba(75, 57, 53, 0.04);
+    background: rgba(71, 85, 105, 0.04);
     border: none;
     font-size: 1rem;
     cursor: pointer;
@@ -159,7 +159,7 @@
 
 .modal-footer {
     padding: 1.25rem 2rem;
-    border-top: 1px solid rgba(75, 57, 53, 0.06);
+    border-top: 1px solid rgba(71, 85, 105, 0.06);
     display: flex;
     gap: 0.8rem;
     justify-content: flex-end;
@@ -270,7 +270,7 @@
 }
 
 .btn-accion.btn-info {
-    background: rgba(68, 50, 17, 0.1);
+    background: rgba(15, 107, 66, 0.1);
     color: var(--primary);
 }
 
@@ -394,7 +394,7 @@
 .formulario-admin textarea:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(68, 50, 17, 0.1);
+    box-shadow: 0 0 0 3px rgba(15, 107, 66, 0.1);
 }
 
 .formulario-admin input[type="checkbox"] {
@@ -456,7 +456,7 @@
 }
 
 .btn-primary:hover:not(:disabled) {
-    box-shadow: 0 4px 15px rgba(68, 50, 17, 0.4);
+    box-shadow: 0 4px 15px rgba(15, 107, 66, 0.4);
     transform: translateY(-2px);
 }
 
@@ -493,7 +493,7 @@
 }
 
 .btn-warning:hover:not(:disabled) {
-    background: #d68910;
+    background: #D4AF37;
 }
 
 .btn-info {

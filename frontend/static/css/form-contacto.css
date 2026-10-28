@@ -3,12 +3,12 @@
    ═══════════════════════════════════════════════════════════════════ */
 
 :root {
-    --primary-brown: #4B3935;
-    --medium-brown: #674a42;
-    --soft-brown: #948585;
+    --primary-brown: #0A4D2E;
+    --medium-brown: #0F6B42;
+    --soft-brown: #475569;
     --bg-cream: #f6f3ef;
     --white: #ffffff;
-    --shadow: 0 10px 30px rgba(75, 57, 53, 0.08);
+    --shadow: 0 10px 30px rgba(71, 85, 105, 0.08);
     --radius: 8px;
     --transition: all 0.2s ease-in-out;
 }
@@ -17,8 +17,8 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background: #876a5c;
-    background: radial-gradient(circle,rgba(135, 106, 92, 1) 0%, rgba(103, 74, 66, 1) 100%);
+    background: #f6f3ef;
+    background: radial-gradient(circle, #FAF9F6 0%, #f6f3ef 100%);
     color: var(--primary-brown);
 }
 
@@ -64,7 +64,7 @@ body, html {
     padding: 35px;
     border-radius: 15px;
     box-shadow: var(--shadow);
-    border: 1px solid rgba(75, 57, 53, 0.05);
+    border: 1px solid rgba(71, 85, 105, 0.05);
 }
 
 /* --- Header Section --- */
@@ -120,7 +120,7 @@ body, html {
 .input-group select {
     cursor: pointer;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23674a42' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%230F6B42' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: calc(100% - 12px) center;
 }
@@ -130,7 +130,7 @@ body, html {
     outline: none;
     border-color: var(--medium-brown);
     background: #fff;
-    box-shadow: 0 0 0 3px rgba(103, 74, 66, 0.05);
+    box-shadow: 0 0 0 3px rgba(15, 107, 66, 0.05);
 }
 
 /* --- Footer & Button --- */

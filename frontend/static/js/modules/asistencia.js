@@ -11,10 +11,17 @@ let ASIST_ESTUDIANTES = [];
 let ASIST_REGISTROS = {};       // { id_estudiante: { asistio, comentario } }
 let ASIST_JUSTIFICANTES = [];
 let ASIST_FILTROS = { grado: null, grupo: null, materia: null, periodo: null };
-let ASIST_FECHA = new Date().toISOString().slice(0, 10);
+let ASIST_FECHA = asistFechaLocalActual();
 let ASIST_SESION_EXISTENTE = false;
 let ASIST_ID_SESION = null;
 let ASIST_VISTA = 'registro'; // 'registro' | 'resumen' | 'justificaciones'
+
+function asistFechaLocalActual() {
+    const hoy = new Date();
+    const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoy.getDate()).padStart(2, '0');
+    return `${hoy.getFullYear()}-${mes}-${dia}`;
+}
 
 function asistNotificar(mensaje, tipo = 'info') {
     const prev = document.getElementById('asist-toast');
@@ -102,7 +109,12 @@ async function renderAsistencia() {
         ).join('');
 
         const fechaSelect = document.getElementById('asist-filtro-fecha');
-        if (fechaSelect) fechaSelect.value = ASIST_FECHA;
+        if (fechaSelect) {
+            const hoy = asistFechaLocalActual();
+            fechaSelect.max = hoy;
+            if (ASIST_FECHA > hoy) ASIST_FECHA = hoy;
+            fechaSelect.value = ASIST_FECHA;
+        }
 
         _asistActualizarAvisoPeriodo();
     } catch (error) {
@@ -181,6 +193,18 @@ function asistCambiarPeriodo(periodoId) {
 }
 
 function asistCambiarFecha(fecha) {
+    const hoy = asistFechaLocalActual();
+    const fechaSelect = document.getElementById('asist-filtro-fecha');
+    if (fecha > hoy) {
+        mostrarAlerta('No puedes registrar asistencia en una fecha futura.', 'warning');
+        ASIST_FECHA = hoy;
+        if (fechaSelect) fechaSelect.value = hoy;
+        if (ASIST_FILTROS.grupo && ASIST_FILTROS.materia && ASIST_VISTA === 'registro') {
+            asistCargarTabla();
+        }
+        return;
+    }
+
     ASIST_FECHA = fecha;
     if (ASIST_FILTROS.grupo && ASIST_FILTROS.materia && ASIST_VISTA === 'registro') {
         asistCargarTabla();
@@ -465,6 +489,11 @@ function _asistActualizarStats() {
 // ═══════════════════════════════════════════════════════════════════
 
 async function asistGuardar() {
+    if (!ASIST_FECHA || ASIST_FECHA > asistFechaLocalActual()) {
+        mostrarAlerta('No puedes guardar asistencia en una fecha futura.', 'warning');
+        return;
+    }
+
     if (asistPeriodoCerrado()) {
         mostrarAlerta('Período cerrado: solo el administrador puede guardar cambios.', 'warning');
         return;
@@ -553,7 +582,7 @@ async function asistCargarResumen() {
             <div class="asist-resumen-container">
                 <div class="asist-resumen-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 10px; background: #f5f5f5; border-radius: 5px;">
                     <h3 style="margin: 0; color: #333; font-size: 14px; font-weight: 600;">Resumen de Asistencia por Estudiante</h3>
-                    <button onclick="asistDescargarReporteGeneral()" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px; padding: 8px 15px; background: #674a42; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">
+                    <button onclick="asistDescargarReporteGeneral()" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px; padding: 8px 15px; background: #0F6B42; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">
                         <i class="fas fa-download"></i> Descargar Reporte General
                     </button>
                 </div>
@@ -698,11 +727,11 @@ async function asistCargarJustificaciones() {
                 <table class="asist-tabla asist-tabla-justificaciones" style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="background: var(--crema-fondo);">
-                            <th class="asist-th-estudiante" style="text-align: left; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; color: var(--cafe-oscuro); text-transform: uppercase; letter-spacing: 0.2px; border-bottom: 1px solid rgba(75, 57, 53, 0.1);">Estudiante</th>
-                            <th style="text-align: center; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--cafe-oscuro); letter-spacing: 0.2px; border-bottom: 1px solid rgba(75, 57, 53, 0.1);">Fecha del Documento</th>
-                            <th style="text-align: center; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--cafe-oscuro); letter-spacing: 0.2px; border-bottom: 1px solid rgba(75, 57, 53, 0.1);">Tipo</th>
-                            <th style="text-align: center; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--cafe-oscuro); letter-spacing: 0.2px; border-bottom: 1px solid rgba(75, 57, 53, 0.1);">Soporte</th>
-                            <th style="text-align: center; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--cafe-oscuro); letter-spacing: 0.2px; border-bottom: 1px solid rgba(75, 57, 53, 0.1);">Aprobado</th>
+                            <th class="asist-th-estudiante" style="text-align: left; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; color: var(--cafe-oscuro); text-transform: uppercase; letter-spacing: 0.2px; border-bottom: 1px solid rgba(71, 85, 105, 0.1);">Estudiante</th>
+                            <th style="text-align: center; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--cafe-oscuro); letter-spacing: 0.2px; border-bottom: 1px solid rgba(71, 85, 105, 0.1);">Fecha del Documento</th>
+                            <th style="text-align: center; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--cafe-oscuro); letter-spacing: 0.2px; border-bottom: 1px solid rgba(71, 85, 105, 0.1);">Tipo</th>
+                            <th style="text-align: center; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--cafe-oscuro); letter-spacing: 0.2px; border-bottom: 1px solid rgba(71, 85, 105, 0.1);">Soporte</th>
+                            <th style="text-align: center; padding: 0.4rem 0.5rem; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--cafe-oscuro); letter-spacing: 0.2px; border-bottom: 1px solid rgba(71, 85, 105, 0.1);">Aprobado</th>
                         </tr>
                     </thead>
                     <tbody>`;
@@ -828,7 +857,7 @@ function asistAbrirModalJustificante(idEstudiante) {
                             <div class="form-group">
                                 <label style="font-size: 0.8rem; font-weight: 600; color: #475569;">Documento de Soporte (PDF) <span style="color: #dc2626;">*</span></label>
                                 <input type="file" id="asist-just-archivo" accept=".pdf" style="width: 100%; padding: 0.45rem 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; color: #1e293b; font-size: 0.88rem;">
-                                <small style="display: block; margin-top: 0.4rem; color: #64748b; font-size: 0.75rem;"><i class="fas fa-info-circle" style="color: #f59e0b;"></i> Solo se permiten documentos en formato PDF</small>
+                                <small style="display: block; margin-top: 0.4rem; color: #64748b; font-size: 0.75rem;"><i class="fas fa-info-circle" style="color: #D4AF37;"></i> Solo se permiten documentos en formato PDF</small>
                             </div>
                             <div class="form-group">
                                 <label style="font-size: 0.8rem; font-weight: 600; color: #475569;">Descripción</label>
@@ -849,7 +878,9 @@ function asistAbrirModalJustificante(idEstudiante) {
     document.getElementById('asist-just-id-estudiante').value = idEstudiante;
     document.getElementById('asist-just-estudiante').value = `${est.apellido}, ${est.nombre}`;
     document.getElementById('asist-just-tipo').value = 'Médico';
-    document.getElementById('asist-just-fecha').value = ASIST_FECHA;
+    const fechaDocumento = document.getElementById('asist-just-fecha');
+    fechaDocumento.max = asistFechaLocalActual();
+    fechaDocumento.value = ASIST_FECHA;
     document.getElementById('asist-just-archivo').value = '';
     document.getElementById('asist-just-descripcion').value = reg.comentario || '';
 
@@ -860,7 +891,9 @@ async function asistGuardarJustificante() {
     const btn = document.getElementById('btn-guardar-justificante');
     const idEstudiante = document.getElementById('asist-just-id-estudiante').value;
     const tipo = document.getElementById('asist-just-tipo').value;
-    const fechaDoc = document.getElementById('asist-just-fecha').value;
+    const fechaDocumento = document.getElementById('asist-just-fecha');
+    fechaDocumento.max = asistFechaLocalActual();
+    const fechaDoc = fechaDocumento.value;
     const descripcion = document.getElementById('asist-just-descripcion').value.trim();
     const archivoInput = document.getElementById('asist-just-archivo');
     const archivo = archivoInput.files?.[0] || null;
@@ -868,6 +901,12 @@ async function asistGuardarJustificante() {
 
     if (!ASIST_ID_SESION) {
         asistNotificar('Debes guardar la asistencia antes de crear justificantes.', 'warning');
+        return;
+    }
+
+    if (fechaDoc && fechaDoc > asistFechaLocalActual()) {
+        asistNotificar('La fecha del documento no puede ser futura.', 'error');
+        fechaDocumento.focus();
         return;
     }
 

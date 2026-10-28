@@ -5,9 +5,9 @@
 /* CONTENEDOR PRINCIPAL */
 .cal-card {
     background: var(--blanco);
-    border: 1px solid rgba(75, 57, 53, 0.12);
+    border: 1px solid rgba(71, 85, 105, 0.12);
     border-radius: 16px;
-    box-shadow: 0 10px 24px rgba(75, 57, 53, 0.08);
+    box-shadow: 0 10px 24px rgba(71, 85, 105, 0.08);
 }
 
 .cal-bloque {
@@ -18,7 +18,7 @@
 .cal-header-top {
     align-items: center;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(75, 57, 53, 0.1);
+    border-bottom: 1px solid rgba(71, 85, 105, 0.1);
     margin-bottom: 0.35rem;
 }
 
@@ -44,7 +44,7 @@
     gap: 0.35rem;
     margin-top: 0.35rem;
     padding-top: 0.35rem;
-    border-top: 1px solid rgba(75, 57, 53, 0.1);
+    border-top: 1px solid rgba(71, 85, 105, 0.1);
 }
 
 .calificaciones-footer .btn {
@@ -76,7 +76,7 @@
 
 .cal-filtro-item select {
     width: 100%;
-    border: 1px solid rgba(75, 57, 53, 0.15);
+    border: 1px solid rgba(71, 85, 105, 0.15);
     border-radius: 6px;
     padding: 0.4rem 0.5rem;
     background: var(--blanco);
@@ -88,14 +88,14 @@
 .cal-filtro-item select:focus {
     outline: none;
     border-color: var(--cafe-oscuro);
-    box-shadow: 0 0 0 3px rgba(75, 57, 53, 0.12);
+    box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.12);
 }
 
 /* BARRA DE PONDERACIÓN */
 .cal-ponderacion-bar {
     margin: 0.35rem 0 0.35rem;
     padding: 0.5rem;
-    border: 1px solid rgba(75, 57, 53, 0.1);
+    border: 1px solid rgba(71, 85, 105, 0.1);
     border-radius: 6px;
     background: var(--crema-fondo);
 }
@@ -113,7 +113,7 @@
     width: 100%;
     height: 6px;
     border-radius: 999px;
-    background: rgba(75, 57, 53, 0.1);
+    background: rgba(71, 85, 105, 0.1);
     overflow: hidden;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .cal-pond-ok { background: #22c55e; }
-.cal-pond-warning { background: #f59e0b; }
+.cal-pond-warning { background: #D4AF37; }
 .cal-pond-danger { background: #dc2626; }
 .cal-pond-danger-text { color: #b91c1c; }
 
@@ -142,7 +142,7 @@
 
 .cal-activity-filter {
     padding: 0.3rem 0.55rem;
-    border: 1px solid rgba(75, 57, 53, 0.15);
+    border: 1px solid rgba(71, 85, 105, 0.15);
     border-radius: 5px;
     background: var(--blanco);
     color: var(--cafe-oscuro);
@@ -160,7 +160,7 @@
 .cal-activity-filter:focus {
     outline: none;
     border-color: var(--cafe-oscuro);
-    box-shadow: 0 0 0 3px rgba(75, 57, 53, 0.12);
+    box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.12);
 }
 
 /* TABLA EXCEL */
@@ -169,18 +169,18 @@
     overflow-x: auto;
     overflow-y: hidden;
     z-index: 1;
-    border: 1px solid rgba(75, 57, 53, 0.1);
+    border: 1px solid rgba(71, 85, 105, 0.1);
     border-radius: 14px;
     background: var(--blanco);
 }
 
 .cal-placeholder {
     padding: 1rem 0.6rem;
-    border: 1px dashed rgba(75, 57, 53, 0.15);
+    border: 1px dashed rgba(71, 85, 105, 0.15);
     border-radius: 8px;
     text-align: center;
     color: var(--cafe-suave);
-    background: rgba(75, 57, 53, 0.03);
+    background: rgba(71, 85, 105, 0.03);
     font-size: 0.7rem;
 }
 
@@ -244,19 +244,19 @@
 }
 
 .cal-excel-table tbody td {
-    border-top: 1px solid rgba(75, 57, 53, 0.08);
+    border-top: 1px solid rgba(71, 85, 105, 0.08);
     padding: 0.25rem;
     background: var(--blanco);
 }
 
 .cal-excel-table tbody .cal-td-num,
 .cal-excel-table tbody .cal-td-estudiante {
-    background: rgba(75, 57, 53, 0.04);
+    background: rgba(71, 85, 105, 0.04);
 }
 
 .cal-excel-table tbody .cal-td-nota,
 .cal-excel-table tbody .cal-td-final {
-    background: rgba(75, 57, 53, 0.02);
+    background: rgba(71, 85, 105, 0.02);
 }
 
 /* CELDAS DE ESTUDIANTE */
@@ -295,7 +295,7 @@
 
 /* BOTONES MINI */
 .cal-btn-mini {
-    border: 1px solid rgba(75, 57, 53, 0.2);
+    border: 1px solid rgba(71, 85, 105, 0.2);
     border-radius: 4px;
     background: var(--blanco);
     width: 20px;
@@ -378,7 +378,7 @@
 /* COLORES FINALES - NO MODIFICAR */
 .cal-final-superior { background: #dff2e2 !important; color: #196b2f; }
 .cal-final-alto { background: #edf8de !important; color: #3f6d21; }
-.cal-final-basico { background: #fff6d5 !important; color: #8a5a09; }
+.cal-final-basico { background: #fff6d5 !important; color: #475569; }
 .cal-final-bajo { background: #fde3e3 !important; color: #a31717; }
 
 /* LEYENDA */
@@ -402,7 +402,7 @@
     height: 14px;
     border-radius: 4px;
     display: inline-block;
-    border: 1px solid rgba(75, 57, 53, 0.2);
+    border: 1px solid rgba(71, 85, 105, 0.2);
 }
 
 .cal-leyenda-superior { background: #e7f5ea; }
@@ -413,7 +413,7 @@
 /* SECCIÓN DE UPLOADS */
 .cal-upload-wrap {
     margin-top: 0.8rem;
-    border: 1px solid rgba(75, 57, 53, 0.15);
+    border: 1px solid rgba(71, 85, 105, 0.15);
     border-radius: 10px;
     background: var(--crema-claro);
     padding: 0.7rem;
@@ -508,7 +508,7 @@
     display: none;
     align-items: center;
     justify-content: center;
-    background: rgba(43, 31, 28, 0.45);
+    background: rgba(15, 23, 42, 0.45);
     visibility: hidden;
     opacity: 0;
     transition: all 0.25s ease;
@@ -524,7 +524,7 @@
 #modal-cal-actividad .modal-content {
     background: var(--blanco);
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(75, 57, 53, 0.12), 0 0 0 1px rgba(75, 57, 53, 0.05);
+    box-shadow: 0 10px 30px rgba(71, 85, 105, 0.12), 0 0 0 1px rgba(71, 85, 105, 0.05);
     border: none;
     max-width: 560px;
     width: 90%;
@@ -543,7 +543,7 @@
 
 #modal-cal-actividad .modal-header {
     padding: 1.25rem 1.75rem;
-    border-bottom: 1px solid rgba(75, 57, 53, 0.08);
+    border-bottom: 1px solid rgba(71, 85, 105, 0.08);
     background: var(--blanco);
     display: flex;
     justify-content: space-between;
@@ -623,7 +623,7 @@
 #modal-cal-actividad .form-group select {
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234B3935' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230F6B42' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 1rem center;
     padding-right: 2.2rem;
@@ -633,13 +633,13 @@
 #modal-cal-actividad .form-group select:focus {
     outline: none;
     border-color: var(--cafe-medio);
-    box-shadow: 0 0 0 3px rgba(75, 57, 53, 0.08);
+    box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.08);
 }
 
 #modal-cal-actividad .modal-actions {
     margin-top: 1.5rem;
     padding: 1.25rem 1.75rem;
-    border-top: 1px solid rgba(75, 57, 53, 0.08);
+    border-top: 1px solid rgba(71, 85, 105, 0.08);
     background: var(--blanco);
     display: flex;
     justify-content: center; /* Same as the screenshot styling */

@@ -132,7 +132,7 @@ function verComunicado(id) {
     const c = comunicadosCargados.find(x => x.id_comunicado === id);
     if (!c) return mostrarAlerta('Comunicado no encontrado', 'error');
 
-    const prioridadColor = { 'Urgente': '#e53935', 'Alta': '#ff9800', 'Media': '#fbc02d', 'Baja': '#43a047' }[c.prioridad] || '#888';
+    const prioridadColor = { 'Urgente': '#e53935', 'Alta': '#D4AF37', 'Media': '#D4AF37', 'Baja': '#43a047' }[c.prioridad] || '#888';
     document.getElementById('ver-comunicado-body').innerHTML = `
         <div class="comunicado-resumen">
             <div class="comunicado-resumen-icono"><i class="fas fa-envelope-open-text"></i></div>

@@ -9,7 +9,7 @@
 
 .reporte-categoria {
     background: var(--blanco);
-    border: 1px solid rgba(75, 57, 53, 0.1);
+    border: 1px solid rgba(71, 85, 105, 0.1);
     border-radius: 4px;
     padding: 0.4rem;
 }
@@ -19,7 +19,7 @@
     font-size: 0.7rem;
     margin-bottom: 0.25rem;
     padding-bottom: 0.2rem;
-    border-bottom: 1px solid rgba(75, 57, 53, 0.1);
+    border-bottom: 1px solid rgba(71, 85, 105, 0.1);
     font-weight: 700;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .reporte-item:hover {
-    background: rgba(75, 57, 53, 0.05);
+    background: rgba(71, 85, 105, 0.05);
 }
 
 .reporte-item i {
@@ -96,7 +96,7 @@
 #form-enviar-reporte input[type="text"],
 #boletin-grupo-select + * input[type="email"] {
     background: var(--blanco);
-    border: 1px solid rgba(75, 57, 53, 0.15);
+    border: 1px solid rgba(71, 85, 105, 0.15);
     border-radius: 4px;
     padding: 0.35rem 0.5rem;
     font-size: 0.75rem;
@@ -109,7 +109,7 @@
 #form-enviar-reporte input[type="text"]:focus {
     outline: none;
     border-color: var(--cafe-oscuro);
-    box-shadow: 0 0 0 2px rgba(75, 57, 53, 0.1);
+    box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.1);
 }
 
 #form-enviar-reporte input[type="email"]:hover,
@@ -127,7 +127,7 @@
 #boletin-grupo-select,
 #boletin-periodo-select {
     background: var(--blanco);
-    border: 1px solid rgba(75, 57, 53, 0.15);
+    border: 1px solid rgba(71, 85, 105, 0.15);
     border-radius: 4px;
     padding: 0.35rem 0.5rem;
     font-size: 0.75rem;
@@ -136,7 +136,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234B3935' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230F6B42' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.4rem center;
     padding-right: 1.6rem;
@@ -147,7 +147,7 @@
 #boletin-periodo-select:focus {
     outline: none;
     border-color: var(--cafe-oscuro);
-    box-shadow: 0 0 0 2px rgba(75, 57, 53, 0.1);
+    box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.1);
 }
 
 #form-enviar-reporte select:hover,
@@ -164,7 +164,7 @@
 /* Textareas */
 #form-enviar-reporte textarea {
     background: var(--blanco);
-    border: 1px solid rgba(75, 57, 53, 0.15);
+    border: 1px solid rgba(71, 85, 105, 0.15);
     border-radius: 4px;
     padding: 0.4rem 0.5rem;
     font-size: 0.75rem;
@@ -177,7 +177,7 @@
 #form-enviar-reporte textarea:focus {
     outline: none;
     border-color: var(--cafe-oscuro);
-    box-shadow: 0 0 0 2px rgba(75, 57, 53, 0.1);
+    box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.1);
 }
 
 #form-enviar-reporte textarea:hover {
@@ -220,7 +220,7 @@
     color: var(--cafe-oscuro);
     font-size: 0.7rem;
     padding: 0.35rem 0.5rem;
-    border: 1px solid rgba(75, 57, 53, 0.15);
+    border: 1px solid rgba(71, 85, 105, 0.15);
     border-radius: 4px;
     background: var(--blanco);
     cursor: pointer;
@@ -312,13 +312,13 @@ input[name="tipo-destinatario"] {
 #btn-boletin-generar:hover,
 #btn-boletin-enviar:hover {
     background: var(--cafe-medio);
-    box-shadow: 0 2px 8px rgba(75, 57, 53, 0.2);
+    box-shadow: 0 2px 8px rgba(71, 85, 105, 0.2);
 }
 
 #form-enviar-reporte button:active,
 #btn-boletin-generar:active,
 #btn-boletin-enviar:active {
-    background: #5a4240;
+    background: #0A4D2E;
     transform: scale(0.98);
 }
 
@@ -350,7 +350,7 @@ input[name="tipo-destinatario"] {
 
 .btn-cafe:hover {
     background: var(--cafe-medio) !important;
-    box-shadow: 0 2px 8px rgba(75, 57, 53, 0.2) !important;
+    box-shadow: 0 2px 8px rgba(71, 85, 105, 0.2) !important;
 }
 
 .btn-cafe:active {
@@ -371,7 +371,7 @@ input[name="tipo-destinatario"] {
 
 /* Divisor */
 #form-enviar-reporte > div[style*="border-top"] {
-    border-top-color: rgba(75, 57, 53, 0.15) !important;
+    border-top-color: rgba(71, 85, 105, 0.15) !important;
 }
 
 /* Mejoras generales */
@@ -407,20 +407,20 @@ textarea::placeholder {
 /* Estilos para inputs dentro del contenedor especifico */
 #container-correo-especifico input[type="email"],
 #container-grupo select {
-    background: rgba(75, 57, 53, 0.02);
-    border: 1px solid rgba(75, 57, 53, 0.1);
+    background: rgba(71, 85, 105, 0.02);
+    border: 1px solid rgba(71, 85, 105, 0.1);
 }
 
 /* Card de boletines */
 .card[style*="margin-top"] {
-    border: 1px solid rgba(75, 57, 53, 0.1) !important;
-    background: rgba(75, 57, 53, 0.02) !important;
+    border: 1px solid rgba(71, 85, 105, 0.1) !important;
+    background: rgba(71, 85, 105, 0.02) !important;
     border-radius: 4px !important;
-    box-shadow: 0 1px 3px rgba(75, 57, 53, 0.05);
+    box-shadow: 0 1px 3px rgba(71, 85, 105, 0.05);
 }
 
 .card[style*="margin-top"]:hover {
-    box-shadow: 0 2px 8px rgba(75, 57, 53, 0.1);
+    box-shadow: 0 2px 8px rgba(71, 85, 105, 0.1);
 }
 
 /* Labels de radio buttons */

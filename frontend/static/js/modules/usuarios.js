@@ -3,6 +3,53 @@
 // CRUD completo de usuarios del sistema
 // ════════════════════════════════════════════════════════════════════════════════
 
+function normalizarDocumentoUsuario(valor) {
+    return valor.replace(/[^0-9]/g, '');
+}
+
+function normalizarNombreUsuario(valor) {
+    return valor
+        .replace(/[^\p{L}\p{M} '\u2019-]/gu, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function validarNombreUsuario(valor) {
+    return /^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$/u.test(valor.trim().replace(/\s+/g, ' '));
+}
+
+function configurarCamposNombreUsuario() {
+    for (const id of ['usuario-nombre', 'usuario-apellido']) {
+        const input = document.getElementById(id);
+        if (!input || input.dataset.filtroNombreConfigurado) continue;
+
+        input.addEventListener('input', () => {
+            const inicio = input.selectionStart;
+            const nombreNormalizado = normalizarNombreUsuario(input.value);
+            if (input.value !== nombreNormalizado) {
+                input.value = nombreNormalizado;
+                input.setSelectionRange(Math.min(inicio, input.value.length), Math.min(inicio, input.value.length));
+            }
+        });
+        input.dataset.filtroNombreConfigurado = 'true';
+    }
+}
+
+function configurarDocumentoUsuario() {
+    const input = document.getElementById('usuario-documento');
+    if (!input || input.dataset.filtroDocumentoConfigurado) return;
+
+    input.addEventListener('input', () => {
+        const inicio = input.selectionStart;
+        const documentoNormalizado = normalizarDocumentoUsuario(input.value);
+        if (input.value !== documentoNormalizado) {
+            input.value = documentoNormalizado;
+            input.setSelectionRange(Math.min(inicio, input.value.length), Math.min(inicio, input.value.length));
+        }
+    });
+    input.dataset.filtroDocumentoConfigurado = 'true';
+}
+
 async function renderUsuarios() {
     const content = document.getElementById('main-content');
     content.innerHTML = Helpers.loading();
@@ -53,7 +100,8 @@ function filtrarUsuarios(usuarios) {
         const documento = u.documento.toLowerCase();
         const coincideBusqueda = nombreCompleto.includes(busqueda) || email.includes(busqueda) || documento.includes(busqueda);
         const coincideRol = !rol || u.nombre_rol === rol;
-        const coincideEstado = estado === '' || u.is_activo.toString() === estado;
+        const coincideEstado = estado === '' ||
+            (normalizarEstadoUsuario(u.is_activo) ? '1' : '0') === estado;
         return coincideBusqueda && coincideRol && coincideEstado;
     });
 
@@ -63,6 +111,8 @@ function filtrarUsuarios(usuarios) {
 async function abrirModalUsuario(id = null) {
     const form = document.getElementById('form-usuario');
     form.reset();
+    configurarDocumentoUsuario();
+    configurarCamposNombreUsuario();
     document.getElementById('usuario-id').value = id || '';
 
     const titulo = document.getElementById('modal-usuario-titulo');
@@ -76,8 +126,8 @@ async function abrirModalUsuario(id = null) {
         try {
             const data = await API.getUsuario(id);
             const u = data.usuario;
-            document.getElementById('usuario-nombre').value = u.nombre;
-            document.getElementById('usuario-apellido').value = u.apellido;
+            document.getElementById('usuario-nombre').value = normalizarNombreUsuario(u.nombre);
+            document.getElementById('usuario-apellido').value = normalizarNombreUsuario(u.apellido);
             document.getElementById('usuario-email').value = u.correo;
             document.getElementById('usuario-documento').value = u.documento;
             document.getElementById('usuario-rol').value = u.id_rol;
@@ -98,11 +148,28 @@ async function abrirModalUsuario(id = null) {
 document.getElementById('form-usuario').addEventListener('submit', async function (e) {
     e.preventDefault();
     const id = document.getElementById('usuario-id').value;
+    const documento = document.getElementById('usuario-documento');
+    documento.value = normalizarDocumentoUsuario(documento.value);
+    if (!documento.value) {
+        mostrarAlerta('El documento es obligatorio y solo puede contener números.', 'error');
+        documento.focus();
+        return;
+    }
+    const nombre = document.getElementById('usuario-nombre');
+    const apellido = document.getElementById('usuario-apellido');
+    for (const [input, etiqueta] of [[nombre, 'El nombre'], [apellido, 'El apellido']]) {
+        input.value = normalizarNombreUsuario(input.value);
+        if (!validarNombreUsuario(input.value)) {
+            mostrarAlerta(`${etiqueta}: solo se permiten letras, espacios, apóstrofes o guiones.`, 'error');
+            input.focus();
+            return;
+        }
+    }
     const data = {
-        nombre: document.getElementById('usuario-nombre').value,
-        apellido: document.getElementById('usuario-apellido').value,
+        nombre: nombre.value,
+        apellido: apellido.value,
         correo: document.getElementById('usuario-email').value,
-        documento: document.getElementById('usuario-documento').value,
+        documento: documento.value,
         id_rol: document.getElementById('usuario-rol').value,
         is_activo: document.getElementById('usuario-estado').value === '1',
         password: document.getElementById('usuario-password').value

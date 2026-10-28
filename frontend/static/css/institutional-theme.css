@@ -1,0 +1,138 @@
+:root {
+    --institutional-green: #0F6B42;
+    --institutional-green-hover: #0B5736;
+    --institutional-green-dark: #0A4D2E;
+    --institutional-gold: #D4AF37;
+    --institutional-red: #C8102E;
+    --institutional-text: #1E293B;
+    --institutional-muted: #475569;
+    --cafe-oscuro: var(--institutional-green-dark);
+    --cafe-medio: var(--institutional-green);
+    --cafe-claro: #E2E8F0;
+    --cafe-suave: var(--institutional-muted);
+    --primary: var(--institutional-green);
+    --primary-dark: var(--institutional-green-dark);
+    --primary-light: var(--institutional-green);
+    --primary-brown: var(--institutional-green-dark);
+    --medium-brown: var(--institutional-green);
+    --soft-brown: var(--institutional-muted);
+    --danger: var(--institutional-red);
+    --accent: var(--institutional-red);
+    --warning: var(--institutional-gold);
+    --text-dark: var(--institutional-text);
+    --rojo: var(--institutional-red);
+    --rojo-hover: #A20D25;
+    --verde: var(--institutional-green);
+    --verde-hover: var(--institutional-green-hover);
+    --gris: var(--institutional-muted);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hero-title,
+.section-title,
+.card-title,
+.modal-title,
+.service-title,
+.feature-title,
+.platform-title {
+    color: var(--institutional-green-dark) !important;
+}
+
+.sidebar h1,
+.sidebar h2,
+.sidebar h3,
+.sidebar h4,
+.sidebar h5,
+.sidebar h6 {
+    color: #ffffff !important;
+}
+
+.sidebar-label {
+    color: #CBD5E1;
+}
+
+p {
+    color: var(--institutional-muted);
+}
+
+a:not(.auth-btn1):not(.primary-button):not(.btn-back):not(.back-button):not(.logo-link):not(.btn):not([class*="btn-"]):not(.sidebar-item) {
+    color: var(--institutional-green);
+}
+
+a:not(.auth-btn1):not(.primary-button):not(.btn-back):not(.back-button):not(.logo-link):not(.btn):not([class*="btn-"]):not(.sidebar-item):hover {
+    color: var(--institutional-green-hover);
+}
+
+.nav-links::after {
+    background-color: var(--institutional-gold);
+}
+
+.nav-links,
+.back-button,
+.btn-back {
+    color: var(--institutional-green);
+}
+
+.auth-btn1,
+.primary-button,
+.btn-submit,
+.submit-button,
+.btn-verde,
+.btn-cafe,
+.btn-primary,
+.btn-pag.active,
+.periodos-header-actions .btn,
+.obs-shell button[type="submit"],
+.btn-editar-hg,
+.btn-accion-cafe,
+.btn-accion-verde,
+.card-header-flex .btn-verde {
+    background: var(--institutional-green) !important;
+    border-color: var(--institutional-green);
+    color: #ffffff !important;
+}
+
+.auth-btn1:hover,
+.primary-button:hover,
+.btn-submit:hover,
+.submit-button:hover,
+.btn-verde:hover:not(:disabled),
+.btn-cafe:hover:not(:disabled),
+.btn-primary:hover:not(:disabled),
+.periodos-header-actions .btn:hover:not(:disabled),
+.obs-shell button[type="submit"]:hover,
+.btn-editar-hg:hover,
+.btn-accion-cafe:hover,
+.btn-accion-verde:hover,
+.card-header-flex .btn-verde:hover {
+    background: var(--institutional-green-hover);
+    border-color: var(--institutional-green-hover);
+    color: #ffffff;
+}
+
+.card-header-flex .btn-cafe {
+    background: rgba(0, 0, 0, 0.15);
+    border-color: transparent;
+}
+
+.card-header-flex .btn-cafe:hover {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--institutional-gold) !important;
+    outline: 2px solid var(--institutional-gold) !important;
+    outline-offset: 1px;
+}
+
+:focus-visible {
+    outline: 2px solid var(--institutional-gold) !important;
+    outline-offset: 2px;
+}

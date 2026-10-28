@@ -436,7 +436,11 @@ const CalificacionesModule = {
             const res = await API.sincronizarBoletinesTodo();
             const bCre = res.archivos_creados || 0;
             const bAct = res.archivos_actualizados || 0;
-            mostrarAlerta(`Boletines sincronizados. Nuevos: ${bCre}. Actualizados: ${bAct}.`, 'success');
+            const omitidos = res.grupos_omitidos_sin_materias || 0;
+            const detalleOmitidos = omitidos
+                ? ` Grupos omitidos por no tener materias activas: ${omitidos}.`
+                : '';
+            mostrarAlerta(`Boletines sincronizados. Nuevos: ${bCre}. Actualizados: ${bAct}.${detalleOmitidos}`, omitidos ? 'warning' : 'success');
             refrescar = true;
         } catch (error) {
             mostrarAlerta(error.message || 'Error al sincronizar boletines', 'error');

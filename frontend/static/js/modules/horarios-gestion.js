@@ -351,7 +351,7 @@ function hgRenderGrilla(source) {
                 const color = hgGetColor(bloque.id_materia);
                 const docenteNom = `${bloque.docente_apellido || ''} ${bloque.docente_nombre || ''}`.trim() || 'Sin profesor';
                 html += `
-                    <td style="background:${color};color:#4a3728;vertical-align:middle;text-align:center;padding:.5rem;font-weight:bold;">
+                    <td style="background:${color};color:#475569;vertical-align:middle;text-align:center;padding:.5rem;font-weight:bold;">
                         <div style="font-size:.9rem;margin-bottom:.2rem;">${bloque.nombre_materia}</div>
                         <div style="font-size:.75rem;opacity:.8;">${docenteNom}</div>
                         <div style="font-size:.7rem;color:#666;">${bloque.hora_inicio} - ${bloque.hora_fin}</div>
@@ -373,7 +373,7 @@ function hgRenderGrilla(source) {
         materias.forEach(materia => {
             const datos = HG_DATOS.find(h => h.nombre_materia === materia);
             const color = hgGetColor(datos.id_materia);
-            html += `<span class="badge" style="background:${color};color:#4a3728;padding:.25rem .75rem;border-radius:12px;font-size:.8rem;">${materia}</span>`;
+            html += `<span class="badge" style="background:${color};color:#475569;padding:.25rem .75rem;border-radius:12px;font-size:.8rem;">${materia}</span>`;
         });
         html += `</div>`;
     }
@@ -490,7 +490,7 @@ function hgExportarExcel() {
         if (!ws[cell]) ws[cell] = {};
         ws[cell].s = {
             font: { bold: true, sz: 12, color: { rgb: 'FFFFFFFF' } },
-            fill: { fgColor: { rgb: 'FF654B31' } },  // Color marrón
+            fill: { fgColor: { rgb: 'FF0F6B42' } },  // Color institucional
             alignment: { horizontal: 'center', vertical: 'center', wrapText: true },
             border: {
                 top: { style: 'thin' },

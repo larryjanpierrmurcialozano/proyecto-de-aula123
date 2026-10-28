@@ -12,13 +12,13 @@
             <div class="reportes-grid" style="display: flex; flex-direction: column; gap: 0.3rem;">
                 <div class="reporte-categoria">
                 <h4 style="margin-bottom: 0.2rem; font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 700; display: flex; align-items: center; gap: 0.3rem;"><i class="fas fa-graduation-cap" style="color: var(--cafe-medio);"></i> Académicos</h4>
-                    <div class="reporte-item" onclick="seleccionarReporte('boletin')" style="margin: 0.15rem 0; padding: 0.25rem; cursor: pointer; border-radius: 3px; background: rgba(75, 57, 53, 0.02); font-size: 0.7rem;">
+                    <div class="reporte-item" onclick="seleccionarReporte('boletin')" style="margin: 0.15rem 0; padding: 0.25rem; cursor: pointer; border-radius: 3px; background: rgba(71, 85, 105, 0.02); font-size: 0.7rem;">
                         <div style="display: flex; align-items: center; gap: 0.2rem;">
                             <input type="radio" name="tipo-reporte" value="boletin" id="radio-boletin">
                             <label for="radio-boletin" style="margin: 0; cursor: pointer; font-size: 0.7rem;">Boletín de Calificaciones</label>
                         </div>
                     </div>
-                    <div class="reporte-item" onclick="seleccionarReporte('consolidado')" style="margin: 0.15rem 0; padding: 0.25rem; cursor: pointer; border-radius: 3px; background: rgba(75, 57, 53, 0.02); font-size: 0.7rem;">
+                    <div class="reporte-item" onclick="seleccionarReporte('consolidado')" style="margin: 0.15rem 0; padding: 0.25rem; cursor: pointer; border-radius: 3px; background: rgba(71, 85, 105, 0.02); font-size: 0.7rem;">
                         <div style="display: flex; align-items: center; gap: 0.2rem;">
                             <input type="radio" name="tipo-reporte" value="consolidado" id="radio-consolidado">
                             <label for="radio-consolidado" style="margin: 0; cursor: pointer; font-size: 0.7rem;">Consolidado de Notas</label>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="reporte-categoria">
                     <h4 style="margin-bottom: 0.2rem; font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 700; display: flex; align-items: center; gap: 0.3rem;"><i class="fas fa-clipboard-check" style="color: var(--cafe-medio);"></i> Asistencia</h4>
-                    <div class="reporte-item" onclick="seleccionarReporte('asistencia_diaria')" style="margin: 0.15rem 0; padding: 0.25rem; cursor: pointer; border-radius: 3px; background: rgba(75, 57, 53, 0.02); font-size: 0.7rem;">
+                    <div class="reporte-item" onclick="seleccionarReporte('asistencia_diaria')" style="margin: 0.15rem 0; padding: 0.25rem; cursor: pointer; border-radius: 3px; background: rgba(71, 85, 105, 0.02); font-size: 0.7rem;">
                         <div style="display: flex; align-items: center; gap: 0.2rem;">
                             <input type="radio" name="tipo-reporte" value="asistencia_diaria" id="radio-asistencia_diaria">
                             <label for="radio-asistencia_diaria" style="margin: 0; cursor: pointer; font-size: 0.7rem;">Asistencia Diaria</label>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="reporte-categoria">
                     <h4 style="margin-bottom: 0.2rem; font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 700; display: flex; align-items: center; gap: 0.3rem;"><i class="fas fa-building" style="color: var(--cafe-medio);"></i> Institucionales</h4>
-                    <div class="reporte-item" onclick="seleccionarReporte('estudiantes')" style="margin: 0.15rem 0; padding: 0.25rem; cursor: pointer; border-radius: 3px; background: rgba(75, 57, 53, 0.02); font-size: 0.7rem;">
+                    <div class="reporte-item" onclick="seleccionarReporte('estudiantes')" style="margin: 0.15rem 0; padding: 0.25rem; cursor: pointer; border-radius: 3px; background: rgba(71, 85, 105, 0.02); font-size: 0.7rem;">
                         <div style="display: flex; align-items: center; gap: 0.2rem;">
                             <input type="radio" name="tipo-reporte" value="estudiantes" id="radio-estudiantes-rep">
                             <label for="radio-estudiantes-rep" style="margin: 0; cursor: pointer; font-size: 0.7rem;">Lista de Estudiantes</label>
@@ -52,11 +52,11 @@
             <form id="form-enviar-reporte" style="display: flex; flex-direction: column; gap: 0.5rem;">
                 <div class="form-group">
                     <label style="font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 600; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.3rem;"><i class="fas fa-user" style="color: var(--cafe-medio);"></i> Remitente</label>
-                    <input type="email" id="reporte-remitente" placeholder="ejemplo@gmail.com" value="" style="width: 100%; padding: 0.35rem 0.5rem; font-size: 0.75rem; border: 1px solid rgba(75, 57, 53, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
+                    <input type="email" id="reporte-remitente" placeholder="ejemplo@gmail.com" value="" style="width: 100%; padding: 0.35rem 0.5rem; font-size: 0.75rem; border: 1px solid rgba(71, 85, 105, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
                 </div>
                 <div class="form-group">
                     <label style="font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 600; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.3rem;"><i class="fas fa-file-pdf" style="color: var(--cafe-medio);"></i> Selecciona tipo de reporte</label>
-                    <select id="reporte-tipo-select" style="width: 100%; padding: 0.35rem 0.5rem; font-size: 0.75rem; border: 1px solid rgba(75, 57, 53, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
+                    <select id="reporte-tipo-select" style="width: 100%; padding: 0.35rem 0.5rem; font-size: 0.75rem; border: 1px solid rgba(71, 85, 105, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
                         <option value="">-- Selecciona un reporte --</option>
                         <option value="boletin">Boletín de Calificaciones</option>
                         <option value="consolidado">Consolidado de Notas</option>
@@ -64,7 +64,7 @@
                         <option value="estudiantes">Lista de Estudiantes</option>
                     </select>
                 </div>
-                <div style="border-top: 1px solid rgba(75, 57, 53, 0.15); padding-top: 0.5rem;">
+                <div style="border-top: 1px solid rgba(71, 85, 105, 0.15); padding-top: 0.5rem;">
                     <div class="form-group">
                         <label style="font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 600; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.35rem;"><i class="fas fa-radio-alt" style="color: var(--cafe-medio);"></i> Destinatario</label>
                     </div>
@@ -73,42 +73,42 @@
                         <label for="radio-especifico" style="margin: 0; font-size: 0.75rem; color: var(--cafe-oscuro); cursor: pointer; transition: color 0.2s ease;">Correo específico</label>
                     </div>
                     <div id="container-correo-especifico" style="margin-bottom: 0.5rem;">
-                        <input type="email" id="reporte-correo-especifico" placeholder="padre@gmail.com" style="width: 100%; font-size: 0.75rem; padding: 0.35rem 0.5rem; border: 1px solid rgba(75, 57, 53, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
+                        <input type="email" id="reporte-correo-especifico" placeholder="padre@gmail.com" style="width: 100%; font-size: 0.75rem; padding: 0.35rem 0.5rem; border: 1px solid rgba(71, 85, 105, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem;">
                         <input type="radio" name="tipo-destinatario" value="grupo" id="radio-grupo" style="cursor: pointer; accent-color: var(--cafe-oscuro); width: 16px; height: 16px;">
                         <label for="radio-grupo" style="margin: 0; font-size: 0.75rem; color: var(--cafe-oscuro); cursor: pointer; transition: color 0.2s ease;">Todos los correos de un grupo</label>
                     </div>
                     <div id="container-grupo" style="margin-bottom: 0.5rem; display: none;">
-                        <select id="reporte-grupo-select" style="width: 100%; font-size: 0.75rem; padding: 0.35rem 0.5rem; border: 1px solid rgba(75, 57, 53, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
+                        <select id="reporte-grupo-select" style="width: 100%; font-size: 0.75rem; padding: 0.35rem 0.5rem; border: 1px solid rgba(71, 85, 105, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
                             <option value="">-- Selecciona un grupo --</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label style="font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 600; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.3rem;"><i class="fas fa-message" style="color: var(--cafe-medio);"></i> Mensaje</label>
-                    <textarea id="reporte-mensaje" placeholder="Escribe el mensaje que deseas enviar..." style="width: 100%; min-height: 80px; padding: 0.4rem 0.5rem; border: 1px solid rgba(75, 57, 53, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); font-family: inherit; font-size: 0.75rem; resize: none; transition: all 0.2s ease;"></textarea>
+                    <textarea id="reporte-mensaje" placeholder="Escribe el mensaje que deseas enviar..." style="width: 100%; min-height: 80px; padding: 0.4rem 0.5rem; border: 1px solid rgba(71, 85, 105, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); font-family: inherit; font-size: 0.75rem; resize: none; transition: all 0.2s ease;"></textarea>
                 </div>
                 <div class="form-group">
                     <label style="font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 600; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.3rem;"><i class="fas fa-paperclip" style="color: var(--cafe-medio);"></i> Adjuntar PDF (opcional)</label>
-                    <input type="file" id="reporte-adjunto" accept=".pdf" style="width: 100%; font-size: 0.7rem; padding: 0.35rem 0.5rem; border: 1px solid rgba(75, 57, 53, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
+                    <input type="file" id="reporte-adjunto" accept=".pdf" style="width: 100%; font-size: 0.7rem; padding: 0.35rem 0.5rem; border: 1px solid rgba(71, 85, 105, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
                 </div>
                 <button type="submit" class="btn btn-verde" style="width: 100%; font-size: 0.75rem; padding: 0.35rem 0.8rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
                     <i class="fas fa-send"></i> Enviar Correo
                 </button>
             </form>
 
-            <div class="card" style="margin-top: 0.8rem; padding: 0.6rem; border: 1px solid rgba(75, 57, 53, 0.1); border-radius: 4px; background: rgba(75, 57, 53, 0.02);">
+            <div class="card" style="margin-top: 0.8rem; padding: 0.6rem; border: 1px solid rgba(71, 85, 105, 0.1); border-radius: 4px; background: rgba(71, 85, 105, 0.02);">
                 <h3 style="margin-bottom: 0.4rem; color: var(--cafe-oscuro); font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 0.3rem;"><i class="fas fa-file-invoice" style="color: var(--cafe-medio);"></i> Boletines</h3>
                 <div class="form-group">
                     <label style="font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 600; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.3rem;"><i class="fas fa-users" style="color: var(--cafe-medio);"></i> Grupo</label>
-                    <select id="boletin-grupo-select" style="width: 100%; padding: 0.35rem 0.5rem; font-size: 0.75rem; border: 1px solid rgba(75, 57, 53, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
+                    <select id="boletin-grupo-select" style="width: 100%; padding: 0.35rem 0.5rem; font-size: 0.75rem; border: 1px solid rgba(71, 85, 105, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
                         <option value="">-- Selecciona un grupo --</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label style="font-size: 0.75rem; color: var(--cafe-oscuro); font-weight: 600; display: flex; align-items: center; gap: 0.3rem; margin-bottom: 0.3rem;"><i class="fas fa-calendar" style="color: var(--cafe-medio);"></i> Período</label>
-                    <select id="boletin-periodo-select" style="width: 100%; padding: 0.35rem 0.5rem; font-size: 0.75rem; border: 1px solid rgba(75, 57, 53, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
+                    <select id="boletin-periodo-select" style="width: 100%; padding: 0.35rem 0.5rem; font-size: 0.75rem; border: 1px solid rgba(71, 85, 105, 0.15); border-radius: 4px; background: var(--blanco); color: var(--cafe-oscuro); transition: all 0.2s ease;">
                         <option value="">-- Selecciona un período --</option>
                     </select>
                 </div>

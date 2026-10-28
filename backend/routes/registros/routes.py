@@ -3,7 +3,7 @@
 # ════════════════════════════════════════════════════════════════════════════════
 
 from flask import Blueprint, jsonify, request, session
-from datetime import datetime
+from datetime import date, datetime
 from utils.database import get_db
 from utils.helpers import _error_interno
 
@@ -50,11 +50,27 @@ def api_asistencia():
 def api_asistencia_registrar():
     """Registrar asistencia"""
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        registros = data.get('registros')
+        if not isinstance(registros, list) or not registros:
+            return jsonify({'error': 'Debes enviar al menos un registro de asistencia.'}), 400
+
+        hoy = date.today()
+        for registro in registros:
+            fecha = registro.get('fecha')
+            try:
+                fecha_validada = date.fromisoformat(fecha)
+            except (TypeError, ValueError):
+                return jsonify({'error': 'La fecha debe tener el formato AAAA-MM-DD.'}), 400
+            if fecha_validada.isoformat() != fecha:
+                return jsonify({'error': 'La fecha debe tener el formato AAAA-MM-DD.'}), 400
+            if fecha_validada > hoy:
+                return jsonify({'error': 'No se puede registrar asistencia en una fecha futura.'}), 400
+
         conn = get_db()
         cursor = conn.cursor()
 
-        for registro in data['registros']:
+        for registro in registros:
             id_periodo = registro.get('id_periodo')
             if not id_periodo:
                 cursor.execute(

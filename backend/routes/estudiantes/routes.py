@@ -4,7 +4,13 @@
 
 from flask import Blueprint, jsonify, request, session
 from utils.database import get_db
-from utils.helpers import _error_interno
+from utils.helpers import (
+    _error_interno,
+    validar_documento_numerico,
+    validar_fecha_no_futura,
+    validar_nombre_persona,
+    validar_telefono_numerico
+)
 
 estudiantes_bp = Blueprint('estudiantes', __name__)
 
@@ -55,7 +61,25 @@ def api_estudiante_detalle(id):
 def api_estudiante_crear():
     """Crear estudiante"""
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        error_documento = validar_documento_numerico(data.get('documento'))
+        if error_documento:
+            return jsonify({'error': error_documento}), 400
+        for campo, etiqueta, obligatorio in (
+            ('nombre', 'El nombre', True),
+            ('apellido', 'El apellido', True),
+            ('acudiente_nombre', 'El nombre del acudiente', False)
+        ):
+            error_nombre = validar_nombre_persona(data.get(campo), etiqueta, obligatorio)
+            if error_nombre:
+                return jsonify({'error': error_nombre}), 400
+        error_telefono = validar_telefono_numerico(data.get('acudiente_telefono'), 'El teléfono del acudiente')
+        if error_telefono:
+            return jsonify({'error': error_telefono}), 400
+        error_fecha = validar_fecha_no_futura(data.get('fecha_nacimiento'), 'La fecha de nacimiento')
+        if error_fecha:
+            return jsonify({'error': error_fecha}), 400
+
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute("""
@@ -87,7 +111,25 @@ def api_estudiante_crear():
 def api_estudiante_actualizar(id):
     """Actualizar estudiante"""
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        error_documento = validar_documento_numerico(data.get('documento'))
+        if error_documento:
+            return jsonify({'error': error_documento}), 400
+        for campo, etiqueta, obligatorio in (
+            ('nombre', 'El nombre', True),
+            ('apellido', 'El apellido', True),
+            ('acudiente_nombre', 'El nombre del acudiente', False)
+        ):
+            error_nombre = validar_nombre_persona(data.get(campo), etiqueta, obligatorio)
+            if error_nombre:
+                return jsonify({'error': error_nombre}), 400
+        error_telefono = validar_telefono_numerico(data.get('acudiente_telefono'), 'El teléfono del acudiente')
+        if error_telefono:
+            return jsonify({'error': error_telefono}), 400
+        error_fecha = validar_fecha_no_futura(data.get('fecha_nacimiento'), 'La fecha de nacimiento')
+        if error_fecha:
+            return jsonify({'error': error_fecha}), 400
+
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute("""

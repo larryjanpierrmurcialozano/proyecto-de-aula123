@@ -24,9 +24,9 @@ body {
 
 .img-section {
     position: relative;
-    background: radial-gradient(at 0% 0%, rgba(128, 85, 72, 0.4) 0, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(113, 57, 41, 0.4) 0, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(219, 145, 105, 0.4) 0, transparent 50%),
+    background: radial-gradient(at 0% 0%, rgba(15, 107, 66, 0.4) 0, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(15, 107, 66, 0.4) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(15, 107, 66, 0.4) 0, transparent 50%),
                 radial-gradient(at 0% 100%, rgba(255, 238, 225, 0.4) 0, transparent 50%),
                 #ffffff;
     padding: 60px;
@@ -52,17 +52,20 @@ body {
     font-weight: 700;
     font-size: 1.2rem;
     letter-spacing: 2px;
-    color: #4a342e;
+    color: #475569;
 }
 
 .img-overlay {
+    flex: 1;
     display: flex;
     justify-content: center;
-    margin-top: 75px;
+    align-items: center;
+    min-height: 0;
+    margin: 85px 0 20px;
 }
 
 .img-overlay img {
-    max-width: 80%;
+    width: min(42%, 320px);
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.08));
 }
 
@@ -74,12 +77,12 @@ body {
 
 .contact-info p {
     font-size: 0.9rem;
-    color: #674a42;
+    color: #475569;
     margin-bottom: 5px;
 }
 
 .contact-info a {
-    color: #4a342e;
+    color: #475569;
     font-weight: 600;
 }
 
@@ -91,7 +94,7 @@ body {
 
 .btn-back {
     text-decoration: none;
-    color: #4a342e;
+    color: #475569;
     font-weight: 600;
     font-size: 1rem;
     transition: 0.3s;
@@ -128,7 +131,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 1.8rem;
-    color: #948585;
+    color: #475569;
     background: white;
     box-shadow: 0 10px 25px rgba(0,0,0,0.03);
 }
@@ -147,7 +150,7 @@ body {
 
 .auth-form p {
     text-align: center;
-    color: #948585;
+    color: #475569;
     margin-bottom: 40px;
     font-size: 0.95rem;
 }
@@ -173,7 +176,7 @@ body {
 .input-with-icon > i {
     position: absolute;
     left: 15px;
-    color: #948585;
+    color: #475569;
     font-size: 0.9rem;
 }
 
@@ -190,8 +193,8 @@ body {
 .input-login:focus {
     outline: none;
     background: white;
-    border-color: #674a42;
-    box-shadow: 0 0 0 4px rgba(103, 74, 66, 0.05);
+    border-color: #0F6B42;
+    box-shadow: 0 0 0 4px rgba(15, 107, 66, 0.05);
 }
 
 .toggle-password {
@@ -199,7 +202,7 @@ body {
     right: 15px;
     background: none;
     border: none;
-    color: #948585;
+    color: #475569;
     cursor: pointer;
     font-size: 1rem;
     padding: 5px;
@@ -222,7 +225,7 @@ body {
 }
 
 .forgot-password {
-    color: #674a42;
+    color: #475569;
     font-weight: 600;
 }
 
@@ -256,7 +259,7 @@ footer {
 }
 
 footer small {
-    color: #665552;
+    color: #475569;
     font-size: 0.75rem;
     opacity: 0.8;
 }

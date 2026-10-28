@@ -119,7 +119,7 @@ async function renderMiHorario() {
         const materiasUnicas = [...new Map(bloques.map(b => [b.id_materia, b.nombre_materia])).entries()];
         let leyenda = `<div class="horario-leyenda" style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.5rem;">`;
         materiasUnicas.forEach(([id, nombre]) => {
-            leyenda += `<span class="badge" style="background:${getMiColorMateria(id)};color:#4a3728;padding:.25rem .75rem;border-radius:12px;font-size:.8rem;">${nombre}</span>`;
+            leyenda += `<span class="badge" style="background:${getMiColorMateria(id)};color:#475569;padding:.25rem .75rem;border-radius:12px;font-size:.8rem;">${nombre}</span>`;
         });
         leyenda += `</div>`;
 

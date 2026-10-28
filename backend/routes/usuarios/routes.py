@@ -2,10 +2,17 @@
 # BLUEPRINT: USUARIOS — CRUD de usuarios + Roles
 # ════════════════════════════════════════════════════════════════════════════════
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, session
 import psycopg
 from utils.database import get_db
-from utils.helpers import _error_interno, hash_password, log_action, role_required
+from utils.helpers import (
+    _error_interno,
+    hash_password,
+    log_action,
+    role_required,
+    validar_documento_numerico,
+    validar_nombre_persona
+)
 
 usuarios_bp = Blueprint('usuarios', __name__)
 
@@ -60,7 +67,14 @@ def api_usuario_detalle(id):
 def api_usuario_crear():
     """Crear nuevo usuario"""
     try:
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        error_documento = validar_documento_numerico(data.get('documento'))
+        if error_documento:
+            return jsonify({'error': error_documento}), 400
+        for campo, etiqueta in (('nombre', 'El nombre'), ('apellido', 'El apellido')):
+            error_nombre = validar_nombre_persona(data.get(campo), etiqueta, obligatorio=True)
+            if error_nombre:
+                return jsonify({'error': error_nombre}), 400
         conn = get_db()
         cursor = conn.cursor()
 
@@ -75,6 +89,15 @@ def api_usuario_crear():
         cursor.close()
         conn.close()
 
+        if session.get('user_id'):
+            log_action(
+                session.get('user_id'),
+                'CREATE',
+                f"Usuario creado (rol_id={data['id_rol']})",
+                tabla_afectada='usuarios',
+                registro_id=int(nuevo_id)
+            )
+
         return jsonify({'status': 'ok', 'id': nuevo_id}), 201
     except Exception as e:
         return _error_interno(e)
@@ -83,7 +106,14 @@ def api_usuario_crear():
 def api_usuario_actualizar(id_usuario):
     """Actualizar usuario"""
     try:        
-        data = request.get_json()
+        data = request.get_json(silent=True) or {}
+        error_documento = validar_documento_numerico(data.get('documento'))
+        if error_documento:
+            return jsonify({'error': error_documento}), 400
+        for campo, etiqueta in (('nombre', 'El nombre'), ('apellido', 'El apellido')):
+            error_nombre = validar_nombre_persona(data.get(campo), etiqueta, obligatorio=True)
+            if error_nombre:
+                return jsonify({'error': error_nombre}), 400
         estado = data.get('is_activo')
         if isinstance(estado, bool):
             estado_activo = estado

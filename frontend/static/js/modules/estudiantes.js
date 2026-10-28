@@ -7,6 +7,79 @@ let ESTUDIANTES_CACHE = [];
 let GRUPOS_CACHE_EST = []; // Cache local para evitar conflictos
 let PERIODOS_CACHE_EST = [];
 
+function fechaLocalHoyEstudiantes() {
+    const hoy = new Date();
+    const pad = valor => String(valor).padStart(2, '0');
+    return `${hoy.getFullYear()}-${pad(hoy.getMonth() + 1)}-${pad(hoy.getDate())}`;
+}
+
+function validarNombreEstudiante(valor) {
+    const nombre = valor.trim().replace(/\s+/g, ' ');
+    return /^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$/u.test(nombre);
+}
+
+function normalizarNombrePersonaEstudiante(valor) {
+    return valor
+        .replace(/[^\p{L}\p{M} '\u2019-]/gu, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function normalizarTelefonoEstudiante(valor) {
+    return valor.replace(/\D/g, '').slice(0, 15);
+}
+
+function normalizarDocumentoEstudiante(valor) {
+    return valor.replace(/[^0-9]/g, '');
+}
+
+function configurarCamposNombreEstudiante() {
+    for (const id of ['estudiante-nombre', 'estudiante-apellido', 'estudiante-acudiente-nombre']) {
+        const input = document.getElementById(id);
+        if (!input || input.dataset.filtroNombreConfigurado) continue;
+
+        input.addEventListener('input', () => {
+            const inicio = input.selectionStart;
+            const valorNormalizado = normalizarNombrePersonaEstudiante(input.value);
+            if (input.value !== valorNormalizado) {
+                input.value = valorNormalizado;
+                input.setSelectionRange(Math.min(inicio, input.value.length), Math.min(inicio, input.value.length));
+            }
+        });
+        input.dataset.filtroNombreConfigurado = 'true';
+    }
+}
+
+function configurarDocumentoEstudiante() {
+    const input = document.getElementById('estudiante-documento');
+    if (!input || input.dataset.filtroDocumentoConfigurado) return;
+
+    input.addEventListener('input', () => {
+        const inicio = input.selectionStart;
+        const documentoNormalizado = normalizarDocumentoEstudiante(input.value);
+        if (input.value !== documentoNormalizado) {
+            input.value = documentoNormalizado;
+            input.setSelectionRange(Math.min(inicio, input.value.length), Math.min(inicio, input.value.length));
+        }
+    });
+    input.dataset.filtroDocumentoConfigurado = 'true';
+}
+
+function configurarTelefonoEstudiante() {
+    const input = document.getElementById('estudiante-acudiente-telefono');
+    if (!input || input.dataset.filtroTelefonoConfigurado) return;
+
+    input.addEventListener('input', () => {
+        const inicio = input.selectionStart;
+        const telefonoNormalizado = normalizarTelefonoEstudiante(input.value);
+        if (input.value !== telefonoNormalizado) {
+            input.value = telefonoNormalizado;
+            input.setSelectionRange(Math.min(inicio, input.value.length), Math.min(inicio, input.value.length));
+        }
+    });
+    input.dataset.filtroTelefonoConfigurado = 'true';
+}
+
 async function renderEstudiantes() {
     const content = document.getElementById('main-content');
     content.innerHTML = Helpers.loading();
@@ -21,7 +94,6 @@ async function renderEstudiantes() {
         GRUPOS_CACHE_EST = gruposRes.grupos || [];
 
         const opcionesGrado = Array.from(new Set(GRUPOS_CACHE_EST.map(g => g.nombre_grado))).filter(Boolean);
-        const opcionesGrupo = GRUPOS_CACHE_EST.map(g => ({ id: g.id_grupo, nombre: g.codigo_grupo, grado: g.nombre_grado }));
 
         const htmlRes = await fetch('/templates/modules html/estudiantes.html');
         if (!htmlRes.ok) throw new Error('Error cargando la vista de estudiantes');
@@ -32,12 +104,13 @@ async function renderEstudiantes() {
 
         selectGrado.innerHTML = '<option value="">Todos los grados</option>' + 
             opcionesGrado.map(g => `<option value="${g}">${g}</option>`).join('');
-            
-        selectGrupo.innerHTML = '<option value="">Todos los grupos</option>' + 
-            opcionesGrupo.map(g => `<option value="${g.id}">${g.nombre} (${g.grado})</option>`).join('');
+        actualizarOpcionesGrupoEstudiantes(selectGrado.value);
 
         document.getElementById('filtro-estudiante-buscar').addEventListener('input', aplicarFiltrosEstudiantes);
-        document.getElementById('filtro-estudiante-grado').addEventListener('change', aplicarFiltrosEstudiantes);
+        document.getElementById('filtro-estudiante-grado').addEventListener('change', () => {
+            actualizarOpcionesGrupoEstudiantes(selectGrado.value);
+            aplicarFiltrosEstudiantes();
+        });
         document.getElementById('filtro-estudiante-grupo').addEventListener('change', aplicarFiltrosEstudiantes);
         document.getElementById('filtro-estudiante-estado').addEventListener('change', aplicarFiltrosEstudiantes);
 
@@ -46,6 +119,15 @@ async function renderEstudiantes() {
         console.error('Error renderEstudiantes', error);
         content.innerHTML = Helpers.error('No se pudieron cargar los estudiantes.');
     }
+}
+
+function actualizarOpcionesGrupoEstudiantes(grado) {
+    const selectGrupo = document.getElementById('filtro-estudiante-grupo');
+    if (!selectGrupo) return;
+
+    const grupos = GRUPOS_CACHE_EST.filter(g => !grado || String(g.nombre_grado) === String(grado));
+    selectGrupo.innerHTML = '<option value="">Todos los grupos</option>' +
+        grupos.map(g => `<option value="${g.id_grupo}">${g.codigo_grupo}${g.nombre_grado ? ` (${g.nombre_grado})` : ''}</option>`).join('');
 }
 
 function aplicarFiltrosEstudiantes() {
@@ -167,9 +249,14 @@ async function descargarBoletinEstudiante() {
 async function abrirModalEstudiante(id = null) {
     const overlay = document.getElementById('modal-estudiante');
     overlay.classList.add('active');
+    configurarCamposNombreEstudiante();
+    configurarDocumentoEstudiante();
+    configurarTelefonoEstudiante();
     document.getElementById('modal-estudiante-titulo').textContent = id ? 'Editar Estudiante' : 'Nuevo Estudiante';
     document.getElementById('form-estudiante').reset();
     document.getElementById('estudiante-id').value = id || '';
+    const fechaNacimiento = document.getElementById('estudiante-fecha-nacimiento');
+    if (fechaNacimiento) fechaNacimiento.max = fechaLocalHoyEstudiantes();
 
     if (!GRUPOS_CACHE_EST.length) {
         try {
@@ -189,9 +276,9 @@ async function abrirModalEstudiante(id = null) {
             const e = res.estudiante;
             if (!e) throw new Error('Estudiante no encontrado');
 
-            document.getElementById('estudiante-documento').value = e.documento || '';
-            document.getElementById('estudiante-nombre').value = e.nombre || '';
-            document.getElementById('estudiante-apellido').value = e.apellido || '';
+            document.getElementById('estudiante-documento').value = normalizarDocumentoEstudiante(e.documento || '');
+            document.getElementById('estudiante-nombre').value = normalizarNombrePersonaEstudiante(e.nombre || '');
+            document.getElementById('estudiante-apellido').value = normalizarNombrePersonaEstudiante(e.apellido || '');
 
             const fechaElement = document.getElementById('estudiante-fecha-nacimiento');
             if (fechaElement && e.fecha_nacimiento) {
@@ -201,8 +288,8 @@ async function abrirModalEstudiante(id = null) {
             document.getElementById('estudiante-correo').value = e.correo || '';
             document.getElementById('estudiante-genero').value = e.genero || 'M';
             document.getElementById('estudiante-grupo').value = e.id_grupo;
-            document.getElementById('estudiante-acudiente-nombre').value = e.acudiente_nombre || '';
-            document.getElementById('estudiante-acudiente-telefono').value = e.acudiente_telefono || '';
+            document.getElementById('estudiante-acudiente-nombre').value = normalizarNombrePersonaEstudiante(e.acudiente_nombre || '');
+            document.getElementById('estudiante-acudiente-telefono').value = normalizarTelefonoEstudiante(e.acudiente_telefono || '');
             document.getElementById('estudiante-direccion').value = e.direccion || '';
             document.getElementById('estudiante-estado').value = e.estado || 'Activo';
         } catch (error) {
@@ -227,17 +314,44 @@ function _poblarSelectGruposEstudiante() {
 async function _submitEstudiante(event) {
     event.preventDefault();
     const id = document.getElementById('estudiante-id').value;
+    const documento = document.getElementById('estudiante-documento');
+    documento.value = normalizarDocumentoEstudiante(documento.value);
+    if (!documento.value) {
+        mostrarAlerta('El documento es obligatorio y solo puede contener números.', 'error');
+        documento.focus();
+        return;
+    }
+    const camposNombre = [
+        ['estudiante-nombre', 'El nombre', true],
+        ['estudiante-apellido', 'El apellido', true],
+        ['estudiante-acudiente-nombre', 'El nombre del acudiente', false]
+    ];
+    for (const [idCampo, etiqueta, obligatorio] of camposNombre) {
+        const input = document.getElementById(idCampo);
+        const valor = input.value.trim();
+        if ((obligatorio && !valor) || (valor && !validarNombreEstudiante(valor))) {
+            mostrarAlerta(`${etiqueta}: solo se permiten letras, espacios, apóstrofes o guiones.`, 'error');
+            input.focus();
+            return;
+        }
+    }
+    const fechaNacimiento = document.getElementById('estudiante-fecha-nacimiento');
+    if (fechaNacimiento?.value && fechaNacimiento.value > fechaLocalHoyEstudiantes()) {
+        mostrarAlerta('La fecha de nacimiento no puede ser futura', 'error');
+        fechaNacimiento.focus();
+        return;
+    }
 
     const payload = {
-        documento: document.getElementById('estudiante-documento').value,
-        nombre: document.getElementById('estudiante-nombre').value,
-        apellido: document.getElementById('estudiante-apellido').value,
+        documento: documento.value,
+        nombre: normalizarNombrePersonaEstudiante(document.getElementById('estudiante-nombre').value),
+        apellido: normalizarNombrePersonaEstudiante(document.getElementById('estudiante-apellido').value),
         correo: document.getElementById('estudiante-correo').value,
         fecha_nacimiento: document.getElementById('estudiante-fecha-nacimiento').value || null,
         genero: document.getElementById('estudiante-genero').value,
         id_grupo: document.getElementById('estudiante-grupo').value,
-        acudiente_nombre: document.getElementById('estudiante-acudiente-nombre').value,
-        acudiente_telefono: document.getElementById('estudiante-acudiente-telefono').value,
+        acudiente_nombre: normalizarNombrePersonaEstudiante(document.getElementById('estudiante-acudiente-nombre').value),
+        acudiente_telefono: normalizarTelefonoEstudiante(document.getElementById('estudiante-acudiente-telefono').value),
         direccion: document.getElementById('estudiante-direccion').value,
         estado: document.getElementById('estudiante-estado').value
     };

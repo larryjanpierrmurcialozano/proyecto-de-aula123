@@ -47,7 +47,7 @@ def api_logs():
                 u.apellido as usuario_apellido
             FROM log_registro l
             LEFT JOIN usuarios u ON l.id_usuario = u.id_usuario
-            ORDER BY COALESCE(l.timestamp_accion, l.created_at) DESC
+            ORDER BY COALESCE(l.timestamp_accion, l.created_at) DESC NULLS LAST, l.id_log DESC
             LIMIT 100
         """)
         logs = cursor.fetchall()
@@ -1382,7 +1382,17 @@ def api_boletin_sincronizar_todo():
 
         cursor.execute(
             """
-            SELECT g.id_grado, g.numero_grado, gr.id_grupo, gr.codigo_grupo
+            SELECT g.id_grado, g.numero_grado, gr.id_grupo, gr.codigo_grupo,
+                   EXISTS (
+                       SELECT 1
+                       FROM estudiantes e
+                       WHERE e.id_grupo = gr.id_grupo AND e.estado = 'Activo'
+                   ) AS tiene_estudiantes_activos,
+                   EXISTS (
+                       SELECT 1
+                       FROM asignaciones_docente a
+                       WHERE a.id_grupo = gr.id_grupo AND a.estado = 'Activa'
+                   ) AS tiene_materias_activas
             FROM grupos gr
             JOIN grados g ON gr.id_grado = g.id_grado
             ORDER BY g.numero_grado, gr.codigo_grupo
@@ -1396,19 +1406,25 @@ def api_boletin_sincronizar_todo():
 
         print(f"[boletines] Sync total: periodos={len(periodos)} grupos={len(grupos)}", flush=True)
 
+        grupos_con_materias = [grupo for grupo in grupos if grupo['tiene_materias_activas']]
+        grupos_sin_materias = sum(
+            1 for grupo in grupos
+            if grupo['tiene_estudiantes_activos'] and not grupo['tiene_materias_activas']
+        )
         log_data = _leer_boletin_log()
         stats = {
             'archivos_creados': 0,
             'archivos_actualizados': 0,
             'grupos_procesados': 0,
-            'periodos_procesados': len(periodos)
+            'periodos_procesados': len(periodos),
+            'grupos_omitidos_sin_materias': grupos_sin_materias
         }
 
         for periodo in periodos:
             periodo_id = periodo['id_periodo']
             numero_periodo = periodo['numero_periodo']
 
-            for grupo in grupos:
+            for grupo in grupos_con_materias:
                 grupo_id = grupo['id_grupo']
                 firma = _boletin_signature(cursor, grupo_id, periodo_id)
                 key = f"{grupo_id}_{periodo_id}"
