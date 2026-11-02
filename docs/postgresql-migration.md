@@ -50,6 +50,31 @@ Copy-Item .env.postgres.example .env.postgres
 docker compose --env-file .env.postgres -f docker-compose.postgres.yml up -d
 ```
 
+En Windows también puedes ejecutar el script del proyecto:
+
+```powershell
+.\scripts\start_postgres.ps1
+```
+
+El script crea `.env.docker` si no existe, genera una contraseña segura cuando
+no se ha definido una, inicia PostgreSQL en el puerto `5432` y conserva los
+datos en el volumen `postgres_data`. Para indicar una contraseña y un puerto
+distintos:
+
+```powershell
+.\scripts\start_postgres.ps1 -Password "UnaContraseñaSegura" -Port 5433
+```
+
+El puerto del computador anfitrión puede cambiarse; dentro del contenedor
+PostgreSQL siempre escucha en el puerto `5432`.
+
+El script utiliza `scripts/database/initial_schema.dump`, un respaldo de
+PostgreSQL en formato personalizado, para restaurar automáticamente la
+estructura de la base de datos. Se usa `pg_restore --schema-only`, por lo que
+se crean las tablas, secuencias, índices y restricciones, pero no se cargan
+los registros del respaldo. La restauración se ejecuta una sola vez por
+volumen; los siguientes arranques conservan la estructura y los datos nuevos.
+
 Comprobar el estado:
 
 ```powershell

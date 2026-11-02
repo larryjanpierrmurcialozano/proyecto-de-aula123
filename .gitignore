@@ -15,10 +15,9 @@ token.json
 backend/tokens/
 backend/.env
 .env
+.env.docker
 storage/uploads/
 storage/backups/
 ideasafuturo
 storage/generated/
-
 scripts/database/trigger_delete_estudiante.sql
-scripts/legacy/
