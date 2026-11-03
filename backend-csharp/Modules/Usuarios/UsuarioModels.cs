@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ProyectoGrado.Api.Modules.Auth;
 
 namespace ProyectoGrado.Api.Modules.Usuarios;
 
@@ -41,7 +42,7 @@ public sealed record CreateUsuarioRequest
     [Required, EmailAddress, MaxLength(255)]
     public required string Correo { get; init; }
 
-    [Required, MinLength(6)]
+    [Required, PasswordPolicy]
     public required string Password { get; init; }
 
     [Range(1, int.MaxValue)]
@@ -68,6 +69,6 @@ public sealed record UpdateUsuarioRequest
 
     public bool IsActivo { get; init; }
 
-    [MinLength(6)]
+    [PasswordPolicy]
     public string? Password { get; init; }
 }

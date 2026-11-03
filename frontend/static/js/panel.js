@@ -512,6 +512,11 @@ async function cambiarPassword(e) {
     const nueva = document.getElementById('new-password').value;
     const confirmar = document.getElementById('confirm-password').value;
 
+    if (Array.from(nueva).length < 6 || !/\p{L}/u.test(nueva) || !/\p{N}/u.test(nueva)) {
+        mostrarAlerta('La contraseña debe tener al menos 6 caracteres e incluir letras y números.', 'error');
+        return;
+    }
+
     if (nueva !== confirmar) {
         mostrarAlerta('Las contraseñas no coinciden', 'error');
         return;

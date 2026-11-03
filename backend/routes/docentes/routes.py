@@ -26,10 +26,11 @@ def api_docentes():
                  STRING_AGG(DISTINCT m.nombre_materia, ', ' ORDER BY m.nombre_materia) AS materias,
                  STRING_AGG(DISTINCT g.nombre_grado, ', ' ORDER BY g.nombre_grado) AS grados
              FROM usuarios u
+             JOIN roles r ON r.id_rol = u.id_rol
              LEFT JOIN asignaciones_docente a ON u.id_usuario = a.id_usuario AND a.estado = 'Activa'
              LEFT JOIN materias m ON a.id_materia = m.id_materia
              LEFT JOIN grados g ON a.id_grado = g.id_grado
-             WHERE u.id_rol = 4
+             WHERE LOWER(r.nombre_rol) IN ('profesor', 'docente')
              GROUP BY u.id_usuario
              ORDER BY u.apellido, u.nombre
         """)
@@ -50,7 +51,8 @@ def api_docentes_disponibles():
         cursor.execute("""
             SELECT u.id_usuario, u.documento, u.nombre, u.apellido, u.correo, u.is_activo
             FROM usuarios u
-            WHERE u.id_rol = 4 AND u.is_activo = TRUE
+            JOIN roles r ON r.id_rol = u.id_rol
+            WHERE LOWER(r.nombre_rol) IN ('profesor', 'docente') AND u.is_activo = TRUE
             ORDER BY u.apellido, u.nombre
         """)
         docentes = cursor.fetchall()

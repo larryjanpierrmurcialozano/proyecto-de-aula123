@@ -151,15 +151,15 @@ async function abrirModalDocente(docenteId = null) {
                 <div id="lista-asignaciones-temp" class="asignaciones-temp-list">
                     ${Helpers.sinDatos('Aún no agregas asignaciones')}
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-rojo" onclick="cerrarModal('modal-asignar-docente')">
-                        <i class="fas fa-times"></i> Cancelar
-                    </button>
-                    <button type="submit" class="btn btn-verde">
-                        <i class="fas fa-save"></i> Guardar
-                    </button>
-                </div>
             </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-rojo" onclick="cerrarModal('modal-asignar-docente')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="submit" form="form-asignar-docente" class="btn btn-verde">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
         `;
 
         document.getElementById('select-docente').addEventListener('change', (e) => {

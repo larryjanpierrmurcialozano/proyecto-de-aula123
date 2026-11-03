@@ -5,7 +5,7 @@
 from flask import Blueprint, jsonify, request, render_template, session, redirect, url_for
 from datetime import datetime
 from utils.database import get_db, db_config
-from utils.helpers import _error_interno, hash_password, verify_password, log_action
+from utils.helpers import _error_interno, hash_password, verify_password, log_action, validar_contrasena
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -102,8 +102,9 @@ def api_register():
             if not data.get(campo):
                 return jsonify({'error': f'Campo requerido: {campo}'}), 400
 
-        if len(data['password']) < 6:
-            return jsonify({'error': 'Contraseña mínimo 6 caracteres'}), 400
+        error_contrasena = validar_contrasena(data['password'])
+        if error_contrasena:
+            return jsonify({'error': error_contrasena}), 400
 
         conn = get_db()
         if not conn:
@@ -217,8 +218,9 @@ def api_change_password():
         if not data.get('current_password') or not data.get('new_password'):
             return jsonify({'error': 'Se requieren ambas contraseñas'}), 400
 
-        if len(data['new_password']) < 6:
-            return jsonify({'error': 'Nueva contraseña mínimo 6 caracteres'}), 400
+        error_contrasena = validar_contrasena(data['new_password'])
+        if error_contrasena:
+            return jsonify({'error': error_contrasena}), 400
 
         conn = get_db()
         if not conn:

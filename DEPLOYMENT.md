@@ -25,6 +25,16 @@ docker compose --env-file .env.production -f docker-compose.production.yml logs 
 
 La ruta `/api/health` permite comprobar que Flask responde. Antes de publicar, restaura o migra la base de datos y confirma el trigger de borrado de estudiantes en la instancia de destino. No apuntes el despliegue a la base local de desarrollo.
 
+## Migrar contraseñas de prueba
+
+El script `scripts/database/migrate_test_passwords.py` busca cuentas cuyo hash bcrypt corresponda a la contraseña de prueba que indiques. Desde la raíz del proyecto y con las variables de conexión PostgreSQL configuradas, primero ejecuta:
+
+```sh
+python scripts/database/migrate_test_passwords.py
+```
+
+Ingresa la contraseña actual cuando el script la solicite; por defecto solo informa cuántas cuentas coinciden y no modifica datos. Después de revisar el resultado y contar con un respaldo, repite el comando con `--apply` e ingresa la nueva contraseña para las cuentas encontradas dos veces. El script valida que cumpla la regla de letras y números, genera un hash bcrypt diferente por cuenta y solo actualiza filas que sigan teniendo el hash detectado.
+
 ## Datos persistentes
 
 El volumen `app_uploads` conserva los justificantes y otros archivos cargados entre recreaciones del contenedor. Inclúyelo en el plan de respaldos junto con PostgreSQL. La imagen omite los archivos que estén en `storage/uploads` durante el build.
