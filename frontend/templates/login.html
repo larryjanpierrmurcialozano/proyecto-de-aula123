@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Inicia sesión en ARCHÉ NEX">
-    <title>Iniciar Sesión - NEXO DE DATOS</title>
+    <meta name="description" content="Inicia sesión en Institucion educativa Ecopetrol">
+    <title>Iniciar Sesión - Institucion educativa Ecopetrol</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
@@ -15,7 +15,7 @@
     <main class="main-content">
         <section class="img-section">
             <div class="brand">
-                <span class="brand-name">NEXO DE DATOS</span>
+                <span class="brand-name">Institucion educativa Ecopetrol</span>
             </div>
             <div class="img-overlay">
                 <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="Ilustración de inicio de sesión">
@@ -43,7 +43,7 @@
             </div>
             <form action="" class="auth-form" id="loginForm" method="post">
                 <h1>Iniciar Sesión</h1>
-                <p>Bienvenido de vuelta a NEXO DE DATOS</p>
+                <p>Bienvenido de vuelta a Institucion educativa Ecopetrol</p>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <div class="input-with-icon">
@@ -71,11 +71,12 @@
                 </div>
                 <input class="btn-submit" type="submit" value="Iniciar Sesión">
                 <div class="error-box" id="generalError" style="display: none;"></div>
+                <p>¿No tienes cuenta? <a href="/register">Regístrate</a></p>
             </form>
         </section>
     </main>
     <footer>
-        <small>&copy; 2025-2026 | NEXO DE DATOS</small>
+        <small>&copy; 2025-2026 | Institucion educativa Ecopetrol</small>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.js"></script>
     <script src="{{ url_for('static', filename='js/auth.js') }}"></script>

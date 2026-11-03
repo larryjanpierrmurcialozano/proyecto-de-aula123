@@ -42,13 +42,13 @@
 
 .modal {
     background: var(--blanco);
-    border-radius: 16px;
+    border-radius: 12px;
     box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25), 0 0 0 1px rgba(71, 85, 105, 0.05); /* Sombra elegante multicapa */
     border-top: 5px solid var(--cafe-oscuro); /* Acento visual en la parte superior */
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     transform: translateY(30px) scale(0.96);
-    max-height: 90vh;
-    overflow-y: auto;
+    max-height: 85vh;
+    overflow: hidden;
     color: var(--cafe-oscuro);
     display: flex;
     flex-direction: column;
@@ -62,6 +62,11 @@
 .modal-md { max-width: 600px; width: 90%; }
 .modal-lg { max-width: 800px; width: 90%; }
 .modal-xl { max-width: 1000px; width: 90%; }
+
+.modal-lg,
+.modal-xl {
+    max-width: 700px;
+}
 
 .modal-header {
     display: flex;
@@ -120,7 +125,22 @@
     padding-right: 0;
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.modal > form > .modal-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.modal > #perfil-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .modal-header + form > .form-group:first-of-type,
@@ -148,6 +168,7 @@
     padding: 1.5rem 2rem; /* ¡Amplios márgenes para evitar que toque los lados! */
     color: var(--cafe-oscuro);
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
 }
 

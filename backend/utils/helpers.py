@@ -87,6 +87,17 @@ def hash_password(password):
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
 
+def validar_contrasena(password):
+    """Exigir una contraseña de seis caracteres con letras y números."""
+    if not isinstance(password, str):
+        return 'La contraseña debe tener al menos 6 caracteres e incluir letras y números.'
+    tiene_letra = any(unicodedata.category(caracter).startswith('L') for caracter in password)
+    tiene_numero = any(unicodedata.category(caracter).startswith('N') for caracter in password)
+    if len(password) < 6 or not tiene_letra or not tiene_numero:
+        return 'La contraseña debe tener al menos 6 caracteres e incluir letras y números.'
+    return None
+
+
 def verify_password(password, hashed):
     """Verificar contraseña con bcrypt"""
     try:

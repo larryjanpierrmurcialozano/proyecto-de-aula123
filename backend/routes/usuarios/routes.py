@@ -9,6 +9,7 @@ from utils.helpers import (
     _error_interno,
     hash_password,
     log_action,
+    validar_contrasena,
     role_required,
     validar_documento_numerico,
     validar_nombre_persona
@@ -75,6 +76,9 @@ def api_usuario_crear():
             error_nombre = validar_nombre_persona(data.get(campo), etiqueta, obligatorio=True)
             if error_nombre:
                 return jsonify({'error': error_nombre}), 400
+        error_contrasena = validar_contrasena(data.get('password'))
+        if error_contrasena:
+            return jsonify({'error': error_contrasena}), 400
         conn = get_db()
         cursor = conn.cursor()
 
@@ -82,7 +86,7 @@ def api_usuario_crear():
             INSERT INTO usuarios (documento, nombre, apellido, correo, contrasena_hash, id_rol, is_activo)
             VALUES (%s, %s, %s, %s, %s, %s, TRUE)
         """, (data['documento'], data['nombre'], data['apellido'], data['correo'],
-              hash_password(data.get('password', '123456')), data['id_rol']))
+              hash_password(data['password']), data['id_rol']))
 
         conn.commit()
         nuevo_id = cursor.lastrowid
@@ -123,6 +127,11 @@ def api_usuario_actualizar(id_usuario):
             estado_activo = False
         else:
             return jsonify({'error': 'El estado del usuario debe ser Activo o Inactivo'}), 400
+        if data.get('password'):
+            error_contrasena = validar_contrasena(data['password'])
+            if error_contrasena:
+                return jsonify({'error': error_contrasena}), 400
+
         conn = get_db()
         cursor = conn.cursor()
 
@@ -144,11 +153,7 @@ def api_usuario_actualizar(id_usuario):
             estado_activo
         ]
 
-
-
         if data.get('password'):
-            if len(data['password']) < 6:
-                return jsonify({'error': 'Contraseña minimo 6 caracteres.'}), 400
             campos.append('contrasena_hash=%s')
             valores.append(hash_password(data['password']))
 

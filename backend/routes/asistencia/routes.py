@@ -1,7 +1,8 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 # ASISTENCIA — Módulo independiente de control de asistencia
 # ═══════════════════════════════════════════════════════════════════════════════
-from flask import Blueprint, jsonify, request, session, send_file
+from flask import Blueprint, current_app, jsonify, request, session, send_file
+from psycopg.errors import UndefinedTable
 from utils.database import get_db
 from utils.helpers import _error_interno, validar_fecha_no_futura
 from datetime import date, datetime
@@ -1079,6 +1080,7 @@ def api_reporte_general_asistencia():
         institucion = 'DOCSTRY'
         sede = ''
         jornada = ''
+        cursor.execute("SAVEPOINT asistencia_configuracion")
         try:
             cursor.execute("""
                 SELECT
@@ -1092,9 +1094,13 @@ def api_reporte_general_asistencia():
             institucion = (cfg.get('institucion') or 'DOCSTRY').strip() or 'DOCSTRY'
             sede = (cfg.get('sede') or '').strip()
             jornada = (cfg.get('jornada') or '').strip()
-        except Exception:
-            # Mantener valores por defecto cuando no exista la tabla en el esquema.
-            pass
+        except UndefinedTable:
+            cursor.execute("ROLLBACK TO SAVEPOINT asistencia_configuracion")
+            current_app.logger.warning(
+                "La tabla opcional configuracion no existe; se usarán los datos institucionales predeterminados."
+            )
+        finally:
+            cursor.execute("RELEASE SAVEPOINT asistencia_configuracion")
 
         # Cargar TODOS los estudiantes del grupo
         cursor.execute("""

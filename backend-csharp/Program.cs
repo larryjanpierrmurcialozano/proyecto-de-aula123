@@ -346,7 +346,7 @@ app.MapPost("/api/auth/change-password", async (
         PasswordChangeResult.InvalidCurrentPassword => Results.BadRequest(
             new { error = "Contraseña actual incorrecta" }),
         PasswordChangeResult.InvalidNewPassword => Results.BadRequest(
-            new { error = "Nueva contraseña mínimo 6 caracteres" }),
+            new { error = PasswordPolicy.ErrorMessage }),
         _ => Results.Ok(new { status = "ok", message = "Contraseña actualizada" })
     };
 });

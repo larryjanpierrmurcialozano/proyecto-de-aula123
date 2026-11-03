@@ -601,6 +601,7 @@
 
 #modal-asist-justificante .modal-content {
     width: min(560px, 94vw);
+    max-height: 85vh;
     background: var(--blanco);
     border-radius: 12px;
     border: none;
@@ -624,6 +625,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
 }
 
 #modal-asist-justificante .modal-header h2,
@@ -641,6 +643,7 @@
     background: var(--blanco);
     padding: 1.5rem 1.75rem;
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
 }
 
@@ -651,6 +654,7 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
+    flex-shrink: 0;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
 }

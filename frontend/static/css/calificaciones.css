@@ -528,8 +528,8 @@
     border: none;
     max-width: 560px;
     width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
+    max-height: 85vh;
+    overflow: hidden;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -548,6 +548,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
 }
 
 #modal-cal-actividad .modal-header h3 {
@@ -584,6 +585,7 @@
 #modal-cal-actividad form {
     padding: 1.5rem 1.75rem;
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
 }
 
