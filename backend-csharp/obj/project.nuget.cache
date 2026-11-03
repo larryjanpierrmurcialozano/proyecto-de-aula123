@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "4hRuVJzM9f0=",
+  "dgSpecHash": "UM+NpE6wQL8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yised\\Desktop\\PROYECTO DE AULA\\proyecto-de-aula123\\backend-csharp\\ProyectoGrado.Api.csproj",
+  "projectFilePath": "C:\\Users\\Shanya\\Downloads\\PROYECTO DE AULA\\PROYECTO DE AULA\\proyecto-de-aula123\\backend-csharp\\ProyectoGrado.Api.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Yised\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
-    "C:\\Users\\Yised\\.nuget\\packages\\npgsql\\8.0.6\\npgsql.8.0.6.nupkg.sha512"
+    "C:\\Users\\Shanya\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
+    "C:\\Users\\Shanya\\.nuget\\packages\\npgsql\\8.0.6\\npgsql.8.0.6.nupkg.sha512"
   ],
   "logs": []
 }

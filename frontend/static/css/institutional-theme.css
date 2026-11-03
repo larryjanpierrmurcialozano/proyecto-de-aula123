@@ -43,6 +43,42 @@ h6,
     color: var(--institutional-green-dark) !important;
 }
 
+.modal-header h1,
+.modal-header h2,
+.modal-header h3,
+.modal-header h4,
+.modal-header h5,
+.modal-header h6 {
+    color: #ffffff !important;
+}
+
+.card-header-flex .card-title,
+.card-header-flex .card-title i {
+    color: #ffffff !important;
+}
+
+.com-header h1,
+.com-header h1 i,
+.mat-header-left h2,
+.mat-header-left > i {
+    color: #ffffff !important;
+}
+
+.com-header p {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+#modal-asist-justificante .modal-header,
+#modal-cal-actividad .modal-header {
+    background: linear-gradient(135deg, var(--institutional-green-dark) 0%, var(--institutional-green) 100%);
+}
+
+#modal-asist-justificante .modal-header h2,
+#modal-asist-justificante .modal-header h3,
+#modal-cal-actividad .modal-header h3 {
+    color: #ffffff !important;
+}
+
 .sidebar h1,
 .sidebar h2,
 .sidebar h3,

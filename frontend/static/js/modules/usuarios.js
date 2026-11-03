@@ -18,6 +18,12 @@ function validarNombreUsuario(valor) {
     return /^[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*$/u.test(valor.trim().replace(/\s+/g, ' '));
 }
 
+function validarContrasenaUsuario(valor) {
+    return Array.from(valor).length >= 6 &&
+        /\p{L}/u.test(valor) &&
+        /\p{N}/u.test(valor);
+}
+
 function configurarCamposNombreUsuario() {
     for (const id of ['usuario-nombre', 'usuario-apellido']) {
         const input = document.getElementById(id);
@@ -174,6 +180,12 @@ document.getElementById('form-usuario').addEventListener('submit', async functio
         is_activo: document.getElementById('usuario-estado').value === '1',
         password: document.getElementById('usuario-password').value
     };
+
+    if ((data.password || !id) && !validarContrasenaUsuario(data.password)) {
+        mostrarAlerta('La contraseña debe tener al menos 6 caracteres e incluir letras y números.', 'error');
+        document.getElementById('usuario-password').focus();
+        return;
+    }
 
     try {
         if (id) {

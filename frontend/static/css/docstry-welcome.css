@@ -1,5 +1,5 @@
 :root {
-    --cafe-oscuro: #0A4D2E;
+    --cafe-oscuro: #0a4d2e;
     --cafe-medio: #0F6B42;
     --cafe-claro: #E2E8F0;
     --cafe-suave: #475569;
@@ -265,7 +265,10 @@ nav {
 .avatar-image {
     width: 100px;
     height: 100px;
-    background: var(--cafe-suave);
+    box-sizing: border-box;
+    padding: 18px;
+    background: #F0FDF4;
+    border: 1px solid #DCFCE7;
     border-radius: 50%;
     margin: 0 auto 1rem;
 }
@@ -725,8 +728,15 @@ nav {
 
 .docstry-footer {
     background: #0A4D2E;
-    color: var(--blanco);
+    color: #FFFFFF;
     padding: 50px 20px 20px;
+}
+
+.docstry-footer h4,
+.docstry-footer p,
+.docstry-footer small,
+.docstry-footer a {
+    color: #FFFFFF !important;
 }
 
 .footer-content {
@@ -736,7 +746,7 @@ nav {
     max-width: 1200px;
     margin: 0 auto 30px;
     padding-bottom: 30px;
-    border-bottom: 1px solid rgba(71, 85, 105, 0.156);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .footer-section h4 {
@@ -746,7 +756,6 @@ nav {
 
 .footer-section p {
     font-size: 14px;
-    opacity: 0.9;
     line-height: 1.6;
 }
 
@@ -759,20 +768,18 @@ nav {
 }
 
 .footer-section a {
-    color: var(--secundario);
     text-decoration: none;
     font-size: 14px;
     transition: opacity 0.3s;
 }
 
 .footer-section a:hover {
-    opacity: 0.8;
+    text-decoration: underline;
 }
 
 .footer-bottom {
     text-align: center;
     font-size: 13px;
-    opacity: 0.8;
     max-width: 1200px;
     margin: 0 auto;
 }

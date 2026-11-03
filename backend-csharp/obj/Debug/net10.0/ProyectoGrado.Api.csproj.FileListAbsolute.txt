@@ -126,3 +126,11 @@ C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.
 C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.Api.runtimeconfig.json
 C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.Api.dll
 C:\Users\Yised\AppData\Local\Temp\ProyectoGradoUserNameValidation\ProyectoGrado.Api.pdb
+C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\appsettings.Development.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\appsettings.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.staticwebassets.endpoints.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.exe
+C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.deps.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.runtimeconfig.json
+C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.dll
+C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.pdb

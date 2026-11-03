@@ -58,6 +58,11 @@ public sealed class AuthQueries(PostgresConnectionFactory factory)
         RegisterRequest request,
         CancellationToken cancellationToken)
     {
+        if (!PasswordPolicy.IsValid(request.Password))
+        {
+            return new RegistrationResult(false, null, PasswordPolicy.ErrorMessage);
+        }
+
         const string sql = """
             INSERT INTO usuarios
                 (documento, nombre, apellido, correo, contrasena_hash, id_rol, is_activo)
@@ -89,7 +94,7 @@ public sealed class AuthQueries(PostgresConnectionFactory factory)
         ChangePasswordRequest request,
         CancellationToken cancellationToken)
     {
-        if (request.NewPassword.Length < 6)
+        if (!PasswordPolicy.IsValid(request.NewPassword))
         {
             return PasswordChangeResult.InvalidNewPassword;
         }

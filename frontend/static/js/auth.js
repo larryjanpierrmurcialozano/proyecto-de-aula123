@@ -60,7 +60,9 @@ function validateEmail(email) {
  * Validar contraseña
  */
 function validatePassword(password) {
-    return password.length >= 6;
+    return Array.from(password).length >= 6 &&
+        /\p{L}/u.test(password) &&
+        /\p{N}/u.test(password);
 }
 
 /**
@@ -247,70 +249,25 @@ if (loginForm) {
 const registerForm = document.getElementById('registerForm');
 
 if (registerForm) {
-    // Indicador de fuerza de contraseña
-    const passwordField = document.getElementById('password');
-    if (passwordField) {
-        passwordField.addEventListener('input', () => {
-            const password = passwordField.value;
-            const strengthBar = document.getElementById('strengthBar');
-
-            if (strengthBar) {
-                if (password.length < 6) {
-                    strengthBar.className = 'strength-bar';
-                } else if (password.length < 10) {
-                    strengthBar.className = 'strength-bar weak';
-                } else if (password.length < 15) {
-                    strengthBar.className = 'strength-bar medium';
-                } else {
-                    strengthBar.className = 'strength-bar strong';
-                }
-            }
-
-            clearFieldError('password');
+    for (const fieldId of ['nombre', 'apellido', 'email', 'documento', 'password', 'confirmPassword']) {
+        document.getElementById(fieldId)?.addEventListener('input', () => {
+            clearFieldError(fieldId);
+            clearGeneralError();
         });
     }
 
-    // Limpiar errores al escribir
-    document.getElementById('nombre')?.addEventListener('input', () => {
-        clearFieldError('nombre');
-        clearGeneralError();
-    });
-
-    document.getElementById('email')?.addEventListener('input', () => {
-        clearFieldError('email');
-        clearGeneralError();
-    });
-
-    document.getElementById('rol')?.addEventListener('change', () => {
-        clearFieldError('rol');
-        clearGeneralError();
-    });
-
-    document.getElementById('confirmPassword')?.addEventListener('input', () => {
-        clearFieldError('confirmPassword');
-        clearGeneralError();
-    });
-
-    document.getElementById('terms')?.addEventListener('change', () => {
-        clearFieldError('terms');
-        clearGeneralError();
-    });
-
-    // Submit del formulario
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         clearGeneralError();
 
-        // Obtener valores
         const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
+        const documento = document.getElementById('documento').value.trim();
         const email = document.getElementById('email').value.trim().toLowerCase();
-        const rol = document.getElementById('rol').value;
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
-        const terms = document.getElementById('terms').checked;
 
-        // Validar
         let isValid = true;
 
         if (!nombre) {
@@ -326,8 +283,13 @@ if (registerForm) {
             isValid = false;
         }
 
-        if (!rol) {
-            showFieldError('rol', 'Selecciona un rol');
+        if (!apellido) {
+            showFieldError('apellido', 'El apellido es requerido');
+            isValid = false;
+        }
+
+        if (!documento) {
+            showFieldError('documento', 'El documento es requerido');
             isValid = false;
         }
 
@@ -335,7 +297,7 @@ if (registerForm) {
             showFieldError('password', 'La contraseña es requerida');
             isValid = false;
         } else if (!validatePassword(password)) {
-            showFieldError('password', 'La contraseña debe tener al menos 6 caracteres');
+            showFieldError('password', 'La contraseña debe tener al menos 6 caracteres e incluir letras y números.');
             isValid = false;
         }
 
@@ -344,30 +306,24 @@ if (registerForm) {
             isValid = false;
         }
 
-        if (!terms) {
-            showFieldError('terms', 'Debes aceptar los términos y condiciones');
-            isValid = false;
-        }
-
         if (!isValid) return;
 
-        // Deshabilitar botón
         const submitButton = registerForm.querySelector('.btn-submit');
         const originalText = submitButton.innerHTML;
         disableSubmitButton(submitButton);
 
         try {
-            // Realizar registro
             const response = await fetch('/api/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    nombre_completo: nombre,
-                    email: email,
-                    password: password,
-                    rol: rol
+                    nombre,
+                    apellido,
+                    documento,
+                    email,
+                    password
                 })
             });
 
@@ -379,13 +335,7 @@ if (registerForm) {
                 return;
             }
 
-            // Registro exitoso
             notyf.success('¡Cuenta creada exitosamente!');
-
-            // Mostrar mensaje
-            alert('Registro exitoso. Ahora puedes iniciar sesión.');
-
-            // Redirigir al login
             setTimeout(() => {
                 window.location.href = '/login';
             }, 1500);

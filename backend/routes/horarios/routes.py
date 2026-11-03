@@ -482,8 +482,7 @@ def api_exportar_horario_pdf():
         from io import BytesIO
         from flask import send_file
         
-        # fpdf 1.x devuelve str; convertir a bytes para send_file
-        pdf_bytes = pdf.output(dest='S').encode('latin-1')
+        pdf_bytes = bytes(pdf.output())
         filename = f"Horario_{titulo.replace(' ', '_').replace('-', '')}.pdf"
 
         if session.get('user_id'):
