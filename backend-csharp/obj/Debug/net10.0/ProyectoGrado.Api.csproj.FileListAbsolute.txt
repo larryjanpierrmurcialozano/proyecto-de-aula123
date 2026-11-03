@@ -134,3 +134,36 @@ C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.de
 C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.runtimeconfig.json
 C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.dll
 C:\Users\Yised\AppData\Local\Temp\ProyectoGrado-build-check\ProyectoGrado.Api.pdb
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\appsettings.Development.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\appsettings.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.staticwebassets.endpoints.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.exe
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.deps.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.runtimeconfig.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.dll
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\ProyectoGrado.Api.pdb
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\BCrypt.Net-Next.dll
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\bin\Debug\net10.0\Npgsql.dll
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.csproj.AssemblyReference.cache
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\rpswa.dswa.cache.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.AssemblyInfoInputs.cache
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.AssemblyInfo.cs
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.csproj.CoreCompileInputs.cache
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.sourcelink.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\rjimswa.dswa.cache.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\scopedcss\bundle\ProyectoGrado.Api.styles.css
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\staticwebassets.build.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\staticwebassets.build.json.cache
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\staticwebassets.development.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\swae.build.ex.cache
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\Proyecto.3BA5C14C.Up2Date
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.dll
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\refint\ProyectoGrado.Api.dll
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.pdb
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ProyectoGrado.Api.genruntimeconfig.cache
+C:\Users\Larry\OneDrive\Escritorio\sexoooooo\proyecto de aula123\backend-csharp\obj\Debug\net10.0\ref\ProyectoGrado.Api.dll

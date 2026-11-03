@@ -382,6 +382,7 @@ function renderDashboard() {
             { id: 'grados', icono: 'fa-layer-group', titulo: 'Grados y Grupos', descripcion: 'Configura los grados académicos y sus grupos con capacidades.' },
             { id: 'materias', icono: 'fa-book', titulo: 'Materias', descripcion: 'Administra las materias, su intensidad horaria y descripción.' },
             { id: 'horarios', icono: 'fa-clock', titulo: 'Horarios', descripcion: 'Visualiza y gestiona los horarios de clases por grupo.' },
+            { id: 'horarios-gestion', icono: 'fa-calendar-alt', titulo: 'Horarios Docentes', descripcion: 'Consulta los horarios de docentes por grado y grupo, permite descargar en Excel o PDF.' },
             { id: 'periodos', icono: 'fa-calendar-alt', titulo: 'Períodos', descripcion: 'Configura los períodos académicos del año escolar.' },
             { id: 'calificaciones', icono: 'fa-star', titulo: 'Calificaciones', descripcion: 'Registra y consulta las notas de los estudiantes por actividad.' },
             { id: 'asistencia', icono: 'fa-clipboard-check', titulo: 'Asistencia', descripcion: 'Control diario de asistencia de estudiantes por grupo.' },
@@ -412,7 +413,7 @@ function renderDashboard() {
     content.innerHTML = `
         <div class="card">
             <h2 class="card-title"><i class="fas fa-home"></i> Bienvenido, ${USUARIO.nombre}</h2>
-            <p style="color: var(--cafe-claro); margin-bottom: 0.5rem;">
+            <p style="color: var(--institutional-green-dark); margin-bottom: 0.5rem;">
                 Rol: <strong>${USUARIO.rol}</strong> · Acceso a <strong>${seccionesVisibles.length}</strong> módulos
             </p>
         </div>
