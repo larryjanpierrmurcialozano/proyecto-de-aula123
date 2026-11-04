@@ -2,6 +2,48 @@
 
 El contenedor sirve tanto Flask como el frontend; las llamadas `/api/...` siguen siendo del mismo origen. La base PostgreSQL se configura como servicio externo para que el despliegue no cree una base vacía por accidente. Los archivos subidos se guardan en el volumen Docker `app_uploads`.
 
+## Iniciar Flask y C# en Ubuntu Server
+
+Para ejecutar los dos backends fuera de Docker, instala Python, .NET y
+PostgreSQL/Docker en el servidor. Crea el entorno Python e instala las
+dependencias:
+
+```sh
+python3 -m venv backend/.venv
+backend/.venv/bin/python -m pip install -r requirements-deploy.txt
+cp .env.example .env
+```
+
+Si ya existe un contenedor PostgreSQL con la base `anexo_de_datos`, no es
+necesario crear otro. El script lo valida antes de iniciar los backends.
+Configura `DB_HOST`, `DB_PORT` y `DB_NAME` en `.env`; por defecto usa
+`localhost`, `5432` y `anexo_de_datos`. Si `DB_USER` o `DB_PASSWORD` faltan,
+los solicita de forma interactiva y los guarda en `.env`. También valida esas
+credenciales dentro del contenedor antes de continuar.
+
+Si se desea el proxy Flask -> C#, configura también `CSHARP_PROXY_SECRET` y
+`CSHARP_PROXY_MODULES`. Después, inicia ambos servicios con:
+
+```sh
+chmod +x scripts/start_servers.sh
+./scripts/start_servers.sh start
+./scripts/start_servers.sh status
+```
+
+El script usa Gunicorn para Flask en `0.0.0.0:8000` y ASP.NET Core en
+`127.0.0.1:5124`. Los registros quedan en `storage/logs/`. Para detenerlos:
+
+```sh
+./scripts/start_servers.sh stop
+```
+
+Para cambiar el archivo de variables o los puertos:
+
+```sh
+ENV_FILE=/ruta/al/.env.production FLASK_BIND=0.0.0.0:8000 \
+  CSHARP_BIND=http://127.0.0.1:5124 ./scripts/start_servers.sh start
+```
+
 ## Preparar configuración
 
 1. Copia `.env.production.example` como `.env.production` en el host de despliegue.

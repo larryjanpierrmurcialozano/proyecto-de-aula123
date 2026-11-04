@@ -80,8 +80,13 @@ Desde la raÃ­z del repositorio:
 dotnet run --project backend-csharp\ProyectoGrado.Api.csproj
 ```
 
-La cadena base estÃ¡ en `appsettings.json` sin contraseÃ±a. En desarrollo, la
-contraseÃ±a se guarda fuera del repositorio mediante .NET User Secrets:
+La conexiÃ³n se configura mediante variables de entorno. El backend acepta
+`DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` y opcionalmente
+`DB_SSLMODE`. TambiÃ©n acepta los nombres del contenedor PostgreSQL
+(`POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DB`, `POSTGRES_USER` y
+`POSTGRES_PASSWORD`), por lo que puede reutilizar el mismo archivo `.env.docker`.
+En desarrollo, la contraseÃ±a tambiÃ©n puede guardarse fuera del repositorio
+mediante .NET User Secrets:
 
 ```powershell
 dotnet user-secrets set "ConnectionStrings:Postgres" `
@@ -89,8 +94,8 @@ dotnet user-secrets set "ConnectionStrings:Postgres" `
   --project backend-csharp\ProyectoGrado.Api.csproj
 ```
 
-Para otros entornos se debe usar la variable de entorno
-`ConnectionStrings__Postgres`.
+Si se define `ConnectionStrings__Postgres`, sus valores sirven como respaldo
+para los campos que no tengan una variable individual.
 
 ## Estado de migraciÃ³n
 

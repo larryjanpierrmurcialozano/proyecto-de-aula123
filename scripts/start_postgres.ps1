@@ -26,6 +26,8 @@ if (-not (Test-Path $configPath)) {
 }
 
 $config = Get-Content -LiteralPath $configPath
+$databaseName = ($config | Where-Object { $_ -match "^POSTGRES_DB=" } | Select-Object -First 1).Substring("POSTGRES_DB=".Length)
+$databaseUser = ($config | Where-Object { $_ -match "^POSTGRES_USER=" } | Select-Object -First 1).Substring("POSTGRES_USER=".Length)
 if ([string]::IsNullOrWhiteSpace($Password)) {
     $passwordLine = $config | Where-Object { $_ -match "^POSTGRES_PASSWORD=" } | Select-Object -First 1
     $configuredPassword = if ($passwordLine) { $passwordLine.Substring("POSTGRES_PASSWORD=".Length) } else { "" }
@@ -65,7 +67,7 @@ try {
     }
     $containerId = $containerId.Trim()
 
-    $schemaInitialized = docker exec $containerId psql -U docstry_app -d anexo_de_datos -tAc "SELECT to_regclass('public._proyecto_schema_initialized') IS NOT NULL;" 2>$null
+    $schemaInitialized = docker exec $containerId psql -U $databaseUser -d $databaseName -tAc "SELECT to_regclass('public._proyecto_schema_initialized') IS NOT NULL;" 2>$null
     if ($LASTEXITCODE -ne 0) {
         throw "No fue posible comprobar el estado del esquema PostgreSQL."
     }
@@ -78,8 +80,8 @@ try {
         }
 
         docker exec $containerId pg_restore `
-            --username=docstry_app `
-            --dbname=anexo_de_datos `
+            --username=$databaseUser `
+            --dbname=$databaseName `
             --schema-only `
             --no-owner `
             --no-acl `
@@ -89,7 +91,7 @@ try {
             throw "No fue posible crear la estructura de la base de datos."
         }
 
-        docker exec $containerId psql -U docstry_app -d anexo_de_datos -c "CREATE TABLE IF NOT EXISTS public._proyecto_schema_initialized (id boolean PRIMARY KEY DEFAULT true CHECK (id));"
+        docker exec $containerId psql -U $databaseUser -d $databaseName -c "CREATE TABLE IF NOT EXISTS public._proyecto_schema_initialized (id boolean PRIMARY KEY DEFAULT true CHECK (id));"
         if ($LASTEXITCODE -ne 0) {
             throw "No fue posible registrar la inicialización del esquema."
         }
@@ -102,9 +104,9 @@ try {
 
     Write-Host ""
     Write-Host "PostgreSQL está ejecutándose en localhost:$Port."
-    Write-Host "Base de datos: anexo_de_datos"
+    Write-Host "Base de datos: $databaseName"
     Write-Host "La estructura de tablas fue preparada sin registros."
-    Write-Host "Usuario: docstry_app"
+    Write-Host "Usuario: $databaseUser"
     Write-Host "La contraseña quedó guardada en .env.docker (archivo ignorado por Git)."
     Write-Host ""
     Write-Host "Para detener el contenedor:"

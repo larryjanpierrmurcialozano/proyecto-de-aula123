@@ -18,6 +18,8 @@ backend/.env
 .env.docker
 storage/uploads/
 storage/backups/
+storage/logs/
+.run/
 ideasafuturo
 storage/generated/
 scripts/database/trigger_delete_estudiante.sql
