@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institucion educativa Ecopetrol - Gestión Académica Integral</title>
+    <meta name="description" content="Sistema de gestión académica para instituciones educativas. Control de estudiantes, calificaciones, asistencia y reportes en tiempo real.">
+    <meta name="keywords" content="Sistema, Gestión Académica, Institución Educativa, Control de Estudiantes, Calificaciones, Asistencia, Reportes, Plataforma Integral">
+    <meta name="author" content="">
+    <link rel="Shortcut icon" href="img/icon.png">
+    <link rel="icon" type="image/png" href="img/icon.png?v=2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/docstry-welcome.css', v='20261027-footer') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/error-handler.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/institutional-theme.css', v='20261027-palette') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100..900;1,100..900&family=Bebas+Neue&family=Bungee+Shade&family=Chakra+Petch:ital,wght@0,300..700;1,300..700&family=Cormorant+SC:wght@300..700&family=DM+Serif+Display:ital@0;1&family=Dancing+Script:wght@400..700&family=DotGothic16&family=Doto:wght@100..900&family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&family=Faster+One&family=Fondamento:ital@0;1&family=Fredoka:wght@300..700&family=Julius+Sans+One&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Mate+SC&family=Monoton&family=Nabla&family=Pacifico&family=Pinyon+Script&family=Pixelify+Sans:wght@400..700&family=Playball&family=Playwrite+IT+Moderna:wght@100..400&family=Press+Start+2P&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Righteous&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sacramento&family=Staatliches&family=Tangerine:wght@400;700&family=VT323&family=Zilla+Slab+Highlight:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="menu">
+                <li><a href="#nosotros" class="nav-links">Nosotros</a></li>
+                <li><a href="#servicios" class="nav-links">Servicios</a></li>
+                <div class="logo-container">
+                    <a href="#inicio" class="logo-link">
+                        <img src="{{ url_for('static', filename='img/escudo.png') }}" class="logo-img">
+                    </a>
+                </div>
+                <li><a href="#caracteristicas" class="nav-links">Características</a></li>
+                <li><a href="#plataforma" class="nav-links">Plataforma</a></li>
+            </ul>
+            <div class="auth-btn">
+                <a href="/login" class="auth-btn1">Iniciar Sesión</a>
+            </div>
+        </nav>
+    </header>
+    <section class="hero-section" id="inicio">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="welcome-label">Institucion educativa Ecopetrol - Plataforma Académica 2026</span>
+                <h1 class="hero-title">Digitaliza tu institución</h1>
+                <p class="hero-description">
+                    Olvida los blocs de notas y el papeleo. Una herramienta integral diseñada para
+                    <strong>docentes y rectores</strong> que buscan eficiencia en tiempo real.
+                </p>
+                <div class="button-group">
+                    <a href="/contacto" class="primary-button">Agendar demostración</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="trust-bar" id="nosotros">
+        <div class="trust-item"><i class="fas fa-check-circle"></i> Gestión 100% Digital</div>
+        <div class="trust-item"><i class="fas fa-shield-alt"></i> Datos Encriptados</div>
+        <div class="trust-item"><i class="fas fa-bolt"></i> Reportes Instantáneos</div>
+    </div>
+    <section class="about-section" >
+        <div class="about-container">
+            <div class="about-text">
+                <h2 class="section-title">Nacidos para transformar</h2>
+                <p>NEXO DE DATOS surge de la necesidad de cerrar la brecha digital en las escuelas primarias, brindando a
+                    los coordinadores una visión 360° de su institución sin complicaciones técnicas.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='img/daycare.png', v='20261027-icons') }}" class="avatar-image" alt="Icono de gestión directiva">
+                    <h4>Gestión Directiva</h4>
+                    <p>Optimiza la toma de decisiones.</p>
+                </div>
+                <div class="team-member">
+                    <img src="{{ url_for('static', filename='img/schedule.png', v='20261027-icons') }}" class="avatar-image" alt="Icono de cuerpo docente">
+                    <h4>Cuerpo Docente</h4>
+                    <p>Facilita la labor pedagógica diaria.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SERVICIOS PRINCIPALES -->
+    <section class="services" id="servicios">
+        <div class="container">
+            <h2 class="section-title">Servicios para tu institución</h2>
+            <p class="section-subtitle">Todo lo que necesitas en una sola plataforma</p>
+            <div class="services-grid">
+                <!-- Gestión de Estudiantes -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="service-title">Gestión de Estudiantes</h3>
+                    <p class="service-description">
+                        Registro completo, perfiles personalizados, historial académico y seguimiento integral de cada
+                        estudiante.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Registro de datos completos</li>
+                        <li><i class="fas fa-check"></i> Historial académico</li>
+                        <li><i class="fas fa-check"></i> Información del acudiente</li>
+                    </ul>
+                </div>
+                <!-- Calificaciones Online -->
+                <div class="service-card">
+                    <div class="service-icon primary-accent">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="service-title">Calificaciones Online</h3>
+                    <p class="service-description">
+                        Registro digital de notas, cálculo automático de promedios y boletines actualizados en tiempo
+                        real.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Registro digital de notas</li>
+                        <li><i class="fas fa-check"></i> Cálculo automático</li>
+                        <li><i class="fas fa-check"></i> Boletines en tiempo real</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon success">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h3 class="service-title">Control de Asistencia</h3>
+                    <p class="service-description">
+                        Registro detallado de asistencia, justificantes de ausencia y reportes generados
+                        automáticamente.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Registro diario</li>
+                        <li><i class="fas fa-check"></i> Justificantes de ausencia</li>
+                        <li><i class="fas fa-check"></i> Reportes automáticos</li>
+                    </ul>
+                </div>
+                <!-- Horarios y Materias -->
+                <div class="service-card">
+                    <div class="service-icon warning">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <h3 class="service-title">Horarios y Materias</h3>
+                    <p class="service-description">
+                        Gestión de horarios, asignación de materias, distribución de docentes y configuración de grupos.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Horarios flexibles</li>
+                        <li><i class="fas fa-check"></i> Asignación de docentes</li>
+                        <li><i class="fas fa-check"></i> Gestión de grupos</li>
+                    </ul>
+                </div>
+                <!-- Comunicados y Notificaciones -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="service-title">Comunicados y Notificaciones</h3>
+                    <p class="service-description">
+                        Envía comunicados a padres, estudiantes y docentes de forma rápida y efectiva con confirmación
+                        de lectura.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Comunicados directos</li>
+                        <li><i class="fas fa-check"></i> Notificaciones automáticas</li>
+                        <li><i class="fas fa-check"></i> Confirmación de lectura</li>
+                    </ul>
+                </div>
+                <!-- Reportes y Analítica -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="service-title">Reportes legales</h3>
+                    <p class="service-description">
+                        Generación automática de boletines y certificados bajo normas institucionales.
+                    </p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Reportes personalizados</li>
+                        <li><i class="fas fa-check"></i> Exportar en PDF/Excel</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="features" id="caracteristicas">
+        <div class="container">
+            <h2 class="section-title2">Características principales</h2>
+            <p class="section-subtitle">Diseñado para instituciones educativas modernas</p>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h4>Acceso en la Nube</h4>
+                    <p>Disponible desde cualquier dispositivo con conexión a internet</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h4>Control de Acceso</h4>
+                    <p>Roles personalizados para docentes, coordinadores y administradores</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h4>Seguridad</h4>
+                    <p>Datos encriptados y protegidos con los estándares más altos de seguridad</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4>Acceso Móvil</h4>
+                    <p>Accede desde cualquier dispositivo en cualquier momento</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4>Rápido y Confiable</h4>
+                    <p>Rendimiento optimizado para un funcionamiento eficiente</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h4>Soporte Técnico</h4>
+                    <p>Equipo disponible para asistirte</p>
+                </div>
+                <div class="features-image-side">
+                    <img class="woman-image" src="{{ url_for('static', filename='img/caractMujer.png') }}">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="platform-preview" id="plataforma">
+        <div class="platform-container">
+            <div class="preview-header">
+                <h2 class="preview-title">Explora la Plataforma</h2>
+                <p class="preview-subtitle">Interfaz intuitiva diseñada para educadores y administradores</p>
+            </div>
+            <div class="showcase-layout">
+                <div class="showcase-menu-column">
+                    <ul class="showcase-menu">
+                        <li class="showcase-item active" data-target="dashboard">
+                            <div class="item-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="item-content">
+                                <h4 class="item-title">Panel de Control</h4>
+                                <p class="item-desc">Gestión completa desde un solo lugar</p>
+                            </div>
+                        </li>
+                        <li class="showcase-item" data-target="grades">
+                            <div class="item-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="item-content">
+                                <h4 class="item-title">Sistema de Calificaciones</h4>
+                                <p class="item-desc">Registro digital con cálculos automáticos</p>
+                            </div>
+                        </li>
+                        <li class="showcase-item" data-target="attendance">
+                            <div class="item-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="item-content">
+                                <h4 class="item-title">Control de Asistencia</h4>
+                                <p class="item-desc">Registro automático y justificantes</p>
+                            </div>
+                        </li>
+                        <li class="showcase-item" data-target="schedule">
+                            <div class="item-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="item-content">
+                                <h4 class="item-title">Gestión de Horarios</h4>
+                                <p class="item-desc">Distribución de clases y docentes</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="showcase-display-column">
+                    <div class="laptop-frame">
+                        <div class="laptop-header"></div>
+                        <div class="laptop-body">
+                            <div class="image-display">
+                                <img class="showcase-image active" src="{{ url_for('static', filename='img/moduloPanelControl.png') }}" alt="Panel de Control" data-image="dashboard">
+                                <img class="showcase-image" src="{{ url_for('static', filename='img/moduloCalificaciones.png') }}" alt="Calificaciones" data-image="grades">
+                                <img class="showcase-image" src="{{ url_for('static', filename='img/moduloAsistencias.png') }}" alt="Asistencia" data-image="attendance">
+                                <img class="showcase-image" src="{{ url_for('static', filename='img/moduloHorarios.png') }}" alt="Horarios" data-image="schedule">
+                            </div>
+                        </div>
+                        <div class="laptop-notch"></div>
+                    </div>
+                </div>
+                <div class="platform-image">
+                    <img class="desk-image" src="{{ url_for('static', filename='img/deskBackground.png') }}">
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="docstry-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Institucion educativa Ecopetrol</h4>
+                    <p>Plataforma integral de gestión académica para instituciones educativas</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Términos de Servicio</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Soporte Institucional</h4>
+                    <p>Escríbenos para consultas técnicas o administrativas.
+                        <a href="mailto:soporteIEE@gmail.com">soporteIEE@gmail.com</a>
+                    </p>
+                    <h4>Línea de Atención</h4>
+                    <p>Lunes a Viernes de 8:00 AM a 6:00 PM.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <small>&copy; 2025-2026 | Institucion educativa Ecopetrol</small>
+        </div>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='js/error-handler.js') }}"></script>
+    <script>
+        // Sistema interactivo de visualización de plataforma
+        document.addEventListener('DOMContentLoaded', function() {
+            const showcaseItems = document.querySelectorAll('.showcase-item');
+            const showcaseImages = document.querySelectorAll('.showcase-image');
+
+            showcaseItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetData = this.getAttribute('data-target');
+                    
+                    // Remover clase active de todos los items
+                    showcaseItems.forEach(i => i.classList.remove('active'));
+                    
+                    // Agregar clase active al item clickeado
+                    this.classList.add('active');
+                    
+                    // Remover clase active de todas las imágenes
+                    showcaseImages.forEach(img => img.classList.remove('active'));
+                    
+                    // Agregar clase active a la imagen correspondiente
+                    const targetImage = document.querySelector(`.showcase-image[data-image="${targetData}"]`);
+                    if (targetImage) {
+                        targetImage.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+@baseUrl = http://localhost:5081
+@userId = 28
+
+### Health de PostgreSQL
+GET {{baseUrl}}/api/health
+
+### Listar usuarios
+GET {{baseUrl}}/api/usuarios
+
+### Obtener usuario
+GET {{baseUrl}}/api/usuarios/{{userId}}
+
+### Listar roles
+GET {{baseUrl}}/api/roles
+
+### Registrar usuario temporal de prueba
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "nombre": "CSharp",
+  "apellido": "Prueba",
+  "email": "csharp.test@example.com",
+  "password": "Temporal123",
+  "documento": "CSHARP-TEST"
+}
+
+### Iniciar sesión
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "csharp.test@example.com",
+  "password": "Temporal123"
+}
+
+### Comprobar sesión (requiere conservar la cookie)
+GET {{baseUrl}}/api/auth/check
+
+### Perfil del usuario autenticado
+GET {{baseUrl}}/api/auth/profile
+
+### Cambiar contraseña
+POST {{baseUrl}}/api/auth/change-password
+Content-Type: application/json
+
+{
+  "currentPassword": "Temporal123",
+  "newPassword": "Temporal456"
+}
+
+### Cerrar sesión
+POST {{baseUrl}}/api/auth/logout
+
+### Usuario inexistente
+GET {{baseUrl}}/api/usuarios/999999

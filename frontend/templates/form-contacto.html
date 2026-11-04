@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHÉ NEX - Gestión Académica Integral</title>
+    <meta name="description" content="Sistema de gestión académica para instituciones educativas. Control de estudiantes, calificaciones, asistencia y reportes en tiempo real.">
+    <meta name="keywords" content="Sistema, Gestión Académica, Institución Educativa, Control de Estudiantes, Calificaciones, Asistencia, Reportes, Plataforma Integral">
+    <meta name="author" content="">
+    <link rel="Shortcut icon" href="img/icon.png">
+    <link rel="icon" type="image/png" href="img/icon.png?v=2">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form-contacto.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/institutional-theme.css', v='20261027-palette') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:ital,wght@0,100..900;1,100..900&family=Bebas+Neue&family=Bungee+Shade&family=Chakra+Petch:ital,wght@0,300..700;1,300..700&family=Cormorant+SC:wght@300..700&family=DM+Serif+Display:ital@0;1&family=Dancing+Script:wght@400..700&family=DotGothic16&family=Doto:wght@100..900&family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&family=Faster+One&family=Fondamento:ital@0;1&family=Fredoka:wght@300..700&family=Julius+Sans+One&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Mate+SC&family=Monoton&family=Nabla&family=Pacifico&family=Pinyon+Script&family=Pixelify+Sans:wght@400..700&family=Playball&family=Playwrite+IT+Moderna:wght@100..400&family=Press+Start+2P&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&family=Righteous&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sacramento&family=Staatliches&family=Tangerine:wght@400;700&family=VT323&family=Zilla+Slab+Highlight:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+   <section class="beta-section">
+        <a href="javascript:history.back()" class="back-button">
+            <i class="fas fa-arrow-left"></i> Volver atrás
+        </a>
+        <div class="form-container">
+            <div class="form-header">
+                <h2 class="form-title">Nexo de Datos - Prueba Beta</h2>
+                <p class="form-subtitle">Envíanos tus datos para obtener acceso exclusivo a la plataforma.</p>
+            </div>
+            <form class="beta-form">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Nombre del Responsable</label>
+                        <input type="text" placeholder="Ej. Juan Pérez" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Nombre de la Institución</label>
+                        <input type="text" placeholder="Ej. Colegio Nacional" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Tipo de Institución</label>
+                        <select required>
+                            <option value="" disabled selected>Selecciona un tipo</option>
+                            <option value="Pública">Pública</option>
+                            <option value="Privada">Privada</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Cargo</label>
+                        <select required>
+                            <option value="" disabled selected>Selecciona un cargo</option>
+                            <option value="Director">Director</option>
+                            <option value="Coordinador">Coordinador</option>
+                            <option value="Docente">Docente</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" placeholder="correo@institucion.edu" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Teléfono</label>
+                        <input type="tel" placeholder="300 123 4567" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Departamento</label>
+                        <select id="department-select" required>
+                            <option value="" disabled selected>Selecciona un departamento</option>
+                            <option value="amazonas">Amazonas</option>
+                            <option value="antioquia">Antioquia</option>
+                            <option value="arauca">Arauca</option>
+                            <option value="atlantico">Atlántico</option>
+                            <option value="bolivar">Bolívar</option>
+                            <option value="boyaca">Boyacá</option>
+                            <option value="caldas">Caldas</option>
+                            <option value="caqueta">Caquetá</option>
+                            <option value="casanare">Casanare</option>
+                            <option value="cauca">Cauca</option>
+                            <option value="cesar">Cesar</option>
+                            <option value="choco">Chocó</option>
+                            <option value="cordoba">Córdoba</option>
+                            <option value="cundinamarca">Cundinamarca</option>
+                            <option value="guainia">Guainía</option>
+                            <option value="guaviare">Guaviare</option>
+                            <option value="huila">Huila</option>
+                            <option value="laguajira">La Guajira</option>
+                            <option value="magdalena">Magdalena</option>
+                            <option value="meta">Meta</option>
+                            <option value="narino">Nariño</option>
+                            <option value="nortesantander">Norte de Santander</option>
+                            <option value="putumayo">Putumayo</option>
+                            <option value="quindio">Quindío</option>
+                            <option value="risaralda">Risaralda</option>
+                            <option value="santander">Santander</option>
+                            <option value="sucre">Sucre</option>
+                            <option value="tolima">Tolima</option>
+                            <option value="valledelcauca">Valle del Cauca</option>
+                            <option value="vaupes">Vaupés</option>
+                            <option value="vichada">Vichada</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Ciudad / Municipio</label>
+                        <select id="city-select" required disabled>
+                            <option value="" disabled selected>Selecciona primero un departamento</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <button type="submit" class="submit-button">Solicitar Acceso Beta</button>
+                    <p class="privacy-notice">Al enviar, aceptas nuestros términos de procesamiento de datos.</p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        const cityData = {
+            amazonas: ["Leticia", "Puerto Nariño", "La Pedrera", "Tarapacá"],
+            antioquia: ["Medellín", "Envigado", "Bello", "Itagüí", "Rionegro", "Duitama", "Dosquebradas", "Girardota", "Sabaneta"],
+            arauca: ["Arauca", "Cravo Norte", "Fortul", "Saravena", "Puerto Rondón"],
+            atlantico: ["Barranquilla", "Soledad", "Malambo", "Sabanagrande", "Galapa"],
+            bolivar: ["Cartagena", "Magangué", "El Carmen", "Turbaco", "San Jacinto"],
+            boyaca: ["Tunja", "Duitama", "Sogamoso", "Patucos", "Tundama", "Ventaquemada"],
+            caldas: ["Manizales", "Villamaría", "Armonía", "Neira", "Salamina"],
+            caqueta: ["Florencia", "Morelia", "San Vicente", "Montañita", "Cartagena del Chaira"],
+            casanare: ["Yopal", "Aguazul", "Soatá", "Monterrey", "Trinidad"],
+            cauca: ["Popayán", "Patía", "Páez", "Santander", "Totoró", "Silvia"],
+            cesar: ["Valledupar", "Bosconia", "La Paz", "Agustín Codazzi", "Hatonuevo"],
+            choco: ["Quibdó", "Istmina", "Río Quito", "Novita", "Lloró"],
+            cordoba: ["Montería", "Cereté", "Lorica", "Sahagún", "Plasencia"],
+            cundinamarca: ["Bogotá", "Soacha", "Fusagasugá", "Girardot", "Zipaquirá", "Ubaté", "Facatativá"],
+            guainia: ["Inírida", "La Guadalupe", "Barranco Minas"],
+            guaviare: ["San José del Guaviare", "Calamar", "El Retorno"],
+            huila: ["Neiva", "Pitalito", "Garzón", "La Plata", "Agustín Codazzi", "Gigante"],
+            laguajira: ["Riohacha", "Maicao", "Hatonuevo", "Fonseca", "Uribia"],
+            magdalena: ["Santa Marta", "Ciénaga", "Fundación", "Aracataca", "Pivijay"],
+            meta: ["Villavicencio", "Acacías", "Granada", "Restrepo", "Castilla La Nueva"],
+            narino: ["Pasto", "Ipiales", "Túquerres", "Contadero", "Sandoná"],
+            nortesantander: ["Cúcuta", "Los Patios", "Villa del Rosario", "San Cristóbal", "Durania"],
+            putumayo: ["Mocoa", "Sibundoy", "Puerto Leguízamo", "Orito", "Puerto Caicedo"],
+            quindio: ["Armenia", "Calarcá", "Montenegro", "Filandia", "Buenavista"],
+            risaralda: ["Pereira", "Dosquebradas", "Manizales", "Apia", "Santuario"],
+            santander: ["Bucaramanga", "Girón", "Floridablanca", "Piedecuesta", "Barbosa"],
+            sucre: ["Sincelejo", "Corozal", "Sampués", "Coveñas", "Tolú"],
+            tolima: ["Ibagué", "Espinal", "Melgar", "Chaparral", "Flandes"],
+            valledelcauca: ["Cali", "Palmira", "Buenaventura", "Cartago", "Tulúa"],
+            vaupes: ["Mitú", "Carurú"],
+            vichada: ["Puerto Carreño", "La Primavera", "Santa Rosalía"]
+        };
+
+        const depSelect = document.getElementById('department-select');
+        const citySelect = document.getElementById('city-select');
+
+        depSelect.addEventListener('change', function() {
+            const cities = cityData[this.value];
+            citySelect.innerHTML = '<option value="" disabled selected>Selecciona una ciudad</option>';
+            cities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city.toLowerCase();
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+            citySelect.disabled = false;
+        });
+    </script>
+</body>
+</html>

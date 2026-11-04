@@ -1,0 +1,76 @@
+<div class="com-header">
+    <div>
+        <!-- Los datos dinámicos (roles) se manejarán desde el JS inyectando clases o texto si es necesario, 
+             pero el esqueleto es estático -->
+        <h1 id="com-header-title"><i class="fas fa-bullhorn"></i> Gestión de Comunicados</h1>
+        <p id="com-header-subtitle">Administra los comunicados institucionales</p>
+    </div>
+    
+    <!-- Este botón será ocultado por JS si el usuario NO es admin -->
+    <button id="btn-nuevo-comunicado" class="btn btn-verde" onclick="abrirModalComunicado()" style="display: none;">
+        <i class="fas fa-plus"></i> Nuevo Comunicado
+    </button>
+</div>
+
+<div class="com-layout">
+    <div class="com-filtros">
+        <div class="com-filtro-grupo">
+            <label>Tipo</label>
+            <select id="filtro-com-tipo" onchange="filtrarComunicados()">
+                <option value="">Todos</option>
+                <option value="Circular">Circular</option>
+                <option value="Aviso">Aviso</option>
+                <option value="Información">Información</option>
+                <option value="Advertencia">Advertencia</option>
+            </select>
+        </div>
+        
+        <div id="filtro-audiencia-container" class="com-filtro-grupo">
+            <label>Dirigido a</label>
+            <select id="filtro-com-audiencia" onchange="filtrarComunicados()">
+                <option value="">Todos</option>
+                <option value="General">General</option>
+                <option value="Docentes">Docentes</option>
+                <option value="Coordinación">Coordinación</option>
+                <option value="Administrativo">Administrativo</option>
+            </select>
+        </div>
+        
+        <div class="com-filtro-grupo">
+            <label>Prioridad</label>
+            <select id="filtro-com-prioridad" onchange="filtrarComunicados()">
+                <option value="">Todas</option>
+                <option value="Urgente">Urgente</option>
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+            </select>
+        </div>
+        <button class="btn btn-cafe" style="width:100%;" onclick="limpiarFiltrosCom()">
+            <i class="fas fa-redo"></i> Limpiar
+        </button>
+    </div>
+
+    <div class="com-tabla-wrap">
+        <table class="com-tabla">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Tipo</th>
+                    <th id="th-audiencia">Dirigido a</th>
+                    <th>Prioridad</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th id="th-acciones">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="com-tbody">
+                <tr>
+                    <td id="com-loading-td" colspan="7" style="text-align:center;padding:2rem;color:#999;">
+                        <i class="fas fa-spinner fa-spin"></i> Cargando...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

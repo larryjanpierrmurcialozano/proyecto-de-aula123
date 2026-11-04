@@ -1,0 +1,190 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ARCHÉ NEX - PROFESSIONAL FORM STYLES (COMPACT VERSION)
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+    --primary-brown: #0A4D2E;
+    --medium-brown: #0F6B42;
+    --soft-brown: #475569;
+    --bg-cream: #f6f3ef;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(71, 85, 105, 0.08);
+    --radius: 8px;
+    --transition: all 0.2s ease-in-out;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f6f3ef;
+    background: radial-gradient(circle, #FAF9F6 0%, #f6f3ef 100%);
+    color: var(--primary-brown);
+}
+
+/* --- Section Container --- */
+.beta-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+}
+
+/* --- Navigation --- */
+.back-button {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: var(--primary-brown);
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--white);
+    border-radius: 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: var(--transition);
+}
+
+.back-button:hover {
+    background: var(--primary-brown);
+    color: var(--white);
+}
+
+/* --- Main Card --- */
+.form-container {
+    background: var(--white);
+    width: 100%;
+    max-width: 600px; /* Mediano / Compacto */
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(71, 85, 105, 0.05);
+}
+
+/* --- Header Section --- */
+.form-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.form-subtitle {
+    font-size: 0.85rem;
+    color: var(--soft-brown);
+    margin: 0;
+}
+
+/* --- Form Layout & Inputs --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-group input, 
+.input-group select {
+    padding: 10px 12px;
+    border: 1.5px solid #ececec;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    background: #fafafa;
+    color: var(--primary-brown);
+    transition: var(--transition);
+}
+
+/* Select Arrow Customization (Q10 Style) */
+.input-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%230F6B42' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 12px) center;
+}
+
+.input-group input:focus, 
+.input-group select:focus {
+    outline: none;
+    border-color: var(--medium-brown);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(15, 107, 66, 0.05);
+}
+
+/* --- Footer & Button --- */
+.form-footer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.submit-button {
+    background: var(--primary-brown);
+    color: var(--white);
+    padding: 12px 35px;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.submit-button:hover {
+    background: var(--medium-brown);
+    transform: translateY(-1px);
+}
+
+.privacy-notice {
+    margin-top: 12px;
+    font-size: 0.7rem;
+    color: var(--soft-brown);
+}
+
+/* --- Branding Credits --- */
+.brand-credits {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    opacity: 0.7;
+}
+
+.credits-text {
+    font-size: 0.6rem;
+    color: var(--soft-brown);
+    margin-bottom: 2px;
+}
+
+.credits-logo {
+    height: 25px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-container { padding: 25px; }
+}

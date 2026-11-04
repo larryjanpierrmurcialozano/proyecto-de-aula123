@@ -1,0 +1,629 @@
+/* Card principal */
+.periodos-card {
+    background: var(--blanco);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(71, 85, 105, 0.08); /* Sombra suave con cafe oscuro */
+    padding: 1rem;
+    border: 1px solid rgba(71, 85, 105, 0.1);
+}
+
+/* Modificamos los contenedores de bloques para que sean consitentes */
+.periodos-bloque {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(71, 85, 105, 0.02);
+    border: 1px solid rgba(71, 85, 105, 0.05);
+    border-radius: 6px;
+}
+
+.periodos-subtitle {
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+    color: var(--cafe-oscuro);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+    padding-bottom: 0.4rem;
+}
+
+.periodos-subtitle i {
+    color: var(--cafe-medio);
+}
+
+/* Estilos del select del filtro */
+.periodos-filtro {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.periodos-filtro label {
+    font-size: 0.8rem;
+    color: var(--cafe-oscuro);
+    font-weight: 600;
+}
+
+.select-filtro {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid rgba(71, 85, 105, 0.2);
+    border-radius: 4px;
+    background: var(--blanco);
+    color: var(--cafe-oscuro);
+    font-size: 0.8rem;
+    min-width: 200px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230F6B42' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    padding-right: 2rem;
+}
+
+.select-filtro:focus {
+    outline: none;
+    border-color: var(--cafe-oscuro);
+    box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.1);
+}
+
+.select-filtro:hover {
+    border-color: var(--cafe-medio);
+}
+
+/* Filtros de select que no aplican */
+/* Eliminados y consolidados */
+
+/* ═══════════════════════════════════════════════════════════════════
+   PERIODOS - Contenedores Flexibles y Botones
+   ═══════════════════════════════════════════════════════════════════ */
+.periodos-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--cafe-oscuro);
+    padding-bottom: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.periodos-header-top h2.card-title {
+    color: var(--blanco);
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.periodos-header-top h2.card-title i {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.periodos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.5rem;
+}
+
+.periodos-header-actions {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.periodos-header-actions button,
+.periodos-header-actions .btn {
+    background: var(--cafe-oscuro);
+    color: var(--blanco);
+    border: none;
+    border-radius: 4px;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.periodos-header-actions button:hover,
+.periodos-header-actions .btn:hover {
+    background: var(--cafe-medio);
+    box-shadow: 0 2px 6px rgba(71, 85, 105, 0.2);
+}
+
+.periodo-card {
+    background: var(--blanco);
+    border: 1px solid rgba(71, 85, 105, 0.1);
+    border-radius: 4px;
+    padding: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.periodo-card:hover {
+    border-color: var(--cafe-oscuro);
+    box-shadow: 0 2px 8px rgba(71, 85, 105, 0.1);
+}
+
+.periodo-card.periodo-activo {
+    border-color: #16a34a;
+    background: var(--blanco);
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
+}
+
+.periodo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+    gap: 0.3rem;
+}
+
+.periodo-header h3 {
+    font-size: 0.8rem;
+    color: var(--cafe-oscuro);
+    font-weight: 700;
+    margin: 0;
+}
+
+.periodo-body p {
+    margin: 0.2rem 0;
+    color: var(--cafe-suave);
+    font-size: 0.7rem;
+}
+
+.periodo-footer {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 0.4rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(71, 85, 105, 0.1);
+}
+
+.btn-sm {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.75rem;
+    background: var(--cafe-oscuro);
+    color: var(--blanco);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-sm:hover {
+    background: var(--cafe-medio);
+    box-shadow: 0 2px 6px rgba(71, 85, 105, 0.2);
+}
+
+.btn-sm i {
+    font-size: 0.8rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PERÍODOS - Nuevo diseño por Grado/Grupo
+   ═══════════════════════════════════════════════════════════════════ */
+.periodos-global {
+    background: var(--cafe-oscuro);
+    border-radius: 4px;
+    padding: 0.7rem 0.9rem;
+    margin-bottom: 0.8rem;
+    color: var(--blanco);
+    border: 1px solid rgba(71, 85, 105, 0.2);
+}
+
+.seccion-titulo {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    color: var(--cafe-oscuro);
+}
+
+.periodos-global .seccion-titulo {
+    color: var(--blanco);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.seccion-titulo i {
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+.periodos-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.5rem;
+}
+
+.periodo-mini {
+    background: var(--blanco);
+    border: 1px solid rgba(71, 85, 105, 0.15);
+    border-radius: 6px;
+    padding: 0.8rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.periodo-mini:hover {
+    background: var(--crema-claro);
+    border-color: var(--cafe-oscuro);
+    box-shadow: 0 4px 10px rgba(71, 85, 105, 0.08);
+}
+
+.periodo-mini.periodo-abierto {
+    background: #f0fdf4;
+    border-color: #16a34a;
+    box-shadow: 0 4px 10px rgba(22, 163, 74, 0.05); /* Soft green shadow */
+}
+
+.periodo-mini.periodo-abierto:hover {
+    background: #dcfce7;
+    border-color: #15803d;
+}
+
+.periodo-nombre {
+    display: block;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+    color: var(--cafe-oscuro);
+}
+
+.periodo-fechas {
+    display: block;
+    font-size: 0.70rem;
+    opacity: 0.85;
+    margin-bottom: 0.5rem;
+    color: var(--cafe-suave);
+}
+
+.btn-estado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.2px;
+}
+
+.btn-estado-abierto {
+    background: #16a34a;
+    color: white;
+}
+
+.btn-estado-abierto:hover {
+    background: #15803d;
+    box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
+}
+
+.btn-estado-cerrado {
+    background: var(--cafe-oscuro);
+    color: white;
+}
+
+.btn-estado-cerrado:hover {
+    background: var(--cafe-medio);
+    box-shadow: 0 2px 6px rgba(71, 85, 105, 0.3);
+}
+
+/* Períodos por Grado */
+.periodos-por-grado {
+    margin-top: 0.6rem;
+}
+
+.periodos-por-grado > .seccion-titulo {
+    color: var(--cafe-oscuro);
+    border-bottom: 2px solid rgba(71, 85, 105, 0.15);
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+}
+
+/* Accordion de Grados */
+.grado-accordion {
+    background: var(--blanco);
+    border: 1px solid rgba(71, 85, 105, 0.1);
+    border-radius: 4px;
+    margin-bottom: 0.4rem;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.grado-accordion:hover {
+    border-color: var(--cafe-oscuro);
+    box-shadow: 0 2px 6px rgba(71, 85, 105, 0.08);
+}
+
+.grado-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.7rem;
+    cursor: pointer;
+    background: rgba(71, 85, 105, 0.03);
+    transition: all 0.2s ease;
+}
+
+.grado-header:hover {
+    background: rgba(71, 85, 105, 0.08);
+}
+
+.grado-info {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 1;
+}
+
+.grado-arrow {
+    color: var(--cafe-oscuro);
+    transition: transform 0.2s ease;
+    font-size: 0.75rem;
+}
+
+.grado-accordion.active .grado-arrow {
+    transform: rotate(90deg);
+}
+
+.grado-nombre {
+    font-weight: 700;
+    color: var(--cafe-oscuro);
+    font-size: 0.8rem;
+}
+
+.grado-grupos-count {
+    font-size: 0.65rem;
+    color: var(--blanco);
+    background: var(--cafe-oscuro);
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    font-weight: 600;
+}
+
+.grado-stats {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    align-items: center;
+}
+
+.stat-completo {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.stat-pendiente {
+    color: var(--cafe-medio);
+    font-weight: 600;
+}
+
+.grado-body {
+    display: none;
+    padding: 0;
+    background: var(--blanco);
+}
+
+.grado-accordion.active .grado-body {
+    display: block;
+}
+
+/* Filas de Grupos */
+.grupo-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0.7rem;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.05);
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.grupo-row:last-child {
+    border-bottom: none;
+}
+
+.grupo-row:hover {
+    background: rgba(71, 85, 105, 0.05);
+}
+
+.grupo-info {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 100px;
+}
+
+.grupo-codigo {
+    font-weight: 700;
+    color: var(--cafe-oscuro);
+    font-size: 0.75rem;
+    background: rgba(71, 85, 105, 0.08);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+}
+
+.grupo-estudiantes {
+    font-size: 0.7rem;
+    color: var(--cafe-suave);
+}
+
+.grupo-progreso {
+    flex: 1;
+    max-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.progreso-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(71, 85, 105, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progreso-fill {
+    height: 100%;
+    background: #16a34a;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+.progreso-text {
+    font-size: 0.7rem;
+    color: var(--cafe-oscuro);
+    white-space: nowrap;
+    min-width: 80px;
+    font-weight: 600;
+}
+
+/* Responsive para Períodos */
+@media (max-width: 1100px) {
+    .periodos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+    
+    .periodos-mini-grid {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .grado-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+    
+    .grado-stats {
+        margin-left: 1.2rem;
+        font-size: 0.65rem;
+    }
+    
+    .grupo-row {
+        flex-wrap: wrap;
+    }
+    
+    .grupo-progreso {
+        width: 100%;
+        max-width: none;
+        margin-top: 0.35rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .periodos-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .periodos-mini-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grado-stats {
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+
+    .periodos-header-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .periodos-header-actions button,
+    .periodos-header-actions .btn {
+        width: 100%;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANIMACIONES Y TRANSICIONES SUAVES
+   ═══════════════════════════════════════════════════════════════════ */
+* {
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Mejoras adicionales de estilo */
+.periodos-grid ~ h2,
+.seccion-titulo {
+    color: var(--cafe-oscuro);
+}
+
+.periodos-header-top h2.card-title {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+/* Iconos en general */
+.seccion-titulo i,
+.grado-header i,
+.grupo-row i {
+    transition: color 0.2s ease;
+}
+
+.periodos-global .seccion-titulo i,
+.periodos-global .periodo-nombre i {
+    color: inherit;
+}
+
+/* Hover effects en títulos */
+.seccion-titulo:hover i {
+    color: var(--cafe-medio);
+}
+
+/* Mejoras en bordes y sombras */
+.periodo-card,
+.grado-accordion,
+.periodos-global {
+    box-shadow: 0 1px 3px rgba(71, 85, 105, 0.05);
+}
+
+.periodo-card:hover,
+.grado-accordion:hover,
+.periodos-global:hover {
+    box-shadow: 0 2px 8px rgba(71, 85, 105, 0.1);
+}
+
+/* Estilos para textos pequeños */
+.grado-grupos-count,
+.progreso-text {
+    transition: all 0.2s ease;
+}
+
+/* Estilos de focus para accesibilidad */
+.btn-sm:focus,
+.btn-estado:focus,
+.periodos-header-actions button:focus {
+    outline: 2px solid var(--cafe-oscuro);
+    outline-offset: 2px;
+}
+
+/* Estado deshabilitado */
+.btn-sm:disabled,
+.btn-estado:disabled,
+.periodos-header-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

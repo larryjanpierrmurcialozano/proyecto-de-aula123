@@ -1,0 +1,557 @@
+/* ============================================================================
+   HORARIOS - Estilo visual (academico + gestion) inspirado en Asistencia
+   ============================================================================ */
+
+.horarios-shell {
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffffff 0%, #fffaf4 100%);
+    box-shadow: 0 10px 26px rgba(71, 85, 105, 0.08);
+}
+
+.horarios-shell .card-header-flex {
+    border-bottom: 1px solid var(--border, #e2e8f0);
+    padding: 1rem 1.2rem;
+    margin: 0;
+    background: linear-gradient(135deg, var(--cafe-oscuro) 0%, var(--cafe-medio) 100%);
+}
+
+.horarios-titulo {
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.horarios-export-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* --- Filtros --- */
+.horario-filtros {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 0.85rem !important;
+    margin: 0.95rem !important;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 10px;
+    background: linear-gradient(135deg, #fffaf2 0%, #fff4e6 100%);
+}
+
+/* En el horario docente, centrar los días sobre sus respectivas columnas. */
+.horario-table thead th:not(:first-child) {
+    text-align: center;
+}
+
+.horario-filtros .form-group {
+    margin: 0 !important;
+    min-width: 0 !important;
+}
+
+.horario-filtros .form-group:nth-child(1),
+.horario-filtros .form-group:nth-child(2),
+.horario-filtros .form-group:nth-child(3) {
+    grid-column: span 4;
+}
+
+.horario-filtros .form-group label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+    color: var(--text-muted, #64748b);
+}
+
+.horario-filtros .form-group select {
+    width: 100%;
+    border: 1px solid var(--border, #cbd5e1);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--text, #1e293b);
+    font-weight: 600;
+}
+
+.horario-filtros .form-group select:focus {
+    outline: none;
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
+/* --- Contenedores de grilla --- */
+#horario-grilla-container,
+#hg-grilla-container {
+    margin: 0 0.95rem 0.95rem 0.95rem;
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 10px;
+    background: #fff;
+    padding: 0.85rem;
+}
+
+.horario-header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 8px;
+    background: linear-gradient(135deg, #fff4e6 0%, #fffaf2 100%);
+}
+
+.horario-header-titulo {
+    color: var(--text, #1e293b);
+    font-weight: 700;
+}
+
+.horario-header-meta {
+    color: var(--text-muted, #64748b);
+    font-size: 0.84rem;
+}
+
+.horario-empty-state {
+    text-align: center;
+    padding: 2.8rem 1.2rem;
+    color: var(--text-muted, #64748b);
+}
+
+.horario-empty-state i {
+    display: block;
+    margin-bottom: 0.85rem;
+    font-size: 2.6rem;
+    opacity: 0.45;
+}
+
+/* --- Tabla de horarios --- */
+.horario-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.horario-grid {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+    table-layout: fixed;
+}
+
+.horario-grid th,
+.horario-grid td {
+    border: 1px solid #eef2f7;
+    text-align: center;
+    vertical-align: top;
+}
+
+.horario-grid thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0.68rem 0.52rem;
+    background: linear-gradient(135deg, #0A4D2E 0%, #0F6B42 100%);
+    color: #fff7ed;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.horario-grid .hora-col {
+    width: 84px;
+    min-width: 74px;
+    padding: 0.45rem 0.32rem;
+    background: #fff;
+    color: var(--text, #1e293b);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.horario-grid thead .hora-col {
+    background: linear-gradient(135deg, #0A4D2E 0%, #0F6B42 100%);
+}
+
+.hora-sub {
+    font-size: 0.74rem;
+    color: #94a3b8;
+}
+
+/* --- Celdas vacias --- */
+.horario-celda.vacia {
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    background: #fff;
+    transition: background 0.15s ease;
+}
+
+.horario-celda.vacia:hover {
+    background: rgba(34, 197, 94, 0.08);
+}
+
+.horario-btn-agregar {
+    width: 100%;
+    height: 100%;
+    min-height: 50px;
+    border: none;
+    background: none;
+    color: #94a3b8;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0.35;
+    transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.horario-celda.vacia:hover .horario-btn-agregar {
+    opacity: 1;
+    color: #16a34a;
+}
+
+.horario-celda.vacia-readonly {
+    background: #fff;
+    min-height: 50px;
+}
+
+/* --- Celdas ocupadas y bloques --- */
+.horario-celda.ocupada {
+    padding: 0.55rem;
+    vertical-align: middle;
+    background: var(--horario-color, transparent);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+}
+
+.horario-celda-agrupada {
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+.horario-bloque {
+    display: flex;
+    flex-direction: column;
+    gap: 0.18rem;
+    font-size: 0.8rem;
+}
+
+.horario-bloque-card {
+    margin: 6px;
+    padding: 0.52rem;
+    border-radius: 8px;
+    background: var(--horario-color, #D4AF37);
+    border: 1px solid rgba(71, 85, 105, 0.16);
+    box-shadow: 0 3px 10px rgba(71, 85, 105, 0.12);
+}
+
+.horario-materia {
+    font-size: 0.84rem;
+    line-height: 1.24;
+    color: #1f2937;
+    font-weight: 700;
+}
+
+.horario-docente,
+.horario-grupo-info {
+    font-size: 0.75rem;
+    color: #374151;
+}
+
+.horario-grupo-info {
+    font-weight: 600;
+}
+
+.horario-hora,
+.horario-aula {
+    font-size: 0.72rem;
+    color: #4b5563;
+}
+
+.horario-acciones {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+}
+
+.horario-acciones-gestion {
+    margin-top: 0.3rem;
+}
+
+.horario-acciones button {
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    background: rgba(255, 255, 255, 0.88);
+    color: #374151;
+    border-radius: 4px;
+    padding: 0.18rem 0.38rem;
+    font-size: 0.74rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.horario-acciones button:hover {
+    background: #fff;
+    color: #111827;
+    transform: translateY(-1px);
+}
+
+.btn-editar-hg {
+    background: var(--cafe-medio);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.24rem 0.56rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn-editar-hg:hover {
+    background: var(--cafe-oscuro);
+    transform: translateY(-1px);
+}
+
+/* --- Leyenda --- */
+.horario-leyenda {
+    border-top: 1px solid var(--border, #e2e8f0);
+    padding-top: 0.8rem;
+}
+
+.horario-leyenda-chips {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.horario-chip {
+    background: var(--horario-color, #fde68a) !important;
+    color: #1f2937 !important;
+    border: 1px solid rgba(71, 85, 105, 0.16) !important;
+    border-radius: 12px !important;
+    padding: 0.25rem 0.75rem !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .horario-filtros {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .horario-filtros .form-group:nth-child(1),
+    .horario-filtros .form-group:nth-child(2),
+    .horario-filtros .form-group:nth-child(3) {
+        grid-column: span 3;
+    }
+}
+
+@media (max-width: 768px) {
+    .horarios-export-actions {
+        width: 100%;
+    }
+
+    .horarios-export-actions .btn {
+        flex: 1;
+    }
+
+    .horario-filtros {
+        grid-template-columns: 1fr;
+        margin: 0.8rem !important;
+        padding: 0.8rem;
+    }
+
+    .horario-filtros .form-group:nth-child(1),
+    .horario-filtros .form-group:nth-child(2),
+    .horario-filtros .form-group:nth-child(3) {
+        grid-column: span 1;
+    }
+
+    #horario-grilla-container,
+    #hg-grilla-container {
+        margin: 0 0.8rem 0.8rem 0.8rem;
+        padding: 0.55rem;
+    }
+
+    .horario-header-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .horario-grid {
+        font-size: 0.78rem;
+    }
+
+    .horario-grid .hora-col {
+        width: 62px;
+        font-size: 0.72rem;
+    }
+
+    .horario-bloque {
+        font-size: 0.72rem;
+    }
+
+    .horario-acciones button {
+        font-size: 0.65rem;
+    }
+}
+
+/* ============================================================================
+   MI HORARIO - DOCENTE
+   ============================================================================ */
+.tabla-horario-docente {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-horario-docente th,
+.tabla-horario-docente td {
+    border: 1px solid #eddfca;
+    padding: 0.75rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tabla-horario-docente th {
+    background: linear-gradient(135deg, #0A4D2E 0%, #0F6B42 100%);
+    color: #fff7ed;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.hora-cell {
+    background: #fff;
+    font-weight: 600;
+    color: var(--text, #1e293b);
+    white-space: nowrap;
+}
+
+.clase-cell {
+    padding: 0.5rem !important;
+}
+
+.clase-cell.mat {
+    background: linear-gradient(135deg, #dbeafe, #93c5fd);
+}
+
+.clase-cell.cal {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+}
+
+.clase-horario {
+    text-align: left;
+}
+
+.clase-horario strong {
+    display: block;
+    color: var(--text, #1e293b);
+    font-size: 0.9rem;
+}
+
+.clase-horario span {
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.libre-cell {
+    color: #475569;
+    font-style: italic;
+    background: #fffefc;
+}
+
+.descanso-cell {
+    background: linear-gradient(135deg, #fde68a, #D4AF37);
+    color: #475569;
+    font-weight: 600;
+}
+
+.descanso-cell i {
+    margin-right: 0.5rem;
+}
+
+.horario-leyenda {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: linear-gradient(180deg, #fff7ed 0%, #ffedd5 100%);
+    border: 1px solid #D4AF37;
+    border-radius: 10px;
+}
+
+.horario-leyenda h4 {
+    color: #475569;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.leyenda-items {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.leyenda-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.leyenda-color.mat {
+    background: linear-gradient(135deg, #dbeafe, #93c5fd);
+    border: 1px solid #60a5fa;
+}
+
+.leyenda-color.cal {
+    background: linear-gradient(135deg, #fee2e2, #fca5a5);
+    border: 1px solid #f87171;
+}
+
+.leyenda-color.libre {
+    background: var(--blanco);
+    border: 1px solid #D4AF37;
+}
+
+@media (max-width: 768px) {
+    .resumen-clases {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .resumen-grid {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .materia-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .materia-detalles {
+        justify-content: center;
+    }
+
+    .tabla-horario-docente {
+        font-size: 0.8rem;
+    }
+
+    .clase-horario strong {
+        font-size: 0.8rem;
+    }
+
+    .clase-horario span {
+        font-size: 0.7rem;
+    }
+}

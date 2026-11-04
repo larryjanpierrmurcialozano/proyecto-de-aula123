@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="card-header-flex">
+        <h2 class="card-title" style="border:none;margin:0;padding:0;">
+            <i class="fas fa-clipboard-check"></i> Control de Asistencia
+        </h2>
+        <div class="asist-header-actions">
+            <div class="asist-tabs">
+                <button class="asist-tab asist-tab-active" id="tab-registro" onclick="asistCambiarVista('registro')">
+                    <i class="fas fa-edit"></i> Registro
+                </button>
+                <button class="asist-tab" id="tab-resumen" onclick="asistCambiarVista('resumen')">
+                    <i class="fas fa-chart-bar"></i> Resumen
+                </button>
+                <button class="asist-tab" id="tab-justificaciones" onclick="asistCambiarVista('justificaciones')">
+                    <i class="fas fa-file-medical"></i> Justificaciones
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de filtros -->
+    <div class="asist-filtros">
+        <div class="asist-filtro-item">
+            <label><i class="fas fa-layer-group"></i> Grado</label>
+            <select id="asist-filtro-grado" onchange="asistCambiarGrado(this.value)">
+                <!-- Se llena con JS -->
+            </select>
+        </div>
+        <div class="asist-filtro-item">
+            <label><i class="fas fa-users"></i> Grupo</label>
+            <select id="asist-filtro-grupo" onchange="asistCambiarGrupo(this.value)" disabled>
+                <option value="">Seleccionar grupo...</option>
+            </select>
+        </div>
+        <div class="asist-filtro-item">
+            <label><i class="fas fa-book"></i> Materia</label>
+            <select id="asist-filtro-materia" onchange="asistCambiarMateria(this.value)" disabled>
+                <option value="">Seleccionar materia...</option>
+            </select>
+        </div>
+        <div class="asist-filtro-item">
+            <label><i class="fas fa-calendar-alt"></i> Período</label>
+            <select id="asist-filtro-periodo" onchange="asistCambiarPeriodo(this.value)">
+                <!-- Se llena con JS -->
+            </select>
+        </div>
+        <div class="asist-filtro-item" id="asist-filtro-fecha-wrap">
+            <label><i class="fas fa-calendar-day"></i> Fecha</label>
+            <input type="date" id="asist-filtro-fecha" onchange="asistCambiarFecha(this.value)">
+        </div>
+    </div>
+
+    <div id="asist-alerta-periodo" class="asist-alerta-wrap"></div>
+
+    <!-- Contenedor principal -->
+    <div id="asist-contenido" class="asist-contenido">
+        <div class="asist-placeholder">
+            <i class="fas fa-hand-point-up fa-3x"></i>
+            <p>Selecciona <strong>Grado → Grupo → Materia</strong> para registrar la asistencia</p>
+        </div>
+    </div>
+</div>

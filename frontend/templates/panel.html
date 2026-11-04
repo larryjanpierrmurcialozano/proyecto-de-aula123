@@ -1,0 +1,883 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXO DE DATOS - Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/panel.css?v=20261029-modal-footer-scroll">
+    <link rel="stylesheet" href="/static/css/horarios.css">
+    <link rel="stylesheet" href="/static/css/asistencia.css?v=20261029-modal-size">
+    <link rel="stylesheet" href="/static/css/calificaciones.css?v=20261029-modal-size">
+    <link rel="stylesheet" href="/static/css/comunicados.css">
+    <link rel="stylesheet" href="/static/css/periodos.css">
+    <link rel="stylesheet" href="/static/css/observador.css">
+    <link rel="stylesheet" href="/static/css/institutional-theme.css?v=20261029-module-heading-fix">
+</head>
+<body>
+    <!-- MODAL GRADO -->
+    <div class="modal-overlay" id="modal-grado">
+        <div class="modal" style="max-width: 420px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-layer-group"></i> <span id="modal-grado-titulo">Nuevo Grado</span></h2>
+                <button class="modal-close" onclick="cerrarModal('modal-grado')">&times;</button>
+            </div>
+            <form id="form-grado">
+                <input type="hidden" id="grado-id">
+                <div class="form-group">
+                    <label>Nombre del Grado</label>
+                    <input type="text" id="grado-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label>Nivel</label>
+                    <select id="grado-nivel" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Orden</label>
+                    <input type="number" id="grado-orden" min="1" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-rojo" onclick="cerrarModal('modal-grado')"><i class="fas fa-times"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-verde"><i class="fas fa-save"></i> Guardar Grado</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL GRUPO -->
+    <div class="modal-overlay" id="modal-grupo">
+        <div class="modal" style="max-width: 420px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-users"></i> <span id="modal-grupo-titulo">Nuevo Grupo</span></h2>
+                <button class="modal-close" onclick="cerrarModal('modal-grupo')">&times;</button>
+            </div>
+            <form id="form-grupo">
+                <input type="hidden" id="grupo-id">
+                <div class="form-group">
+                    <label>Código del Grupo</label>
+                    <input type="text" id="grupo-codigo" required>
+                </div>
+                <div class="form-group">
+                    <label>Grado</label>
+                    <select id="grupo-grado" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Capacidad Máxima</label>
+                    <input type="number" id="grupo-capacidad" min="1" value="40" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-rojo" onclick="cerrarModal('modal-grupo')"><i class="fas fa-times"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-verde"><i class="fas fa-save"></i> Guardar Grupo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- MODAL ELIMINAR GRADO/GRUPO -->
+    <div class="modal-overlay" id="modal-eliminar-grado-grupo">
+        <div class="modal" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle" style="color: #e53935;"></i> Confirmar Eliminación</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-eliminar-grado-grupo')">&times;</button>
+            </div>
+            <p id="texto-eliminar-gg" style="margin-bottom: 1.5rem;"></p>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-eliminar-grado-grupo')"><i class="fas fa-times"></i> Cancelar</button>
+                <button class="btn btn-rojo" id="btn-confirmar-eliminar-gg"><i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+        </div>
+    </div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="/static/img/escudo.png" alt="NEXO DE DATOS" class="sidebar-logo">
+        </div>
+        <ul class="sidebar-menu" id="sidebar-menu">
+            <!-- Se genera dinámicamente -->
+        </ul>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+        <!-- HEADER -->
+        <header class="header">
+            <h2 class="header-title" id="page-title">Menú Principal</h2>
+            
+            <div class="header-user">
+                <div class="user-info">
+                    <div class="user-name" id="user-name">Usuario</div>
+                    <div class="user-role" id="user-role">Rol</div>
+                </div>
+                
+                <div class="dropdown">
+                    <button class="btn-profile" id="btn-dropdown">
+                        <i class="fas fa-user"></i>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <div class="dropdown-item" onclick="mostrarPerfil()">
+                            <i class="fas fa-user-circle"></i> Mi Perfil
+                        </div>
+                        <div class="dropdown-item" onclick="mostrarCambiarPassword()">
+                            <i class="fas fa-key"></i> Cambiar Contraseña
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item" onclick="cerrarSesion()" style="color: #ef5350;">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENIDO DINÁMICO -->
+        <div class="content" id="main-content">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL PERFIL -->
+    <div class="modal-overlay" id="modal-perfil">
+        <div class="modal modal-perfil-detalle">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-circle"></i> Mi Perfil</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-perfil')">&times;</button>
+            </div>
+            <div id="perfil-content" class="perfil-content">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CAMBIAR CONTRASEÑA -->
+    <div class="modal-overlay" id="modal-password">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-key"></i> Cambiar Contraseña</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-password')">&times;</button>
+            </div>
+            <form id="form-password" onsubmit="cambiarPassword(event)">
+                <div class="form-group">
+                    <label>Contraseña Actual</label>
+                    <input type="password" id="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label>Nueva Contraseña</label>
+                    <input type="password" id="new-password" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Nueva Contraseña</label>
+                    <input type="password" id="confirm-password" required minlength="6">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-rojo" onclick="cerrarModal('modal-password')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-verde">
+                        <i class="fas fa-check"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CERRAR SESIÓN -->
+    <div class="modal-overlay" id="modal-logout">
+        <div class="modal" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-logout')">&times;</button>
+            </div>
+            <p style="margin-bottom: 1.5rem;">¿Estás seguro de que deseas cerrar sesión?</p>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-logout')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn btn-rojo" onclick="confirmarCerrarSesion()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CREAR/EDITAR USUARIO -->
+    <div class="modal-overlay" id="modal-usuario">
+        <div class="modal" style="max-width: 550px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> <span id="modal-usuario-titulo">Nuevo Usuario</span></h2>
+                <button class="modal-close" onclick="cerrarModal('modal-usuario')">&times;</button>
+            </div>
+            <form id="form-usuario">
+                <input type="hidden" id="usuario-id">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Nombre</label>
+                        <input type="text" id="usuario-nombre" placeholder="Nombre"
+                               pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*" required
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Apellido</label>
+                        <input type="text" id="usuario-apellido" placeholder="Apellido"
+                               pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*" required
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                    <input type="email" id="usuario-email" placeholder="correo@ejemplo.com" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> Documento</label>
+                        <input type="text" id="usuario-documento" placeholder="Número de documento"
+                               inputmode="numeric" pattern="[0-9]+" required
+                               title="El documento solo puede contener números.">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-shield-alt"></i> Rol</label>
+                        <select id="usuario-rol" required>
+                            <option value="">Seleccionar rol...</option>
+                            <option value="6">Administrador</option>
+                            <option value="1">Rector</option>
+                            <option value="2">Coordinador</option>
+                            <option value="4">Profesor</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Contraseña</label>
+                    <input type="password" id="usuario-password" placeholder="Mínimo 6 caracteres" minlength="6">
+                    <small style="color: var(--cafe-suave); font-size: 0.8rem;">Dejar vacío para mantener la contraseña actual (solo al editar)</small>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-toggle-on"></i> Estado</label>
+                    <select id="usuario-estado">
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-rojo" onclick="cerrarModal('modal-usuario')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-verde">
+                        <i class="fas fa-save"></i> Guardar Usuario
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMAR ELIMINACIÓN -->
+    <div class="modal-overlay" id="modal-eliminar">
+        <div class="modal" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle" style="color: #e53935;"></i> Confirmar Eliminación</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-eliminar')">&times;</button>
+            </div>
+            <p style="margin-bottom: 1rem;">¿Estás seguro de que deseas eliminar este usuario?</p>
+            <p style="margin-bottom: 1.5rem; color: #ef5350; font-size: 0.9rem;">
+                <i class="fas fa-warning"></i> Esta acción no se puede deshacer.
+            </p>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-eliminar')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn btn-rojo">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- MODAL CREAR/EDITAR ESTUDIANTE -->
+    <div class="modal-overlay" id="modal-estudiante">
+        <div class="modal" style="max-width: 650px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-graduate"></i> <span id="modal-estudiante-titulo">Nuevo Estudiante</span></h2>
+                <button class="modal-close" onclick="cerrarModal('modal-estudiante')">&times;</button>
+            </div>
+            <form id="form-estudiante">
+                <input type="hidden" id="estudiante-id">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> Documento</label>
+                        <input type="text" id="estudiante-documento" placeholder="Número de documento"
+                               inputmode="numeric" pattern="[0-9]+" required
+                               title="El documento solo puede contener números.">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Nombres</label>
+                        <input type="text" id="estudiante-nombre" placeholder="Nombre" pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*" required
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Apellidos</label>
+                        <input type="text" id="estudiante-apellido" placeholder="Apellido" pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*" required
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-envelope"></i> Correo</label>
+                        <input type="email" id="estudiante-correo" placeholder="correo@ejemplo.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar"></i> Fecha de nacimiento</label>
+                        <input type="date" id="estudiante-fecha-nacimiento">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-venus-mars"></i> Género</label>
+                        <select id="estudiante-genero">
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-users"></i> Grupo</label>
+                        <select id="estudiante-grupo" required></select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-user-friends"></i> Acudiente</label>
+                        <input type="text" id="estudiante-acudiente-nombre" placeholder="Nombre del acudiente"
+                               pattern="[\p{L}\p{M}]+(?:[ '\u2019-][\p{L}\p{M}]+)*"
+                               title="Usa letras, espacios, apóstrofes o guiones; no se permiten números.">
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-phone"></i> Teléfono acudiente</label>
+                        <input type="tel" id="estudiante-acudiente-telefono" placeholder="Teléfono"
+                               inputmode="numeric" pattern="[0-9]*" maxlength="15"
+                               title="Ingresa solo números en el teléfono.">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-home"></i> Dirección</label>
+                    <input type="text" id="estudiante-direccion" placeholder="Dirección">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-toggle-on"></i> Estado</label>
+                    <select id="estudiante-estado">
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-rojo" onclick="cerrarModal('modal-estudiante')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-verde">
+                        <i class="fas fa-save"></i> Guardar Estudiante
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- MODAL MATERIA (CREAR/EDITAR) -->
+    <div class="modal-overlay" id="modal-materia">
+        <div class="modal" style="max-width: 620px;">
+            <div class="modal-header">
+                <h2 id="modal-materia-titulo"><i class="fas fa-book"></i> Nueva Materia</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-materia')">&times;</button>
+            </div>
+            <form id="form-materia" onsubmit="guardarMateria(event)">
+                <input type="hidden" id="materia-id" value="">
+                <div class="form-group">
+                    <label>Nombre de la materia *</label>
+                    <input type="text" id="materia-nombre" required maxlength="100" placeholder="Ej: Matemáticas">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex:2;">
+                        <label><i class="fas fa-tag"></i> Tipo de materia *</label>
+                        <select id="materia-tipo" style="width:100%; padding:0.7rem; border:2px solid var(--crema); border-radius:8px; font-size:0.95rem;" onchange="generarCodigoMateria()">
+                            <option value="">-- Selecciona el tipo --</option>
+                            <option value="MAT" data-icon="fa-calculator">📐 Matemáticas</option>
+                            <option value="ALG" data-icon="fa-superscript">➗ Álgebra</option>
+                            <option value="GEO" data-icon="fa-shapes">📐 Geometría</option>
+                            <option value="EST" data-icon="fa-chart-bar">📊 Estadística</option>
+                            <option value="ESP" data-icon="fa-pen-nib">✏️ Español / Lenguaje</option>
+                            <option value="LIT" data-icon="fa-book-reader">📖 Literatura</option>
+                            <option value="ING" data-icon="fa-language">🌐 Inglés</option>
+                            <option value="NAT" data-icon="fa-leaf">🍃 Ciencias Naturales</option>
+                            <option value="BIO" data-icon="fa-dna">🧬 Biología</option>
+                            <option value="QUI" data-icon="fa-atom">⚛️ Química</option>
+                            <option value="FIS" data-icon="fa-bolt">⚡ Física</option>
+                            <option value="SOC" data-icon="fa-globe-americas">🌎 Ciencias Sociales</option>
+                            <option value="INF" data-icon="fa-laptop-code">💻 Informática / Tecnología</option>
+                            <option value="TEC" data-icon="fa-cogs">⚙️ Tecnología</option>
+                            <option value="FIL" data-icon="fa-brain">🧠 Filosofía</option>
+                            <option value="ETI" data-icon="fa-balance-scale">⚖️ Ética y Valores</option>
+                            <option value="REL" data-icon="fa-church">⛪ Religión</option>
+                            <option value="ART" data-icon="fa-palette">🎨 Educación Artística</option>
+                            <option value="EDF" data-icon="fa-running">🏃 Educación Física</option>
+                            <option value="CIE" data-icon="fa-flask">🔬 Ciencias (General)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label><i class="fas fa-barcode"></i> Código generado</label>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span id="materia-codigo-preview-icon" style="font-size:1.4rem; width:32px; text-align:center; color:var(--cafe-oscuro);"><i class="fas fa-book"></i></span>
+                            <input type="text" id="materia-codigo" required maxlength="20" placeholder="Ej: MAT-001" readonly style="background:#f5f0eb; color:#3b2f2f; font-weight:600; letter-spacing:1px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Intensidad horaria (horas/semana) *</label>
+                        <input type="number" id="materia-intensidad" required min="1" max="20" value="4">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea id="materia-descripcion" rows="3" maxlength="255" placeholder="Breve descripción de la materia..."></textarea>
+                </div>
+
+                <!-- Mensaje para crear (sin docentes aún) -->
+                <div id="materia-msg-crear" style="display:none; background:#fff3f3; border:1px solid #e53935; border-radius:8px; padding:1rem; margin-top:0.5rem;">
+                    <p style="margin:0; color:#c62828; font-size:0.9rem;">
+                        <i class="fas fa-info-circle"></i> <strong>Nota:</strong> Para asignar docentes, grados y grupos a esta materia, primero guárdala y luego usa el botón <i class="fas fa-edit"></i> <strong>Editar</strong> en la tarjeta de la materia.
+                    </p>
+                </div>
+
+                <!-- Sección de asignar docentes (solo al editar) -->
+                <div id="materia-seccion-docentes" style="display:none; margin-top:1rem; border-top:2px solid var(--crema); padding-top:1rem;">
+                    <h3 style="margin:0 0 1rem 0; color:var(--cafe-oscuro); font-size:1.05rem;">
+                        <i class="fas fa-user-plus"></i> Asignar Docentes
+                    </h3>
+                    <div class="form-group" style="margin-bottom:1rem;">
+                        <label><i class="fas fa-layer-group"></i> Grado *</label>
+                        <select id="materia-editar-grado" style="width:100%; padding:0.7rem; border:2px solid var(--crema); border-radius:8px; font-size:0.95rem;">
+                            <option value="">-- Selecciona un grado --</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:1rem;">
+                        <label><i class="fas fa-object-group"></i> Grupo *</label>
+                        <select id="materia-editar-grupo" style="width:100%; padding:0.7rem; border:2px solid var(--crema); border-radius:8px; font-size:0.95rem;" disabled>
+                            <option value="">-- Primero selecciona un grado --</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:1rem;">
+                        <label><i class="fas fa-chalkboard-teacher"></i> Docente *</label>
+                        <select id="materia-editar-docente" style="width:100%; padding:0.7rem; border:2px solid var(--crema); border-radius:8px; font-size:0.95rem;" disabled>
+                            <option value="">-- Selecciona grado y grupo primero --</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-verde" onclick="asignarDocenteDesdeModal()" style="margin-bottom:1rem;">
+                        <i class="fas fa-check"></i> Asignar Docente
+                    </button>
+                    <div style="background:#f5f5f5; border-radius:8px; padding:0.8rem;">
+                        <h4 style="margin:0 0 0.5rem 0; color:var(--cafe-oscuro); font-size:0.9rem;"><i class="fas fa-list"></i> Docentes asignados</h4>
+                        <div id="materia-editar-lista-docentes" style="max-height:180px; overflow-y:auto;">
+                            <p style="color:var(--cafe-claro);text-align:center;margin:0.5rem;font-size:0.85rem;">Cargando...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-rojo" onclick="cerrarModal('modal-materia')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-verde">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL VER MATERIA -->
+    <div class="modal-overlay" id="modal-ver-materia">
+        <div class="modal" style="max-width: 650px;">
+            <div class="modal-header" style="background: var(--cafe-medio); color:#fff; border-radius: 12px 12px 0 0; padding: 1.2rem 1.5rem;">
+                <h2 style="color:#fff;"><i class="fas fa-book"></i> <span id="ver-materia-nombre">Materia</span></h2>
+                <button class="modal-close" onclick="cerrarModal('modal-ver-materia')" style="color:#fff;">&times;</button>
+            </div>
+            <div id="ver-materia-body" style="padding: 1.5rem;">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR MATERIA -->
+    <div class="modal-overlay" id="modal-eliminar-materia">
+        <div class="modal" style="max-width: 420px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle" style="color:#e53935;"></i> Eliminar Materia</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-eliminar-materia')">&times;</button>
+            </div>
+            <p style="margin-bottom: 1rem;">¿Estás seguro de que deseas eliminar esta materia?</p>
+            <p style="margin-bottom: 1.5rem; color: #ef5350; font-size: 0.9rem;">
+                <i class="fas fa-warning"></i> Esta acción no se puede deshacer. Si la materia tiene asignaciones de docentes, no podrá eliminarse.
+            </p>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-eliminar-materia')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn btn-rojo" id="btn-confirmar-eliminar-materia">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ASIGNAR DOCENTES A MATERIA -->
+    <div class="modal-overlay" id="modal-asignar-docentes-materia">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-plus"></i> Asignar Docentes a <span id="asignar-mat-nombre">Materia</span></h2>
+                <button class="modal-close" onclick="cerrarModal('modal-asignar-docentes-materia')">&times;</button>
+            </div>
+            <div style="padding: 1.5rem;">
+                <!-- Seleccionar grado -->
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label><i class="fas fa-layer-group"></i> Seleccionar Grado *</label>
+                    <select id="asignar-materia-grado" style="width:100%; padding:0.7rem; border:2px solid var(--crema); border-radius:8px; font-size:0.95rem;">
+                        <option value="">-- Selecciona un grado --</option>
+                    </select>
+                </div>
+
+                <!-- Seleccionar grupo -->
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label><i class="fas fa-object-group"></i> Seleccionar Grupo *</label>
+                    <select id="asignar-materia-grupo" style="width:100%; padding:0.7rem; border:2px solid var(--crema); border-radius:8px; font-size:0.95rem;" disabled>
+                        <option value="">-- Primero selecciona un grado --</option>
+                    </select>
+                </div>
+
+                <!-- Seleccionar docente -->
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label><i class="fas fa-chalkboard-teacher"></i> Docente disponible *</label>
+                    <select id="asignar-materia-docente" style="width:100%; padding:0.7rem; border:2px solid var(--crema); border-radius:8px; font-size:0.95rem;" disabled>
+                        <option value="">-- Selecciona grado y grupo primero --</option>
+                    </select>
+                </div>
+
+                <!-- Lista de asignaciones actuales -->
+                <div style="background:#f5f5f5; border-radius:8px; padding:1rem; margin-top:1.5rem;">
+                    <h4 style="margin-top:0; color:var(--cafe-oscuro);"><i class="fas fa-list"></i> Docentes asignados</h4>
+                    <div id="lista-asignaciones-materia" style="max-height:250px; overflow-y:auto;">
+                        <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-rojo" onclick="cerrarModal('modal-asignar-docentes-materia')">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+                <button class="btn btn-verde" id="btn-asignar-docente-materia" onclick="guardarAsignacionDocente()">
+                    <i class="fas fa-check"></i> Asignar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL COMUNICADO (CREAR/EDITAR) -->
+    <div class="modal-overlay" id="modal-comunicado">
+        <div class="modal" style="max-width: 680px;">
+            <div class="modal-header">
+                <h2 id="modal-comunicado-titulo"><i class="fas fa-bullhorn"></i> Nuevo Comunicado</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-comunicado')">&times;</button>
+            </div>
+            <form onsubmit="guardarComunicado(event)">
+                <input type="hidden" id="com-id" value="">
+                <div class="form-group">
+                    <label>Título *</label>
+                    <input type="text" id="com-titulo" required maxlength="150" placeholder="Título del comunicado">
+                </div>
+                <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select id="com-tipo">
+                            <option value="Información">Información</option>
+                            <option value="Circular">Circular</option>
+                            <option value="Aviso">Aviso</option>
+                            <option value="Advertencia">Advertencia</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Dirigido a</label>
+                        <select id="com-audiencia">
+                            <option value="Todos">Todos</option>
+                            <option value="Estudiantes" hidden>Estudiantes</option>
+                            <option value="Docentes">Docentes</option>
+                            <option value="Coordinación">Coordinación</option>
+                            <option value="Administrativo">Administrativo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Prioridad</label>
+                        <select id="com-prioridad">
+                            <option value="Media">Media</option>
+                            <option value="Baja">Baja</option>
+                            <option value="Alta">Alta</option>
+                            <option value="Urgente">Urgente</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Contenido *</label>
+                    <textarea id="com-contenido" rows="6" required placeholder="Escribe el contenido del comunicado..." style="resize:vertical;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-rojo" onclick="cerrarModal('modal-comunicado')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-verde">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL VER COMUNICADO -->
+    <div class="modal-overlay" id="modal-ver-comunicado">
+        <div class="modal modal-comunicado-detalle" style="max-width: 850px;width:90%;">
+            <div class="modal-header">
+                <h2><i class="fas fa-envelope-open-text"></i> Detalle del Comunicado</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-ver-comunicado')">&times;</button>
+            </div>
+            <div id="ver-comunicado-body" class="modal-comunicado-body">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-ver-comunicado')">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR COMUNICADO -->
+    <div class="modal-overlay" id="modal-eliminar-comunicado">
+        <div class="modal" style="max-width: 420px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle" style="color:#e53935;"></i> Eliminar Comunicado</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-eliminar-comunicado')">&times;</button>
+            </div>
+            <p style="margin-bottom: 1rem;">¿Estás seguro de que deseas eliminar este comunicado?</p>
+            <p style="margin-bottom: 1.5rem; color: #ef5350; font-size: 0.9rem;">
+                <i class="fas fa-warning"></i> Esta acción no se puede deshacer.
+            </p>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-eliminar-comunicado')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="btn btn-rojo" id="btn-confirmar-eliminar-com">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+    <!-- SECCIÓN: MODALES DE VISUALIZACIÓN (VER DETALLES)                              -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+    <!-- MODAL VER DETALLES USUARIO -->
+    <div class="modal-overlay" id="modal-ver-usuario">
+        <div class="modal modal-usuario-detalle" style="max-width: 680px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-user-circle"></i> Detalles del Usuario</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-ver-usuario')">&times;</button>
+            </div>
+            <div class="detalle-usuario">
+                <div class="detalle-avatar">
+                    <div class="avatar-grande">LJ</div>
+                    <h3>Larry Janpier</h3>
+                    <span class="badge badge-cafe">server_admin</span>
+                </div>
+                <div class="detalle-info">
+                    <div class="detalle-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <label>Correo</label>
+                            <span>larry@docstry.com</span>
+                        </div>
+                    </div>
+                    <div class="detalle-item">
+                        <i class="fas fa-id-card"></i>
+                        <div>
+                            <label>Documento</label>
+                            <span>1234567890</span>
+                        </div>
+                    </div>
+                    <div class="detalle-item">
+                        <i class="fas fa-calendar"></i>
+                        <div>
+                            <label>Fecha de Registro</label>
+                            <span>01/01/2026</span>
+                        </div>
+                    </div>
+                    <div class="detalle-item">
+                        <i class="fas fa-circle" style="color: #4caf50;"></i>
+                        <div>
+                            <label>Estado</label>
+                            <span>Activo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-ver-usuario')">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL VER ESTUDIANTE -->
+    <div class="modal-overlay" id="modal-ver-estudiante">
+        <div class="modal modal-estudiante-detalle" style="max-width: 760px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-id-card-alt"></i> Detalle del Estudiante</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-ver-estudiante')">&times;</button>
+            </div>
+            <div id="ver-estudiante-body" style="padding: 0.5rem 0 1rem 0;">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-ver-estudiante')">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL VER ESTUDIANTES DEL GRUPO -->
+    <div class="modal-overlay" id="modal-grupo-estudiantes">
+        <div class="modal modal-grupo-estudiantes-detalle" style="max-width: 760px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-users"></i> <span id="modal-grupo-estudiantes-titulo">Estudiantes del grupo</span></h2>
+                <button class="modal-close" onclick="cerrarModal('modal-grupo-estudiantes')">&times;</button>
+            </div>
+            <div class="modal-body modal-grupo-estudiantes-body" id="modal-grupo-estudiantes-list" style="max-height: 60vh; overflow:auto; padding: 1rem;">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-grupo-estudiantes')"><i class="fas fa-times"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ASIGNAR DOCENTE -->
+    <div class="modal-overlay" id="modal-asignar-docente">
+        <div class="modal modal-asignar-docente-detalle" style="max-width: 860px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-chalkboard-teacher"></i> Asignar Docente</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-asignar-docente')">&times;</button>
+            </div>
+            <div id="asignar-docente-body">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL BOLETIN ESTUDIANTE -->
+    <div class="modal-overlay" id="modal-boletin-estudiante">
+        <div class="modal" style="max-width: 520px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-pdf"></i> Generar Boletín</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-boletin-estudiante')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="boletin-estudiante-id">
+                <div class="form-group">
+                    <label><i class="fas fa-calendar"></i> Período</label>
+                    <select id="boletin-estudiante-periodo" style="width: 100%;"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cafe" onclick="cerrarModal('modal-boletin-estudiante')">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+                <button class="btn btn-verde" onclick="descargarBoletinEstudiante()">
+                    <i class="fas fa-download"></i> Generar PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR ESTUDIANTE -->
+    <div class="modal-overlay" id="modal-eliminar-estudiante">
+        <div class="modal" style="max-width: 680px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle" style="color:#e53935;"></i> Confirmar acción</h2>
+                <button class="modal-close" onclick="cerrarModal('modal-eliminar-estudiante')">&times;</button>
+            </div>
+            <div class="modal-grid-2" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+                <div class="card" style="background: #feeceb; border: 1px solid #ef9a9a;">
+                    <h3 style="margin-top:0;color:#c62828;">Eliminar definitivamente</h3>
+                    <p style="color:#c62828;">¿Estás seguro de querer eliminar este estudiante de la base de datos? No se podrán recuperar los datos.</p>
+                    <button class="btn btn-rojo" id="btn-confirmar-eliminar-estudiante">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                </div>
+                <div class="card" style="background: #f2e5da; border: 1px solid #CBD5E1; color: #475569;">
+                    <h3 style="margin-top:0; color:#475569;">Marcar como inactivo</h3>
+                    <p style="color:#475569;">Si no quieres perder el registro, puedes marcarlo como Inactivo y conservar los datos históricos.</p>
+                    <button class="btn btn-cafe" id="btn-inactivar-estudiante">
+                        <i class="fas fa-ban"></i> Marcar Inactivo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════ -->
+
+
+    <!-- Librerías para exportar a PDF y Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- Scripts modulares -->
+    <script src="/static/js/api.js?v=20261021-docentes-usuarios-fix4"></script>
+    <script src="/static/js/helpers.js"></script>
+    <script src="/static/js/panel.js"></script>
+    <script src="/static/js/modules/asistencia.js"></script>
+    <script src="/static/js/modules/calificaciones.js"></script>
+    <script src="/static/js/modules/usuarios.js?v=20261025-nombres-sin-numeros-1"></script>
+    <script src="/static/js/modules/estudiantes.js?v=20261025-documento-numerico-1"></script>
+    <script src="/static/js/modules/docentes.js?v=20261029-modal-footer-scroll"></script>
+    <script src="/static/js/modules/grados.js"></script>
+    <script src="/static/js/modules/materias.js"></script>
+    <script src="/static/js/modules/comunicados.js"></script>
+    <script src="/static/js/modules/reportes.js"></script>
+    <script src="/static/js/modules/horarios.js"></script>
+    <script src="/static/js/modules/horarios-gestion.js"></script>
+    <script src="/static/js/modules/mi-horario.js"></script>
+    <script src="/static/js/modules/periodos.js"></script>
+    <script src="/static/js/modules/observador.js"></script>
+    <script src="/static/js/modules/logs.js"></script>
+</body>
+</html>

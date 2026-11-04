@@ -1,0 +1,45 @@
+<div class="card periodos-card">
+    
+    <!-- ENCABEZADO -->
+    <div class="card-header-flex periodos-header-top">
+        <h2 class="card-title" style="border:none;margin:0;padding:0;">
+            <i class="fas fa-calendar-alt"></i> Gestión de Períodos Académicos
+        </h2>
+        <div class="periodos-header-actions" id="periodos-header-actions-dynamic">
+            <!-- Botones dinámicos para admin -->
+        </div>
+    </div>
+
+    <!-- MINI CARDS DE PERÍODOS -->
+    <div class="periodos-bloque">
+        <h3 class="periodos-subtitle"><i class="fas fa-list-check"></i> Períodos Disponibles</h3>
+        <div class="periodos-mini-grid" id="periodos-mini-grid">
+            <!-- Se rellena dinámicamente -->
+        </div>
+    </div>
+
+    <!-- FILTRO POR PERÍODO -->
+    <div class="periodos-bloque">
+        <h3 class="periodos-subtitle"><i class="fas fa-filter"></i> Consultar Período</h3>
+        <div class="periodos-filtro">
+            <label for="filtro-periodo-grado">Selecciona un período:</label>
+            <select id="filtro-periodo-grado" onchange="periodosCambiarFiltro(this.value)" class="select-filtro">
+                <!-- Se rellena dinámicamente -->
+            </select>
+        </div>
+    </div>
+
+    <!-- RESUMEN POR GRADO Y GRUPO -->
+    <div class="periodos-bloque">
+        <h3 class="periodos-subtitle"><i class="fas fa-chart-bar"></i> Avance de Notas por Grado</h3>
+        <div id="periodos-resumen-container">
+            <!-- Se rellena dinámicamente -->
+        </div>
+    </div>
+
+    <!-- MODAL PARA CREAR/EDITAR PERÍODO -->
+    <div id="periodos-modal-container">
+        <!-- Se rellena dinámicamente -->
+    </div>
+
+</div>

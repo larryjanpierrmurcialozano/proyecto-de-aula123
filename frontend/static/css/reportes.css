@@ -1,0 +1,456 @@
+/* ═══════════════════════════════════════════════════════════════════
+   REPORTES - Grid de reportes
+   ═══════════════════════════════════════════════════════════════════ */
+.reportes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.35rem;
+}
+
+.reporte-categoria {
+    background: var(--blanco);
+    border: 1px solid rgba(71, 85, 105, 0.1);
+    border-radius: 4px;
+    padding: 0.4rem;
+}
+
+.reporte-categoria h3 {
+    color: var(--cafe-oscuro);
+    font-size: 0.7rem;
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.1);
+    font-weight: 700;
+}
+
+.reporte-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem;
+    margin: 0.1rem 0;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.reporte-item:hover {
+    background: rgba(71, 85, 105, 0.05);
+}
+
+.reporte-item i {
+    font-size: 0.85rem;
+    color: var(--cafe-medio);
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.reporte-item strong {
+    display: block;
+    color: var(--cafe-oscuro);
+    margin-bottom: 0.05rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.reporte-item p {
+    font-size: 0.65rem;
+    color: var(--cafe-suave);
+    margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FORMULARIOS Y CONTROLES
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Títulos y Etiquetas */
+.reportes-grid ~ .form-group label,
+#form-enviar-reporte .form-group label {
+    color: var(--cafe-oscuro);
+    font-weight: 600;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 0.25rem;
+    transition: color 0.2s ease;
+}
+
+#form-enviar-reporte .form-group label i {
+    color: var(--cafe-medio);
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+#form-enviar-reporte .form-group:hover label {
+    color: var(--cafe-medio);
+}
+
+#form-enviar-reporte .form-group:hover label i {
+    color: var(--cafe-oscuro);
+}
+
+/* Inputs de texto y email */
+#form-enviar-reporte input[type="email"],
+#form-enviar-reporte input[type="text"],
+#boletin-grupo-select + * input[type="email"] {
+    background: var(--blanco);
+    border: 1px solid rgba(71, 85, 105, 0.15);
+    border-radius: 4px;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.75rem;
+    color: var(--cafe-oscuro);
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+#form-enviar-reporte input[type="email"]:focus,
+#form-enviar-reporte input[type="text"]:focus {
+    outline: none;
+    border-color: var(--cafe-oscuro);
+    box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.1);
+}
+
+#form-enviar-reporte input[type="email"]:hover,
+#form-enviar-reporte input[type="text"]:hover {
+    border-color: var(--cafe-medio);
+}
+
+#form-enviar-reporte input[type="email"]::placeholder,
+#form-enviar-reporte input[type="text"]::placeholder {
+    color: var(--cafe-suave);
+}
+
+/* Selects */
+#form-enviar-reporte select,
+#boletin-grupo-select,
+#boletin-periodo-select {
+    background: var(--blanco);
+    border: 1px solid rgba(71, 85, 105, 0.15);
+    border-radius: 4px;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.75rem;
+    color: var(--cafe-oscuro);
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%230F6B42' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.4rem center;
+    padding-right: 1.6rem;
+}
+
+#form-enviar-reporte select:focus,
+#boletin-grupo-select:focus,
+#boletin-periodo-select:focus {
+    outline: none;
+    border-color: var(--cafe-oscuro);
+    box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.1);
+}
+
+#form-enviar-reporte select:hover,
+#boletin-grupo-select:hover,
+#boletin-periodo-select:hover {
+    border-color: var(--cafe-medio);
+}
+
+#form-enviar-reporte select option {
+    color: var(--cafe-oscuro);
+    background: var(--blanco);
+}
+
+/* Textareas */
+#form-enviar-reporte textarea {
+    background: var(--blanco);
+    border: 1px solid rgba(71, 85, 105, 0.15);
+    border-radius: 4px;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.75rem;
+    color: var(--cafe-oscuro);
+    font-family: inherit;
+    resize: none;
+    transition: all 0.2s ease;
+}
+
+#form-enviar-reporte textarea:focus {
+    outline: none;
+    border-color: var(--cafe-oscuro);
+    box-shadow: 0 0 0 2px rgba(71, 85, 105, 0.1);
+}
+
+#form-enviar-reporte textarea:hover {
+    border-color: var(--cafe-medio);
+}
+
+#form-enviar-reporte textarea::placeholder {
+    color: var(--cafe-suave);
+}
+
+/* Radio buttons - mejorado */
+#form-enviar-reporte input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--cafe-oscuro);
+    transition: all 0.2s ease;
+}
+
+#form-enviar-reporte input[type="radio"]:hover {
+    accent-color: var(--cafe-medio);
+}
+
+/* Labels de radio buttons */
+#form-enviar-reporte label[for^="radio-"] {
+    color: var(--cafe-oscuro);
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: inline;
+    transition: color 0.2s ease;
+}
+
+#form-enviar-reporte label[for^="radio-"]:hover {
+    color: var(--cafe-medio);
+}
+
+/* File inputs */
+#form-enviar-reporte input[type="file"],
+#reporte-adjunto {
+    color: var(--cafe-oscuro);
+    font-size: 0.7rem;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid rgba(71, 85, 105, 0.15);
+    border-radius: 4px;
+    background: var(--blanco);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Botón Examinar en navegadores webkit */
+#form-enviar-reporte input[type="file"]::file-selector-button,
+#reporte-adjunto::file-selector-button {
+    background: var(--cafe-oscuro);
+    color: var(--blanco);
+    border: none;
+    padding: 0.3rem 0.6rem;
+    margin-right: 0.4rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+#form-enviar-reporte input[type="file"]::file-selector-button:hover,
+#reporte-adjunto::file-selector-button:hover {
+    background: var(--cafe-medio);
+}
+
+/* Para navegadores WebKit (Chrome, Safari) */
+#form-enviar-reporte input[type="file"]::-webkit-file-upload-button,
+#reporte-adjunto::-webkit-file-upload-button {
+    background: var(--cafe-oscuro);
+    color: var(--blanco);
+    border: none;
+    padding: 0.3rem 0.6rem;
+    margin-right: 0.4rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+#form-enviar-reporte input[type="file"]::-webkit-file-upload-button:hover,
+#reporte-adjunto::-webkit-file-upload-button:hover {
+    background: var(--cafe-medio);
+}
+
+#form-enviar-reporte input[type="file"]:hover,
+#reporte-adjunto:hover {
+    border-color: var(--cafe-medio);
+}
+
+/* Radio buttons */
+#form-enviar-reporte input[type="radio"],
+input[name="tipo-reporte"],
+input[name="tipo-destinatario"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--cafe-oscuro);
+    transition: all 0.2s ease;
+}
+
+#form-enviar-reporte input[type="radio"]:hover {
+    accent-color: var(--cafe-medio);
+}
+
+/* Botones */
+#form-enviar-reporte button,
+#btn-boletin-generar,
+#btn-boletin-enviar {
+    background: var(--cafe-oscuro);
+    color: var(--blanco);
+    border: none;
+    border-radius: 4px;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+#form-enviar-reporte button:hover,
+#btn-boletin-generar:hover,
+#btn-boletin-enviar:hover {
+    background: var(--cafe-medio);
+    box-shadow: 0 2px 8px rgba(71, 85, 105, 0.2);
+}
+
+#form-enviar-reporte button:active,
+#btn-boletin-generar:active,
+#btn-boletin-enviar:active {
+    background: #0A4D2E;
+    transform: scale(0.98);
+}
+
+#form-enviar-reporte button:disabled,
+#btn-boletin-generar:disabled,
+#btn-boletin-enviar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Botón verde */
+.btn-verde {
+    background: #16a34a !important;
+}
+
+.btn-verde:hover {
+    background: #15803d !important;
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25) !important;
+}
+
+.btn-verde:active {
+    transform: scale(0.98);
+}
+
+/* Botón café */
+.btn-cafe {
+    background: var(--cafe-oscuro) !important;
+}
+
+.btn-cafe:hover {
+    background: var(--cafe-medio) !important;
+    box-shadow: 0 2px 8px rgba(71, 85, 105, 0.2) !important;
+}
+
+.btn-cafe:active {
+    transform: scale(0.98);
+}
+
+/* Form group */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+/* Divisor */
+#form-enviar-reporte > div[style*="border-top"] {
+    border-top-color: rgba(71, 85, 105, 0.15) !important;
+}
+
+/* Mejoras generales */
+#form-enviar-reporte .form-group:hover label {
+    color: var(--cafe-medio);
+}
+
+#form-enviar-reporte .form-group:hover label i {
+    color: var(--cafe-oscuro);
+}
+
+/* Placeholders */
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+    color: var(--cafe-suave);
+}
+
+/* Animación suave general */
+* {
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Mejoras de accesibilidad */
+#form-enviar-reporte button:focus,
+#form-enviar-reporte input:focus,
+#form-enviar-reporte select:focus,
+#form-enviar-reporte textarea:focus {
+    outline: 2px solid var(--cafe-oscuro);
+    outline-offset: 0px;
+}
+
+/* Estilos para inputs dentro del contenedor especifico */
+#container-correo-especifico input[type="email"],
+#container-grupo select {
+    background: rgba(71, 85, 105, 0.02);
+    border: 1px solid rgba(71, 85, 105, 0.1);
+}
+
+/* Card de boletines */
+.card[style*="margin-top"] {
+    border: 1px solid rgba(71, 85, 105, 0.1) !important;
+    background: rgba(71, 85, 105, 0.02) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 1px 3px rgba(71, 85, 105, 0.05);
+}
+
+.card[style*="margin-top"]:hover {
+    box-shadow: 0 2px 8px rgba(71, 85, 105, 0.1);
+}
+
+/* Labels de radio buttons */
+#form-enviar-reporte label[for^="radio-"],
+label[for^="radio-"] {
+    color: var(--cafe-oscuro);
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: inline;
+    transition: color 0.2s ease;
+}
+
+#form-enviar-reporte label[for^="radio-"]:hover,
+label[for^="radio-"]:hover {
+    color: var(--cafe-medio);
+}
+
+/* Labels dentro de reporte-item */
+.reporte-item label {
+    color: var(--cafe-oscuro);
+    cursor: pointer;
+    font-size: 0.7rem;
+    transition: color 0.2s ease;
+}
+
+.reporte-item:hover label {
+    color: var(--cafe-medio);
+}
+
+/* Div contenedor de label radio */
+.reporte-item div[style*="display: flex"] {
+    transition: all 0.2s ease;
+}

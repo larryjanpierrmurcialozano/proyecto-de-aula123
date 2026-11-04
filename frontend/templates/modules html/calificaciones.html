@@ -1,0 +1,161 @@
+<div class="card cal-card">
+    <div class="card-header-flex cal-header-top">
+        <h2 class="card-title" style="border:none;margin:0;padding:0;">
+            <i class="fas fa-star"></i> Registro de Notas
+        </h2>
+        <div class="cal-header-actions">
+            <button id="btn-sincronizar" class="btn btn-secondary">
+                <i class="bx bx-sync"></i> Sincronización Total (Escritorio)
+            </button>
+            <button id="btn-sincronizar-boletines" class="btn btn-info">
+                <i class="fas fa-file-pdf"></i> Boletines (Escritorio)
+            </button>
+            <button id="btn-agregar-acuerdo" class="btn btn-primary" style="display:none;">
+                <i class="fas fa-file-pdf"></i> Agregar Acuerdo Pedagógico
+            </button>
+            <button id="btn-agregar-actividad" class="btn btn-verde" style="display:none;">
+                <i class="fas fa-plus"></i> Agregar Actividad
+            </button>
+            <button id="btn-guardar-todo" class="btn btn-cafe" style="display:none;">
+                <i class="fas fa-save"></i> Guardar Todo
+            </button>
+        </div>
+    </div>
+
+    <div class="cal-filtros cal-bloque">
+        <div class="cal-filtro-item">
+            <label><i class="fas fa-layer-group"></i> Grado</label>
+            <select id="cal-filtro-grado">
+                <option value="">Seleccionar grado...</option>
+            </select>
+        </div>
+        <div class="cal-filtro-item">
+            <label><i class="fas fa-users"></i> Grupo</label>
+            <select id="cal-filtro-grupo" disabled>
+                <option value="">Seleccionar grupo...</option>
+            </select>
+        </div>
+        <div class="cal-filtro-item">
+            <label><i class="fas fa-book"></i> Materia</label>
+            <select id="cal-filtro-materia" disabled>
+                <option value="">Seleccionar materia...</option>
+            </select>
+        </div>
+        <div class="cal-filtro-item">
+            <label><i class="fas fa-calendar-alt"></i> Período</label>
+            <select id="cal-filtro-periodo"></select>
+        </div>
+    </div>
+
+    <div class="calificaciones-footer cal-bloque">
+        <button id="btn-generar" class="btn btn-primary" disabled>
+            <i class="fas fa-file-excel"></i> Descargar Excel Físico
+        </button>
+        <button id="btn-abrir-linea" class="btn btn-info" disabled>
+            <i class="fas fa-edit"></i> Abrir / Editar aquí
+        </button>
+    </div>
+
+    <div id="cal-ponderacion-bar" class="cal-ponderacion-bar cal-bloque" style="display:none;">
+        <div class="cal-ponderacion-info">
+            <span><i class="fas fa-chart-pie"></i> Ponderación total:</span>
+            <strong id="cal-ponderacion-valor">0%</strong>
+            <span>de 100%</span>
+        </div>
+        <div class="cal-ponderacion-track">
+            <div id="cal-ponderacion-fill" class="cal-ponderacion-fill" style="width:0%;"></div>
+        </div>
+    </div>
+
+    <div id="cal-tabla-wrapper" class="cal-tabla-wrapper cal-bloque">
+        <div class="cal-placeholder">
+            <i class="fas fa-hand-point-up fa-3x"></i>
+            <p>Selecciona Grado, Grupo y Materia; luego usa Abrir / Editar aquí.</p>
+        </div>
+    </div>
+
+    <div id="cal-leyenda" class="cal-leyenda" style="display:none;">
+        <span class="cal-leyenda-item"><span class="cal-leyenda-color cal-leyenda-superior"></span> Superior (≥4.6)</span>
+        <span class="cal-leyenda-item"><span class="cal-leyenda-color cal-leyenda-alto"></span> Alto (≥4.0)</span>
+        <span class="cal-leyenda-item"><span class="cal-leyenda-color cal-leyenda-basico"></span> Básico (≥3.0)</span>
+        <span class="cal-leyenda-item"><span class="cal-leyenda-color cal-leyenda-bajo"></span> Bajo (&lt;3.0)</span>
+    </div>
+<!--la seccion de cargar plantillas para lectura y transicion de mapeo a la base de datos, no funciona logicamente,
+esto es asi porque, simplemenete no le se a que meter ni como meterlo, se que es algo que puede ser con ia para facilitar procesos,
+asi que lo dejaremos para el tecnologo o nuestro desarrollo profesional, claro que si chaval-->
+    <div class="cal-upload-grid">
+        <div class="cal-upload-wrap cal-bloque" style="display: none;">
+            <div class="cal-upload-header">
+                <h4><i class="fas fa-file-upload"></i> Subir Planilla Editada</h4>
+                <p>Si trabajaste el Excel fuera del sistema, súbelo aquí. La versión anterior irá al archivador histórico.</p>
+            </div>
+            <div class="cal-upload-controls">
+                <label for="file-excel" class="cal-file-label">
+                    <i class="fas fa-paperclip"></i>
+                    <span id="cal-file-label-text">Seleccionar archivo .xlsx</span>
+                </label>
+                <input type="file" id="file-excel" accept=".xlsx" class="cal-file-input">
+                <button id="btn-subir" class="btn btn-success" disabled>
+                    <i class="fas fa-cloud-upload-alt"></i> Procesar Archivo
+                </button>
+            </div>
+        </div>
+
+        <div class="cal-upload-wrap cal-bloque cal-acuerdo-wrap">
+            <div class="cal-upload-header">
+                <h4><i class="fas fa-file-signature"></i> Acuerdo Pedagógico</h4>
+                <p id="cal-acuerdo-status">No hay PDF cargado para este período.</p>
+            </div>
+            <div class="cal-upload-controls">
+                <button id="btn-ver-acuerdo" class="btn btn-info" disabled>
+                    <i class="fas fa-eye"></i> Ver PDF
+                </button>
+            </div>
+            <input type="file" id="file-acuerdo-pdf" accept=".pdf" class="cal-file-input">
+        </div>
+    </div>
+</div>
+
+<div id="modal-cal-actividad" class="modal-overlay">
+    <div class="modal-content" style="max-width:560px;">
+        <div class="modal-header">
+            <h3 id="modal-cal-actividad-titulo">Nueva Actividad</h3>
+            <button class="modal-close" id="btn-cerrar-modal-actividad">&times;</button>
+        </div>
+        <form id="form-cal-actividad">
+            <input type="hidden" id="cal-actividad-id">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input id="cal-act-nombre" class="form-control" maxlength="150" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select id="cal-act-tipo" class="form-control">
+                        <option value="Tarea">Tarea</option>
+                        <option value="Quiz">Quiz</option>
+                        <option value="Proyecto">Proyecto</option>
+                        <option value="Evaluación">Evaluación</option>
+                        <option value="Clase">Clase</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ponderación (%)</label>
+                    <input id="cal-act-ponderacion" type="number" class="form-control" min="0.01" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Puntaje Máximo</label>
+                    <input id="cal-act-puntaje-max" type="number" class="form-control" min="0.01" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Actividad</label>
+                    <input id="fecha_actividad" type="date" class="form-control" required>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-rojo" id="btn-cancelar-modal-actividad">Cancelar</button>
+                <button type="submit" class="btn btn-verde">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

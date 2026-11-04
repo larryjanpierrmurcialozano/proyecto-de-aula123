@@ -1,0 +1,3 @@
+la fecha generada, no importa si registra una fecha adelantada, igualmente registra la inasistencia,
+pero debe mantener la funcionalidad para las justificaciones poder guardarlas sin ningun problema del futuro,
+o si no es viable pues se deja la funcionalidad disponible solo el dia de edicion para atras

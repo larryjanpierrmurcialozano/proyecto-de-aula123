@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inicia sesión en Institucion educativa Ecopetrol">
+    <title>Iniciar Sesión - Institucion educativa Ecopetrol</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/institutional-theme.css', v='20261027-palette') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="main-content">
+        <section class="img-section">
+            <div class="brand">
+                <span class="brand-name">Institucion educativa Ecopetrol</span>
+            </div>
+            <div class="img-overlay">
+                <img src="{{ url_for('static', filename='img/escudo.png') }}" alt="Ilustración de inicio de sesión">
+            </div>
+            <div class="info-footer">
+                <div class="contact-info">
+                    <p><strong>¿Tienes alguna duda?</strong></p>
+                    <p>Comúnicate con nuestro equipo de soporte: <a href="mailto:soporteIEE@gmail.com">soporteIEE@gmail.com</a></p>
+                    <p>Llama: +75 313 237 9397</p>
+                    <p><strong>Recuperación de Acceso</strong></p>
+                    <p>Solicita el restablecimiento de tu contraseña directamente en tu institución.</p>
+                </div>
+                <div class="go-back">
+                    <a href="/bienvenida" class="btn-back">
+                        <i class="fas fa-arrow-left"></i> Volver atrás
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="form-section">
+            <div class="user-icon-container">
+                <div class="user-cirlce">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <form action="" class="auth-form" id="loginForm" method="post">
+                <h1>Iniciar Sesión</h1>
+                <p>Bienvenido de vuelta a Institucion educativa Ecopetrol</p>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input  id="email" name="email" type="email" class="input-login"  placeholder="Tu@email.com" maxlength="50" minlength="4" title="Introduzca su correo electrónico" required> 
+                    </div>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input id="password" name="password" type="password" class="input-login"  placeholder="••••••••" maxlength="25" minlength="6" title="Introduzca su contraseña" required>
+                        <button class="toggle-password" type="button" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember" id="remember">
+                        <span>Recuérdame</span>
+                    </label>
+                </div>
+                <input class="btn-submit" type="submit" value="Iniciar Sesión">
+                <div class="error-box" id="generalError" style="display: none;"></div>
+                <p>¿No tienes cuenta? <a href="/register">Regístrate</a></p>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <small>&copy; 2025-2026 | Institucion educativa Ecopetrol</small>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3.10.0/notyf.min.js"></script>
+    <script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+</body>
+</html>

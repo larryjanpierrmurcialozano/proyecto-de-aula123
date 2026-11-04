@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-header-flex">
+        <h2 class="card-title" style="border:none;margin:0;padding:0;">
+            <i class="fas fa-user-graduate"></i> Gestión de Estudiantes
+        </h2>
+        <button class="btn btn-verde" onclick="abrirModalEstudiante()">
+            <i class="fas fa-plus"></i> Nuevo Estudiante
+        </button>
+    </div>
+    <div class="filtros-container">
+        <div class="busqueda-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="filtro-estudiante-buscar" placeholder="Buscar por nombre, apellido o documento">
+        </div>
+        <select class="filtro-select" id="filtro-estudiante-grado">
+            <option value="">Todos los grados</option>
+        </select>
+        <select class="filtro-select" id="filtro-estudiante-grupo">
+            <option value="">Todos los grupos</option>
+        </select>
+        <select class="filtro-select" id="filtro-estudiante-estado">
+            <option value="">Todos los estados</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+        </select>
+    </div>
+    <div class="tabla-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Documento</th>
+                    <th>Nombre Completo</th>
+                    <th>Grado / Grupo</th>
+                    <th>Acudiente</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tbody-estudiantes"></tbody>
+        </table>
+    </div>
+</div>
