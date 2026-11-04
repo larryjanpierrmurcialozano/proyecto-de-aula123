@@ -7,8 +7,7 @@ let GRADOS_CACHE = [];
 let GRUPOS_CACHE = [];
 let NIVELES_CACHE = [
     { id_nivel: 1, nombre: 'Primaria' },
-    { id_nivel: 2, nombre: 'Secundaria' },
-    { id_nivel: 3, nombre: 'Media' }
+    { id_nivel: 2, nombre: 'Secundaria' }
 ];
 
 async function renderGrados() {

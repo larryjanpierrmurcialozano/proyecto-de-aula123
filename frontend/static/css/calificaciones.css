@@ -36,6 +36,30 @@
     padding: 0.4rem 0.65rem;
 }
 
+.cal-header-actions .btn-secondary,
+.cal-header-actions .btn-info {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.cal-header-actions .btn-secondary:hover:not(:disabled),
+.cal-header-actions .btn-info:hover:not(:disabled) {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.24);
+}
+
+.cal-header-actions .btn-primary,
+.cal-header-actions .btn-verde {
+    color: var(--cafe-oscuro) !important;
+    background: #ffffff !important;
+}
+
+.cal-header-actions .btn-primary:hover:not(:disabled),
+.cal-header-actions .btn-verde:hover:not(:disabled) {
+    color: var(--cafe-oscuro) !important;
+    background: #f1f5f9 !important;
+}
+
 /* FOOTER */
 .calificaciones-footer {
     display: flex;

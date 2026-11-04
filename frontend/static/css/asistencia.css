@@ -30,7 +30,7 @@
     cursor: pointer;
     font-size: 0.7rem;
     font-weight: 600;
-    color: var(--cafe-suave);
+    color: rgba(255, 255, 255, 0.92);
     transition: all 0.2s;
     display: flex;
     align-items: center;
@@ -40,8 +40,8 @@
 }
 
 .asist-tab:hover {
-    color: var(--cafe-oscuro);
-    background: rgba(71, 85, 105, 0.08);
+    color: var(--blanco);
+    background: rgba(255, 255, 255, 0.14);
 }
 
 .asist-tab-active {
