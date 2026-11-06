@@ -143,7 +143,7 @@ function renderGridMaterias() {
         const desc = m.descripcion || 'Sin descripción';
         const gradosHTML = m.grados_nombres ?
             m.grados_nombres.split(', ').map(g => `<span class="mat-grado-chip">${g}</span>`).join('') :
-            '<span style="color:var(--cafe-claro);font-size:0.85rem;">Sin asignar</span>';
+            '<span class="mat-grados-vacio">Sin asignar</span>';
 
         return `
         <div class="mat-card" data-materia-id="${m.id_materia}">
@@ -164,7 +164,7 @@ function renderGridMaterias() {
                     </span>
                 </div>
                 <div class="mat-card-grados">
-                    <span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.3px;color:var(--cafe-claro);font-weight:600;">Grados:</span>
+                    <span class="mat-card-grados-label">Grados:</span>
                     <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.3rem;">
                         ${gradosHTML}
                     </div>
@@ -401,7 +401,7 @@ async function cargarListaDocentesModalEditar(materiaId) {
                 <div style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem;border-bottom:1px solid #ddd;">
                     <div>
                         <span style="font-weight:600;color:var(--cafe-oscuro);font-size:0.9rem;">${d.nombre} ${d.apellido}</span>
-                        <div style="font-size:0.75rem;color:var(--cafe-claro);">${d.nombre_grado} - Grupo ${d.codigo_grupo}</div>
+                        <div class="mat-docente-grupo mat-docente-grupo-compacto">${d.nombre_grado} - Grupo ${d.codigo_grupo}</div>
                     </div>
                     <button type="button" class="btn-accion btn-accion-rojo" onclick="desasignarDocenteDesdeModal(${d.id_asignacion}, ${materiaId})" title="Desasignar" style="width:28px;height:28px;border:none;background:#ffebee;color:#e53935;border-radius:6px;cursor:pointer;">
                         <i class="fas fa-times"></i>
@@ -692,7 +692,7 @@ async function cargarAsignacionesActuales(materia_id) {
                     <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem;border-bottom:1px solid #ddd;">
                         <div>
                             <span style="font-weight:600;color:var(--cafe-oscuro);">${d.nombre} ${d.apellido}</span>
-                            <div style="font-size:0.8rem;color:var(--cafe-claro);">${d.nombre_grado} - Grupo ${d.codigo_grupo}</div>
+                            <div class="mat-docente-grupo">${d.nombre_grado} - Grupo ${d.codigo_grupo}</div>
                         </div>
                         <button class="btn-accion btn-accion-rojo mat-btn-desasignar" data-asignacion-id="${d.id_asignacion}" title="Desasignar" style="width:32px;height:32px;">
                             <i class="fas fa-times"></i>

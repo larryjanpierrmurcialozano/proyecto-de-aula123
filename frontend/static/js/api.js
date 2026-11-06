@@ -80,6 +80,10 @@ const API = {
         return this.request('/api/estudiantes');
     },
 
+    async getEstudiantesObservador() {
+        return this.request('/api/observador/estudiantes');
+    },
+
     async getEstudiante(id) {
         return this.request(`/api/estudiantes/${id}`);
     },

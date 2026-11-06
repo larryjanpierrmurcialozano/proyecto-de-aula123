@@ -72,27 +72,67 @@
 }
 
 .obs-guia-imagen-wrap {
+    align-self: start;
+    height: 230px;
     border: 1px solid rgba(71, 85, 105, 0.1);
     border-radius: 8px;
     overflow: hidden;
     background: var(--blanco);
-    min-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.obs-guia-imagen-trigger {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    cursor: zoom-in;
+    overflow: hidden;
+    background: var(--blanco);
+}
+
 .obs-guia-imagen {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     background: var(--blanco);
+    display: block;
+    filter: blur(2px);
+    transform: scale(1.035);
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.obs-guia-imagen-trigger:hover .obs-guia-imagen {
+    filter: blur(1px);
+    transform: scale(1.05);
+}
+
+.obs-guia-imagen-accion {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background: rgba(15, 23, 42, 0.34);
+    color: var(--blanco);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15px;
+}
+
+.obs-guia-imagen-accion i {
+    margin-right: 0.35rem;
 }
 
 .obs-guia-imagen-fallback {
     width: 100%;
     height: 100%;
-    min-height: 200px;
+    height: 100%;
     padding: 0.8rem;
     color: var(--cafe-suave);
     background: rgba(71, 85, 105, 0.03);
@@ -107,6 +147,50 @@
 .obs-guia-imagen-fallback i {
     font-size: 1.8rem;
     color: var(--cafe-suave);
+}
+
+.obs-infografia-overlay {
+    z-index: 1300;
+    padding: 1rem;
+}
+
+.obs-infografia-modal {
+    width: min(96vw, 900px);
+    max-height: 96vh;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--blanco);
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.35);
+}
+
+.obs-infografia-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.12);
+}
+
+.obs-infografia-header h2 {
+    margin: 0;
+    color: var(--cafe-oscuro);
+    font-size: 0.95rem;
+}
+
+.obs-infografia-body {
+    max-height: calc(96vh - 60px);
+    overflow: auto;
+    padding: 0.6rem;
+    background: #f8fafc;
+    text-align: center;
+}
+
+.obs-infografia-body img {
+    display: block;
+    width: min(100%, 678px);
+    height: auto;
+    margin: 0 auto;
 }
 
 .obs-guia-cards {

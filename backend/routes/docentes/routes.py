@@ -185,7 +185,13 @@ def api_docente_guardar_asignaciones(id):
         if conn is None:
             return jsonify({'error': 'No hay conexión con la base de datos'}), 503
         cursor = conn.cursor()
-        cursor.execute("SELECT 1 FROM usuarios WHERE id_usuario = %s AND id_rol = 4", (id,))
+        cursor.execute("""
+            SELECT 1
+            FROM usuarios u
+            JOIN roles r ON r.id_rol = u.id_rol
+            WHERE u.id_usuario = %s
+              AND LOWER(r.nombre_rol) IN ('profesor', 'docente')
+        """, (id,))
         if not cursor.fetchone():
             conn.rollback()
             return jsonify({'error': 'Docente no encontrado'}), 404

@@ -288,6 +288,7 @@ const TITULOS_PAGINAS = {
 };
 
 function cargarPagina(pagina) {
+    window.PAGINA_ACTUAL = pagina;
     const permisos = getPermisosUsuario();
 
     if (pagina !== 'dashboard' && !permisos.includes(pagina)) {

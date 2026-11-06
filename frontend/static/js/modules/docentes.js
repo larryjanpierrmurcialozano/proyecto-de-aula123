@@ -164,10 +164,16 @@ async function abrirModalDocente(docenteId = null) {
 
         document.getElementById('select-docente').addEventListener('change', (e) => {
             DOCENTE_SELECCIONADO = e.target.value;
+            document.getElementById('select-grado')?.removeAttribute('data-seleccion-modificada');
             cargarAsignacionesDocenteSeleccionado();
         });
 
-        document.getElementById('select-grado').addEventListener('change', actualizarGruposDocente);
+        document.getElementById('select-grado').addEventListener('change', () => {
+            marcarSeleccionAsignacionModificada();
+            actualizarGruposDocente();
+        });
+        document.getElementById('select-grupo').addEventListener('change', marcarSeleccionAsignacionModificada);
+        document.getElementById('select-materia').addEventListener('change', marcarSeleccionAsignacionModificada);
 
         document.getElementById('form-asignar-docente').addEventListener('submit', guardarAsignacionesDocente);
 
@@ -205,26 +211,45 @@ async function cargarAsignacionesDocenteSeleccionado() {
     }
 }
 
+function marcarSeleccionAsignacionModificada() {
+    document.getElementById('select-grado')?.setAttribute('data-seleccion-modificada', 'true');
+}
+
 function agregarAsignacionTemp() {
+    const nuevaAsignacion = obtenerAsignacionSeleccionada();
+    if (!nuevaAsignacion) {
+        mostrarAlerta('Selecciona grado, grupo y materia', 'error');
+        return false;
+    }
+
+    const existe = ASIGNACIONES_DOCENTE_TEMP.some(a =>
+        a.id_grupo === nuevaAsignacion.id_grupo && a.id_materia === nuevaAsignacion.id_materia
+    );
+    if (existe) {
+        mostrarAlerta('Ya agregaste esa combinación grupo/materia', 'info');
+        return false;
+    }
+
+    ASIGNACIONES_DOCENTE_TEMP.push(nuevaAsignacion);
+    renderAsignacionesTemp();
+    return true;
+}
+
+function obtenerAsignacionSeleccionada() {
     const gradoSelect = document.getElementById('select-grado');
     const grupoSelect = document.getElementById('select-grupo');
     const materiaSelect = document.getElementById('select-materia');
+    if (!gradoSelect || !grupoSelect || !materiaSelect) return null;
+
     const grado = Number(gradoSelect.value);
     const grupo = Number(grupoSelect.value);
     const materia = Number(materiaSelect.value);
 
     if (!grado || !grupo || !materia) {
-        mostrarAlerta('Selecciona grado, grupo y materia', 'error');
-        return;
+        return null;
     }
 
-    const existe = ASIGNACIONES_DOCENTE_TEMP.some(a => a.id_grupo === grupo && a.id_materia === materia);
-    if (existe) {
-        mostrarAlerta('Ya agregaste esa combinación grupo/materia', 'info');
-        return;
-    }
-
-    ASIGNACIONES_DOCENTE_TEMP.push({
+    return {
         id_grado: grado,
         nombre_grado: gradoSelect.options[gradoSelect.selectedIndex].text,
         id_grupo: grupo,
@@ -232,8 +257,7 @@ function agregarAsignacionTemp() {
         id_materia: materia,
         nombre_materia: materiaSelect.options[materiaSelect.selectedIndex].text,
         estado: 'Activa'
-    });
-    renderAsignacionesTemp();
+    };
 }
 
 function renderAsignacionesTemp() {
@@ -277,6 +301,25 @@ async function guardarAsignacionesDocente(e) {
         mostrarAlerta('Selecciona un docente', 'error');
         return;
     }
+
+    const seleccionActual = document.getElementById('select-grado')?.dataset.seleccionModificada === 'true'
+        ? obtenerAsignacionSeleccionada()
+        : null;
+    if (!seleccionActual && (
+        document.getElementById('select-grado')?.value ||
+        document.getElementById('select-grupo')?.value ||
+        document.getElementById('select-materia')?.value
+    )) {
+        mostrarAlerta('Completa grado, grupo y materia antes de guardar', 'error');
+        return;
+    }
+    if (seleccionActual && !ASIGNACIONES_DOCENTE_TEMP.some(a =>
+        a.id_grupo === seleccionActual.id_grupo && a.id_materia === seleccionActual.id_materia
+    )) {
+        ASIGNACIONES_DOCENTE_TEMP.push(seleccionActual);
+        renderAsignacionesTemp();
+    }
+
     const botonGuardar = e.submitter || document.querySelector('#form-asignar-docente button[type="submit"]');
     const textoOriginal = botonGuardar?.innerHTML;
     if (botonGuardar) {

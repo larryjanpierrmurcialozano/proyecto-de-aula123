@@ -19,7 +19,14 @@ import subprocess
 import openpyxl
 from openpyxl.utils import get_column_letter
 from utils.database import get_db
-from utils.helpers import _error_interno, log_action
+from utils.helpers import (
+    _error_interno,
+    log_action,
+    obtener_grupos_profesor,
+    profesor_puede_grupo,
+    profesor_puede_estudiante,
+    profesor_puede_correos
+)
 
 reportes_bp = Blueprint('reportes', __name__)
 
@@ -68,8 +75,9 @@ def api_obtener_grupos():
 
         conn = get_db()
         cursor = conn.cursor(dictionary=True)
+        grupos_permitidos = obtener_grupos_profesor(cursor)
 
-        cursor.execute("""
+        query = """
             SELECT
                 g.id_grupo,
                 g.codigo_grupo AS codigo_grupo,
@@ -77,8 +85,16 @@ def api_obtener_grupos():
                 gd.id_grado
             FROM grupos g
             INNER JOIN grados gd ON g.id_grado = gd.id_grado
-            ORDER BY gd.id_grado ASC, g.codigo_grupo ASC
-        """)
+        """
+        params = []
+        if grupos_permitidos is not None:
+            if not grupos_permitidos:
+                query += " WHERE 1 = 0"
+            else:
+                query += " WHERE g.id_grupo IN (" + ", ".join(["%s"] * len(grupos_permitidos)) + ")"
+                params.extend(grupos_permitidos)
+        query += " ORDER BY gd.id_grado ASC, g.codigo_grupo ASC"
+        cursor.execute(query, params)
 
         grupos = cursor.fetchall()
         cursor.close()
@@ -112,6 +128,10 @@ def api_correos_por_grupo(id_grupo):
 
         conn = get_db()
         cursor = conn.cursor(dictionary=True)
+        if not profesor_puede_grupo(cursor, id_grupo):
+            cursor.close()
+            conn.close()
+            return jsonify({'error': 'No tienes permiso para consultar este grupo'}), 403
 
         cursor.execute("""
             SELECT DISTINCT e.correo
@@ -980,6 +1000,14 @@ def api_enviar_reporte_correo():
 
         if not isinstance(correos, list) or len(correos) == 0:
             return jsonify({'error': 'Correos inválidos'}), 400
+        conn = get_db()
+        cursor = conn.cursor(dictionary=True)
+        if not profesor_puede_correos(cursor, correos):
+            cursor.close()
+            conn.close()
+            return jsonify({'error': 'Solo puedes enviar reportes a acudientes de tus grupos asignados'}), 403
+        cursor.close()
+        conn.close()
 
         asuntos = {
             'boletin': 'Boletín de Calificaciones',
@@ -1029,6 +1057,14 @@ def api_enviar_reporte_correo_adjunto():
 
         if not isinstance(correos, list) or len(correos) == 0:
             return jsonify({'error': 'Correos inválidos'}), 400
+        conn = get_db()
+        cursor = conn.cursor(dictionary=True)
+        if not profesor_puede_correos(cursor, correos):
+            cursor.close()
+            conn.close()
+            return jsonify({'error': 'Solo puedes enviar reportes a acudientes de tus grupos asignados'}), 403
+        cursor.close()
+        conn.close()
 
         archivo = request.files.get('archivo_pdf') or request.files.get('archivo')
         if not archivo:
@@ -1102,6 +1138,10 @@ def api_boletin_generar_archivo():
 
         conn = get_db()
         cursor = conn.cursor(dictionary=True)
+        if not profesor_puede_estudiante(cursor, estudiante_id):
+            cursor.close()
+            conn.close()
+            return jsonify({'error': 'No tienes permiso para consultar este estudiante'}), 403
 
         cursor.execute(
             """
@@ -1187,6 +1227,10 @@ def api_boletin_sincronizar_grupo():
 
         conn = get_db()
         cursor = conn.cursor(dictionary=True)
+        if not profesor_puede_grupo(cursor, grupo_id):
+            cursor.close()
+            conn.close()
+            return jsonify({'error': 'No tienes permiso para operar este grupo'}), 403
 
         cursor.execute("SELECT id_periodo, numero_periodo FROM periodos WHERE id_periodo = %s", (periodo_id,))
         periodo = cursor.fetchone()
@@ -1286,6 +1330,10 @@ def api_boletin_enviar_grupo():
 
         conn = get_db()
         cursor = conn.cursor(dictionary=True)
+        if not profesor_puede_grupo(cursor, grupo_id):
+            cursor.close()
+            conn.close()
+            return jsonify({'error': 'No tienes permiso para operar este grupo'}), 403
 
         cursor.execute("SELECT id_periodo, numero_periodo FROM periodos WHERE id_periodo = %s", (periodo_id,))
         periodo = cursor.fetchone()
@@ -1372,6 +1420,10 @@ def api_boletin_sincronizar_todo():
 
         conn = get_db()
         cursor = conn.cursor(dictionary=True)
+        if not profesor_puede_grupo(cursor, grupo_id):
+            cursor.close()
+            conn.close()
+            return jsonify({'error': 'No tienes permiso para operar este grupo'}), 403
 
         cursor.execute("SELECT id_periodo, numero_periodo FROM periodos ORDER BY numero_periodo")
         periodos = cursor.fetchall() or []

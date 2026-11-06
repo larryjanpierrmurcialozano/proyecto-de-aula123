@@ -1,9 +1,11 @@
 # Estructura general del proyecto
 
 Este documento presenta el plano general del proyecto, tomando como referencia
-la estructura fuente actual. Se muestran los componentes necesarios para
-entender la aplicación y se omiten los archivos generados, temporales o
-sensibles incluidos en `.gitignore`.
+la estructura fuente actual. La aplicación utiliza Flask como puerta de entrada
+del frontend y mantiene un backend ASP.NET Core en C# para la migración
+progresiva de módulos. Se muestran los componentes necesarios para entender la
+aplicación y se omiten los archivos generados, temporales o sensibles incluidos
+en `.gitignore`.
 
 ## Plano general
 
@@ -23,6 +25,7 @@ proyecto de aula123/
 |   |   |-- docentes/
 |   |   |-- estudiantes/
 |   |   |-- horarios/
+|   |   |-- legacy/                  Código heredado no registrado por Flask
 |   |   |-- observador/
 |   |   |-- periodos/
 |   |   |-- registros/
@@ -59,8 +62,10 @@ proyecto de aula123/
 |   |   |-- bienvenida.html
 |   |   |-- panel.html
 |   |   |-- form-contacto.html
-|   |   |-- modules html/
-|   |   `-- plantillas Excel
+|   |   |-- register.html
+|   |   |-- PlantillaAsistencias_ReporteGeneral.xlsx
+|   |   |-- PlantillaBoletínAcademico.xlsx
+|   |   `-- PlantillaCalificaciones.xlsx
 |   `-- static/                      Recursos estáticos del navegador
 |       |-- css/
 |       |-- img/
@@ -69,9 +74,11 @@ proyecto de aula123/
 |-- scripts/                        Scripts auxiliares y de base de datos
 |   |-- database/
 |   |   |-- initial_schema.dump     Esquema PostgreSQL sin registros
+|   |   |-- migrate_test_passwords.py
 |   |   `-- trigger_delete_estudiante.sql
 |   |-- setup_python_venv.ps1       Creación y preparación del entorno virtual
-|   `-- start_postgres.ps1          Inicio de PostgreSQL con contraseña configurable
+|   |-- start_postgres.ps1          Inicio de PostgreSQL con contraseña configurable
+|   `-- start_servers.sh            Inicio y control de Flask y C#
 |
 |-- docs/                           Documentación técnica y de instalación
 |   |-- architecture.md
@@ -80,15 +87,17 @@ proyecto de aula123/
 |   |-- periods.md
 |   |-- postgresql-migration.md
 |   |-- postgres-csharp-migration-tracker.md
-|   |-- hybrid-route-inventory.md
-|   `-- archive/
+|   `-- hybrid-route-inventory.md
 |
-|-- storage/                        Almacenamiento local de la aplicación
+|-- storage/                        Almacenamiento local no versionado
+|   |-- backups/                    Respaldos de bases de datos
+|   `-- uploads/                    Archivos subidos por usuarios
 |
 |-- errores de modulos relevantes/  Registro de incidencias del proyecto
 |
 |-- .dockerignore                   Exclusiones para la imagen Docker
 |-- .env.example                    Plantilla de variables de entorno
+|-- .env.docker.example             Plantilla para Docker
 |-- .env.postgres.example           Plantilla para PostgreSQL
 |-- .env.production.example         Plantilla para producción
 |-- .gitignore                      Reglas de exclusión del repositorio
@@ -105,13 +114,14 @@ proyecto de aula123/
 ## Flujo general
 
 1. El usuario interactúa con las vistas y recursos ubicados en `frontend/`.
-2. Las solicitudes llegan al backend seleccionado:
-   - `backend/` contiene la implementación Python/Flask.
-   - `backend-csharp/` contiene la implementación ASP.NET Core en C#.
-3. Las rutas organizadas por módulo procesan cada funcionalidad del sistema.
-4. Las utilidades de `backend/utils/` y la capa `backend-csharp/Data/`
-   centralizan conexiones, constantes y funciones compartidas.
-5. `storage/` se utiliza para archivos generados durante la ejecución local.
+2. Flask (`backend/`) sirve el frontend, gestiona la sesión y registra los
+   blueprints de cada módulo.
+3. Las rutas pueden ejecutarse en Flask o reenviarse de forma opcional a
+   `backend-csharp/`, según `CSHARP_PROXY_MODULES`.
+4. ASP.NET Core usa `backend-csharp/Data/` y sus módulos para consultar o
+   modificar PostgreSQL durante la migración progresiva.
+5. `storage/` conserva archivos subidos y respaldos generados durante la
+   ejecución local.
 6. `docs/`, los archivos de configuración de la raíz y los scripts apoyan la
    instalación, migración, despliegue y mantenimiento del proyecto.
 
@@ -152,16 +162,16 @@ No se incluyen los siguientes elementos porque están ignorados por `.gitignore`
 o son artefactos que no forman parte de la estructura fuente:
 
 - Entornos virtuales: `.venv/`, `backend/.venv/`, `venv/` y `env/`.
-- Configuración local y secretos: `.env`, `backend/.env`, `credentials.json` y
-  `token.json`.
+- Configuración local y secretos: `.env`, `.env.docker`, `backend/.env`,
+  `credentials.json` y `token.json`.
 - Tokens almacenados en `backend/tokens/`.
 - Cachés de Python: `__pycache__/`, `*.pyc`, `*.pyo` y `*.pyd`.
 - Dependencias instaladas de Node.js: `node_modules/`.
 - Archivos locales del editor: `.vscode/`.
 - Archivos de usuario del sistema: `.DS_Store`.
-- Archivos subidos, respaldos y archivos generados dentro de `storage/`.
-- Scripts heredados ubicados en `scripts/legacy/`.
+- Archivos subidos, respaldos, logs y archivos generados dentro de `storage/`.
+- Cachés y salidas de compilación de .NET: `bin/` y `obj/`.
 
-Las carpetas `bin/` y `obj/` del backend C# tampoco se representan porque son
-salidas de compilación; se generan automáticamente a partir del proyecto
-fuente y no describen su arquitectura.
+El directorio `backend/routes/legacy/` sí aparece en el plano porque forma parte
+del código disponible, pero no se registra en `backend/iniciador.py` y no debe
+usarse para nuevas funcionalidades.

@@ -96,13 +96,19 @@ function dibujarTablaGrupos() {
 }
 
 function filtrarGruposPorGrado() {
-    renderGrados();
+    const contenedor = document.getElementById('contenedor-tabla-grupos');
+    if (contenedor) {
+        contenedor.innerHTML = dibujarTablaGrupos();
+    }
     mostrarTab('grupos');
 }
 
 function verGrado(id) {
-    document.getElementById('filtro-grado-grupo').value = id;
-    mostrarTab('grupos');
+    const filtro = document.getElementById('filtro-grado-grupo');
+    if (filtro) {
+        filtro.value = String(id);
+        filtrarGruposPorGrado();
+    }
 }
 
 function verGrupo(id) {

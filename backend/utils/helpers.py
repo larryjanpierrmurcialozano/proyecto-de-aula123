@@ -165,3 +165,74 @@ def role_required(required_role):
             return func(current_user, *args, **kwargs)
         return wrapper
     return decorator
+
+
+def es_profesor_limitado():
+    return str(session.get('user_role') or '').strip().lower() == 'profesor'
+
+
+def obtener_grupos_profesor(cursor):
+    if not es_profesor_limitado():
+        return None
+
+    user_id = session.get('user_id')
+    if not user_id:
+        return []
+
+    cursor.execute(
+        """
+        SELECT DISTINCT id_grupo
+        FROM asignaciones_docente
+        WHERE id_usuario = %s AND estado = 'Activa'
+        """,
+        (user_id,)
+    )
+    return [int(row['id_grupo']) for row in cursor.fetchall()]
+
+
+def profesor_puede_grupo(cursor, id_grupo):
+    grupos = obtener_grupos_profesor(cursor)
+    return grupos is None or int(id_grupo) in grupos
+
+
+def profesor_puede_estudiante(cursor, id_estudiante):
+    if not es_profesor_limitado():
+        return True
+
+    cursor.execute(
+        """
+        SELECT 1
+        FROM estudiantes e
+        JOIN asignaciones_docente a ON a.id_grupo = e.id_grupo
+        WHERE e.id_estudiante = %s
+          AND a.id_usuario = %s
+          AND a.estado = 'Activa'
+        LIMIT 1
+        """,
+        (id_estudiante, session.get('user_id'))
+    )
+    return cursor.fetchone() is not None
+
+
+def profesor_puede_correos(cursor, correos):
+    if not es_profesor_limitado():
+        return True
+
+    correos = [str(correo).strip().lower() for correo in correos if str(correo).strip()]
+    if not correos:
+        return False
+
+    placeholders = ', '.join(['%s'] * len(correos))
+    cursor.execute(
+        f"""
+        SELECT DISTINCT LOWER(e.correo) AS correo
+        FROM estudiantes e
+        JOIN asignaciones_docente a ON a.id_grupo = e.id_grupo
+        WHERE a.id_usuario = %s
+          AND a.estado = 'Activa'
+          AND LOWER(e.correo) IN ({placeholders})
+        """,
+        [session.get('user_id'), *correos]
+    )
+    permitidos = {str(row['correo']).lower() for row in cursor.fetchall()}
+    return set(correos).issubset(permitidos)

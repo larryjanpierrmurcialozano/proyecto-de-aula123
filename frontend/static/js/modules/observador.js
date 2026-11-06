@@ -288,11 +288,15 @@ function _buildGuiaProtocolosHtml() {
 
             <div class="obs-guia-grid">
                 <div class="obs-guia-imagen-wrap">
-                    <img class="obs-guia-imagen" src="/static/img/protocolo-convivencia.png" alt="Infografia de protocolos"
-                         onerror="this.style.display='none'; this.parentElement.querySelector('.obs-guia-imagen-fallback').style.display='flex';">
+                    <button class="obs-guia-imagen-trigger" type="button" onclick="abrirInfografiaProtocolos()"
+                            aria-label="Abrir infografía completa de protocolos">
+                        <img class="obs-guia-imagen" src="/static/img/protocolo-convivencia.png" alt="Infografía de protocolos de convivencia"
+                         onerror="this.style.display='none'; this.closest('.obs-guia-imagen-wrap').querySelector('.obs-guia-imagen-fallback').style.display='flex';">
+                        <span class="obs-guia-imagen-accion"><i class="fas fa-search-plus"></i> Ver infografía completa</span>
+                    </button>
                     <div class="obs-guia-imagen-fallback" style="display:none;">
                         <i class="fas fa-image"></i>
-                        <p>imagen de protocolo<strong>pal futuro</strong></p>
+                        <p>No se pudo cargar la infografía</p>
                     </div>
                 </div>
 
@@ -310,6 +314,45 @@ function _buildGuiaProtocolosHtml() {
             </div>
         </section>
     `;
+}
+
+function abrirInfografiaProtocolos() {
+    if (document.getElementById('modal-infografia-protocolos')) return;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay obs-infografia-overlay active';
+    modal.id = 'modal-infografia-protocolos';
+    modal.innerHTML = `
+        <div class="obs-infografia-modal" role="dialog" aria-modal="true" aria-labelledby="titulo-infografia-protocolos">
+            <div class="obs-infografia-header">
+                <h2 id="titulo-infografia-protocolos">
+                    <i class="fas fa-shield-alt"></i> Infografía de protocolos de convivencia
+                </h2>
+                <button class="modal-close" type="button" aria-label="Cerrar infografía"
+                        onclick="cerrarInfografiaProtocolos()">&times;</button>
+            </div>
+            <div class="obs-infografia-body">
+                <img src="/static/img/protocolo-convivencia.png"
+                     alt="Infografía Ley 1620 de 2013 y protocolos de convivencia escolar">
+            </div>
+        </div>
+    `;
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) cerrarInfografiaProtocolos();
+    });
+    document.body.appendChild(modal);
+    document.addEventListener('keydown', cerrarInfografiaConEscape);
+}
+
+function cerrarInfografiaProtocolos() {
+    const modal = document.getElementById('modal-infografia-protocolos');
+    if (modal) modal.remove();
+    document.removeEventListener('keydown', cerrarInfografiaConEscape);
+}
+
+function cerrarInfografiaConEscape(event) {
+    if (event.key === 'Escape') cerrarInfografiaProtocolos();
 }
 
 function escapeHtml(value) {
@@ -728,7 +771,7 @@ async function renderObservador() {
             .catch(() => ({ materias: [] }));
         const [obsRes, estRes, materiasRes] = await Promise.all([
             API.getObservaciones(),
-            API.getEstudiantes(),
+            API.getEstudiantesObservador(),
             materiasPromise
         ]);
 

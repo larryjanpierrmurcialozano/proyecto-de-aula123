@@ -15,7 +15,8 @@ from dotenv import load_dotenv
 import openpyxl
 from openpyxl import *
 # Utilidades compartidas
-from utils.database import db_config, cleanup_db_connections
+from utils.database import db_config, cleanup_db_connections, get_db
+from utils.helpers import log_action
 from utils.constants import RUTAS_PUBLICAS
 
 CSHARP_PROXY_ROUTES = {
@@ -125,6 +126,36 @@ def verificar_autenticacion():
     if request.path.startswith('/api/') and 'user_id' not in session:
         return jsonify({'error': 'No autenticado'}), 401
     return None
+
+
+@app.after_request
+def registrar_cambio_para_sincronizacion(response):
+    """Registra escrituras exitosas para que los clientes actualicen su vista."""
+    if (
+        request.path.startswith('/api/')
+        and request.path != '/api/actualizaciones/estado'
+        and request.method in {'POST', 'PUT', 'PATCH', 'DELETE'}
+        and 200 <= response.status_code < 300
+        and session.get('user_id')
+    ):
+        log_action(
+            session['user_id'],
+            'DataChange',
+            f'{request.method} {request.path}'
+        )
+    return response
+
+
+@app.route('/api/actualizaciones/estado', methods=['GET'])
+def estado_actualizaciones():
+    """Devuelve una version monotónica para detectar cambios de otros usuarios."""
+    conn = get_db()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT COALESCE(MAX(id_log), 0) AS version FROM log_registro")
+    row = cursor.fetchone() or {}
+    cursor.close()
+    conn.close()
+    return jsonify({'status': 'ok', 'version': int(row.get('version') or 0)}), 200
 
 
 @app.before_request

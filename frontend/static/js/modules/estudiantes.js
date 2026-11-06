@@ -6,6 +6,8 @@
 let ESTUDIANTES_CACHE = [];
 let GRUPOS_CACHE_EST = []; // Cache local para evitar conflictos
 let PERIODOS_CACHE_EST = [];
+const ESTUDIANTES_POR_PAGINA = 50;
+let ESTUDIANTES_PAGINA_ACTUAL = 1;
 
 function fechaLocalHoyEstudiantes() {
     const hoy = new Date();
@@ -92,6 +94,7 @@ async function renderEstudiantes() {
 
         ESTUDIANTES_CACHE = estudiantesRes.estudiantes || [];
         GRUPOS_CACHE_EST = gruposRes.grupos || [];
+        ESTUDIANTES_PAGINA_ACTUAL = 1;
 
         const opcionesGrado = Array.from(new Set(GRUPOS_CACHE_EST.map(g => g.nombre_grado))).filter(Boolean);
 
@@ -131,6 +134,11 @@ function actualizarOpcionesGrupoEstudiantes(grado) {
 }
 
 function aplicarFiltrosEstudiantes() {
+    ESTUDIANTES_PAGINA_ACTUAL = 1;
+    dibujarTablaEstudiantes(obtenerEstudiantesFiltrados());
+}
+
+function obtenerEstudiantesFiltrados() {
     const buscar = (document.getElementById('filtro-estudiante-buscar')?.value || '').toLowerCase();
     const grado = document.getElementById('filtro-estudiante-grado')?.value || '';
     const grupo = document.getElementById('filtro-estudiante-grupo')?.value || '';
@@ -146,7 +154,18 @@ function aplicarFiltrosEstudiantes() {
         return coincideBusqueda && coincideGrado && coincideGrupo && coincideEstado;
     });
 
+    return filtrados;
+}
+
+function cambiarPaginaEstudiantes(pagina) {
+    const filtrados = obtenerEstudiantesFiltrados();
+    const totalPaginas = Math.max(1, Math.ceil(filtrados.length / ESTUDIANTES_POR_PAGINA));
+    ESTUDIANTES_PAGINA_ACTUAL = Math.max(1, Math.min(pagina, totalPaginas));
     dibujarTablaEstudiantes(filtrados);
+}
+
+function cargarSiguientePaginaEstudiantes() {
+    cambiarPaginaEstudiantes(ESTUDIANTES_PAGINA_ACTUAL + 1);
 }
 
 function dibujarTablaEstudiantes(lista) {
@@ -155,10 +174,16 @@ function dibujarTablaEstudiantes(lista) {
 
     if (!lista.length) {
         tbody.innerHTML = `<tr><td colspan="7">${Helpers.sinDatos('No hay estudiantes')}</td></tr>`;
+        actualizarPaginacionEstudiantes(0, 0);
         return;
     }
 
-    tbody.innerHTML = lista.map(e => {
+    const totalPaginas = Math.ceil(lista.length / ESTUDIANTES_POR_PAGINA);
+    ESTUDIANTES_PAGINA_ACTUAL = Math.min(ESTUDIANTES_PAGINA_ACTUAL, totalPaginas);
+    const inicio = (ESTUDIANTES_PAGINA_ACTUAL - 1) * ESTUDIANTES_POR_PAGINA;
+    const pagina = lista.slice(inicio, inicio + ESTUDIANTES_POR_PAGINA);
+
+    tbody.innerHTML = pagina.map(e => {
         const grupoData = GRUPOS_CACHE_EST.find(g => String(g.id_grupo) === String(e.id_grupo));
         const gradoGrupo = grupoData ? `${grupoData.nombre_grado} / ${grupoData.codigo_grupo}` : `${e.nombre_grado || ''} / ${e.codigo_grupo || ''}`;
         const acudiente = e.acudiente_nombre ? `${e.acudiente_nombre}${e.acudiente_telefono ? ' - ' + e.acudiente_telefono : ''}` : '-';
@@ -181,6 +206,33 @@ function dibujarTablaEstudiantes(lista) {
             </tr>
         `;
     }).join('');
+
+    actualizarPaginacionEstudiantes(lista.length, totalPaginas);
+}
+
+function actualizarPaginacionEstudiantes(total, totalPaginas) {
+    const panel = document.getElementById('estudiantes-paginacion-flotante');
+    const info = document.getElementById('estudiantes-paginacion-info');
+    const anterior = document.getElementById('estudiantes-pagina-anterior');
+    const siguiente = document.getElementById('estudiantes-pagina-siguiente');
+    if (!panel || !info || !anterior || !siguiente) return;
+
+    if (totalPaginas <= 1) {
+        panel.style.display = 'none';
+        return;
+    }
+
+    const inicio = ((ESTUDIANTES_PAGINA_ACTUAL - 1) * ESTUDIANTES_POR_PAGINA) + 1;
+    const fin = Math.min(ESTUDIANTES_PAGINA_ACTUAL * ESTUDIANTES_POR_PAGINA, total);
+    panel.style.display = 'flex';
+    info.textContent = `${inicio}-${fin} de ${total}`;
+    anterior.disabled = ESTUDIANTES_PAGINA_ACTUAL === 1;
+    siguiente.disabled = ESTUDIANTES_PAGINA_ACTUAL === totalPaginas;
+}
+
+function alternarPaginacionEstudiantes() {
+    const panel = document.getElementById('estudiantes-paginacion-flotante');
+    if (panel) panel.classList.toggle('abierta');
 }
 
 async function abrirModalBoletinEstudiante(id) {

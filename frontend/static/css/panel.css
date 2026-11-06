@@ -1365,7 +1365,20 @@ tr:hover {
 
 .modal-asignar-docente-detalle .asignacion-temp-texto span {
     font-size: 0.88rem;
-    color: #475569;
+    color: #000000 !important;
+    opacity: 1 !important;
+    font-weight: 700;
+    letter-spacing: 0.1px;
+}
+
+.mat-docente-grupo {
+    font-size: 0.8rem;
+    color: #000000 !important;
+    opacity: 1 !important;
+}
+
+.mat-docente-grupo-compacto {
+    font-size: 0.75rem;
 }
 
 .modal-asignar-docente-detalle .asignacion-temp-meta {
@@ -1918,6 +1931,20 @@ tr:hover {
     gap: 0.4rem;
 }
 
+.mat-card-grados-label {
+    color: #334155;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.mat-grados-vacio {
+    color: #475569;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
 .mat-grado-chip {
     display: inline-flex;
     align-items: center;
@@ -2146,6 +2173,98 @@ tr:hover {
     flex-wrap: wrap;
 }
 
+.estudiantes-paginacion-flotante {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    transform: translateY(-50%);
+}
+
+.estudiantes-paginacion-toggle {
+    width: 24px;
+    min-height: 74px;
+    border: 1px solid rgba(15, 107, 66, 0.35);
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+    background: rgba(15, 107, 66, 0.72);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 6px 18px rgba(15, 77, 46, 0.2);
+    color: var(--blanco);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.estudiantes-paginacion-toggle:hover {
+    background: rgba(10, 77, 46, 0.94);
+}
+
+.estudiantes-paginacion-controles {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid rgba(15, 107, 66, 0.3);
+    border-right: none;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 18px rgba(71, 85, 105, 0.18);
+}
+
+.estudiantes-paginacion-flotante.abierta .estudiantes-paginacion-controles {
+    display: flex;
+}
+
+.estudiantes-paginacion-flotante.abierta .estudiantes-paginacion-toggle {
+    border-radius: 0;
+}
+
+.estudiantes-paginacion-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 34px;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid rgba(15, 107, 66, 0.25);
+    border-radius: 8px;
+    background: rgba(15, 107, 66, 0.88);
+    color: var(--blanco);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.estudiantes-paginacion-control:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+#estudiantes-paginacion-info {
+    min-width: 90px;
+    color: var(--cafe-oscuro);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* La pestaña queda fuera del contenido y no tapa las filas. */
+.estudiantes-paginacion-flotante.abierta {
+    right: 0;
+}
+
+@media (max-width: 700px) {
+    .estudiantes-paginacion-controles {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #estudiantes-paginacion-info {
+        min-width: 130px;
+    }
+}
+
 .paginacion-info {
     color: var(--cafe-suave);
     font-size: 0.9rem;
@@ -2181,6 +2300,21 @@ tr:hover {
 .btn-pag:disabled {
     opacity: 0.45;
     cursor: not-allowed;
+}
+
+.btn-pag-siguiente {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding-inline: 1rem;
+    background: var(--cafe-medio);
+    border-color: var(--cafe-medio);
+    color: var(--blanco);
+}
+
+.btn-pag-siguiente:hover:not(:disabled) {
+    background: var(--cafe-oscuro);
+    border-color: var(--cafe-oscuro);
 }
 
 @keyframes spin {
@@ -2536,6 +2670,7 @@ table tbody tr:hover {
     display: flex;
     align-items: center;
     gap: 0.7rem;
+    min-width: 0;
 }
 
 .avatar {
@@ -2556,6 +2691,98 @@ table tbody tr:hover {
 .usuario-cell span {
     font-weight: 600;
     color: var(--cafe-oscuro);
+    overflow-wrap: anywhere;
+}
+
+/* Las tablas de gestión conservan sus columnas al cambiar la cantidad de filas. */
+.tabla-usuarios,
+.tabla-estudiantes {
+    table-layout: fixed;
+    min-width: 1100px;
+}
+
+.tabla-usuarios th:nth-child(1),
+.tabla-usuarios td:nth-child(1) {
+    width: 70px;
+}
+
+.tabla-usuarios th:nth-child(2),
+.tabla-usuarios td:nth-child(2) {
+    width: 250px;
+}
+
+.tabla-usuarios th:nth-child(3),
+.tabla-usuarios td:nth-child(3) {
+    width: 280px;
+}
+
+.tabla-usuarios th:nth-child(4),
+.tabla-usuarios td:nth-child(4) {
+    width: 220px;
+}
+
+.tabla-usuarios th:nth-child(5),
+.tabla-usuarios td:nth-child(5) {
+    width: 150px;
+}
+
+.tabla-usuarios th:nth-child(6),
+.tabla-usuarios td:nth-child(6) {
+    width: 140px;
+}
+
+.tabla-usuarios th:nth-child(7),
+.tabla-usuarios td:nth-child(7) {
+    width: 180px;
+}
+
+.tabla-estudiantes {
+    min-width: 1200px;
+}
+
+.tabla-estudiantes th:nth-child(1),
+.tabla-estudiantes td:nth-child(1) {
+    width: 70px;
+}
+
+.tabla-estudiantes th:nth-child(2),
+.tabla-estudiantes td:nth-child(2) {
+    width: 180px;
+}
+
+.tabla-estudiantes th:nth-child(3),
+.tabla-estudiantes td:nth-child(3) {
+    width: 270px;
+}
+
+.tabla-estudiantes th:nth-child(4),
+.tabla-estudiantes td:nth-child(4) {
+    width: 190px;
+}
+
+.tabla-estudiantes th:nth-child(5),
+.tabla-estudiantes td:nth-child(5) {
+    width: 250px;
+}
+
+.tabla-estudiantes th:nth-child(6),
+.tabla-estudiantes td:nth-child(6) {
+    width: 140px;
+}
+
+.tabla-estudiantes th:nth-child(7),
+.tabla-estudiantes td:nth-child(7) {
+    width: 220px;
+}
+
+.tabla-usuarios td,
+.tabla-estudiantes td {
+    overflow-wrap: anywhere;
+}
+
+.tabla-usuarios td:last-child,
+.tabla-estudiantes td:last-child {
+    white-space: nowrap;
 }
 
 /* ═══════════════════════════════════════════════════════════════════

@@ -9,7 +9,12 @@ A4 = (595.27, 841.89)
 ImageReader = None
 
 from utils.database import get_db
-from utils.helpers import _error_interno, validar_fecha_no_futura
+from utils.helpers import (
+	_error_interno,
+	validar_fecha_no_futura,
+	obtener_grupos_profesor,
+	profesor_puede_estudiante
+)
 
 observador_bp = Blueprint('observador', __name__)
 
@@ -421,6 +426,7 @@ def api_observador_listar():
 		conn = get_db()
 		cursor = conn.cursor(dictionary=True)
 		cols = _get_observador_columns(cursor)
+		grupos_permitidos = obtener_grupos_profesor(cursor)
 
 		usuario_col = _get_usuario_column(cols)
 		if not usuario_col:
@@ -439,6 +445,12 @@ def api_observador_listar():
 			WHERE 1=1
 		"""
 		params = []
+		if grupos_permitidos is not None:
+			if not grupos_permitidos:
+				query += " AND 1 = 0"
+			else:
+				query += " AND e.id_grupo IN (" + ", ".join(["%s"] * len(grupos_permitidos)) + ")"
+				params.extend(grupos_permitidos)
 
 		if estudiante_id:
 			query += " AND o.id_estudiante = %s"
@@ -462,6 +474,37 @@ def api_observador_listar():
 		return _error_interno(e)
 
 
+@observador_bp.route('/api/observador/estudiantes', methods=['GET'])
+def api_observador_estudiantes():
+	"""Lista los estudiantes visibles para el módulo Observador."""
+	try:
+		conn = get_db()
+		cursor = conn.cursor(dictionary=True)
+		grupos_permitidos = obtener_grupos_profesor(cursor)
+		query = """
+			SELECT e.*, g.codigo_grupo, gr.nombre_grado
+			FROM estudiantes e
+			JOIN grupos g ON e.id_grupo = g.id_grupo
+			LEFT JOIN grados gr ON g.id_grado = gr.id_grado
+			WHERE e.estado = 'Activo'
+		"""
+		params = []
+		if grupos_permitidos is not None:
+			if not grupos_permitidos:
+				query += " AND 1 = 0"
+			else:
+				query += " AND e.id_grupo IN (" + ", ".join(["%s"] * len(grupos_permitidos)) + ")"
+				params.extend(grupos_permitidos)
+		query += " ORDER BY e.apellido, e.nombre"
+		cursor.execute(query, params)
+		estudiantes = cursor.fetchall()
+		cursor.close()
+		conn.close()
+		return jsonify({'status': 'ok', 'estudiantes': estudiantes}), 200
+	except Exception as e:
+		return _error_interno(e)
+
+
 @observador_bp.route('/api/observador', methods=['POST'])
 def api_observador_crear():
 	"""Crea una observación, adaptando campos según columnas existentes."""
@@ -480,6 +523,10 @@ def api_observador_crear():
 
 		conn = get_db()
 		cursor = conn.cursor(dictionary=True)
+		if not profesor_puede_estudiante(cursor, id_estudiante):
+			cursor.close()
+			conn.close()
+			return jsonify({'error': 'No tienes permiso para registrar observaciones de este estudiante'}), 403
 		cols = _get_observador_columns(cursor)
 		usuario_col = _get_usuario_column(cols)
 
@@ -552,10 +599,24 @@ def api_observador_actualizar(id_observacion):
 		cols = _get_observador_columns(cursor)
 
 		cursor.execute("SELECT id_observacion FROM observador WHERE id_observacion = %s", (id_observacion,))
-		if not cursor.fetchone():
+		observacion_actual = cursor.fetchone()
+		if not observacion_actual:
 			cursor.close()
 			conn.close()
 			return jsonify({'error': 'Observación no encontrada'}), 404
+		cursor.execute(
+			"SELECT id_estudiante FROM observador WHERE id_observacion = %s",
+			(id_observacion,)
+		)
+		observacion_estudiante = cursor.fetchone()
+		if not profesor_puede_estudiante(cursor, observacion_estudiante['id_estudiante']):
+			cursor.close()
+			conn.close()
+			return jsonify({'error': 'No tienes permiso para editar esta observación'}), 403
+		if 'id_estudiante' in data and not profesor_puede_estudiante(cursor, data['id_estudiante']):
+			cursor.close()
+			conn.close()
+			return jsonify({'error': 'No tienes permiso para mover la observación a ese estudiante'}), 403
 
 		updates = {}
 		mapping = {
@@ -654,6 +715,20 @@ def api_observador_formato_pdf(id_observacion):
 		conn = get_db()
 		cursor = conn.cursor(dictionary=True)
 		cols = _get_observador_columns(cursor)
+		usuario_col = _get_usuario_column(cols)
+		if not usuario_col:
+			cursor.close()
+			conn.close()
+			return jsonify({'error': 'La tabla observador no tiene columna de usuario registrador'}), 500
+		cursor.execute(
+			f"SELECT o.id_estudiante FROM observador o WHERE o.id_observacion = %s",
+			(id_observacion,)
+		)
+		observacion = cursor.fetchone()
+		if observacion and not profesor_puede_estudiante(cursor, observacion['id_estudiante']):
+			cursor.close()
+			conn.close()
+			return jsonify({'error': 'No tienes permiso para consultar esta observación'}), 403
 		data = _obs_build_formato_data(cursor, cols, id_observacion)
 
 		cursor.close()
@@ -678,7 +753,20 @@ def api_observador_eliminar(id_observacion):
 	"""Elimina una observación por id."""
 	try:
 		conn = get_db()
-		cursor = conn.cursor()
+		cursor = conn.cursor(dictionary=True)
+		cursor.execute(
+			"SELECT id_estudiante FROM observador WHERE id_observacion = %s",
+			(id_observacion,)
+		)
+		observacion = cursor.fetchone()
+		if not observacion:
+			cursor.close()
+			conn.close()
+			return jsonify({'error': 'Observación no encontrada'}), 404
+		if not profesor_puede_estudiante(cursor, observacion['id_estudiante']):
+			cursor.close()
+			conn.close()
+			return jsonify({'error': 'No tienes permiso para eliminar esta observación'}), 403
 		cursor.execute("DELETE FROM observador WHERE id_observacion = %s", (id_observacion,))
 		conn.commit()
 		deleted = cursor.rowcount

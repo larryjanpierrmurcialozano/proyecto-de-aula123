@@ -24,8 +24,8 @@
             <option value="Inactivo">Inactivo</option>
         </select>
     </div>
-    <div class="tabla-container">
-        <table>
+    <div class="tabla-container tabla-estudiantes-container">
+        <table class="tabla-estudiantes">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -39,5 +39,22 @@
             </thead>
             <tbody id="tbody-estudiantes"></tbody>
         </table>
+    </div>
+    <div class="estudiantes-paginacion-flotante" id="estudiantes-paginacion-flotante" style="display:none;">
+        <button type="button" class="estudiantes-paginacion-toggle" onclick="alternarPaginacionEstudiantes()"
+                aria-label="Mostrar controles de estudiantes">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="estudiantes-paginacion-controles">
+            <button type="button" class="estudiantes-paginacion-control" id="estudiantes-pagina-anterior"
+                    onclick="cambiarPaginaEstudiantes(ESTUDIANTES_PAGINA_ACTUAL - 1)">
+                <i class="fas fa-chevron-left"></i> Anterior
+            </button>
+            <span id="estudiantes-paginacion-info"></span>
+            <button type="button" class="estudiantes-paginacion-control" id="estudiantes-pagina-siguiente"
+                    onclick="cargarSiguientePaginaEstudiantes()">
+                Siguiente <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
     </div>
 </div>
