@@ -243,6 +243,26 @@ function generarSidebar() {
 }
 
 function configurarEventos() {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+
+    const cerrarMenuMovil = () => {
+        sidebar.classList.remove('mobile-open');
+        sidebarBackdrop.classList.remove('active');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+    };
+
+    mobileMenuToggle.addEventListener('click', () => {
+        const abierto = sidebar.classList.toggle('mobile-open');
+        sidebarBackdrop.classList.toggle('active', abierto);
+        mobileMenuToggle.setAttribute('aria-expanded', String(abierto));
+        document.body.classList.toggle('menu-open', abierto);
+    });
+
+    sidebarBackdrop.addEventListener('click', cerrarMenuMovil);
+
     // Navegación sidebar
     document.getElementById('sidebar-menu').addEventListener('click', (e) => {
         const item = e.target.closest('.sidebar-item');
@@ -251,6 +271,7 @@ function configurarEventos() {
             cargarPagina(pagina);
             document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
             item.classList.add('active');
+            cerrarMenuMovil();
         }
     });
 

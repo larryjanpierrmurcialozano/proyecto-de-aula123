@@ -1,0 +1,197 @@
+/* Ajustes exclusivamente móviles para todos los módulos del panel. */
+
+@media (max-width: 768px) {
+    .content > *,
+    .content .card,
+    .content .card > *,
+    .content section,
+    .content article {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .content .card {
+        overflow: hidden;
+    }
+
+    /* Las tablas se desplazan completas; nunca se comprimen hasta partir nombres. */
+    .tabla-container,
+    .asist-tabla-container,
+    .obs-tabla-wrap,
+    .cal-table-strict,
+    .horario-scroll,
+    .tabla-responsive {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .tabla-container > table,
+    .asist-tabla-container > table,
+    .obs-tabla-wrap > table,
+    .cal-table-strict table,
+    .horario-scroll > table,
+    .tabla-responsive > table {
+        width: max-content;
+        min-width: 760px;
+        table-layout: auto !important;
+    }
+
+    .tabla-container th,
+    .tabla-container td,
+    .asist-tabla-container th,
+    .asist-tabla-container td,
+    .obs-tabla-wrap th,
+    .obs-tabla-wrap td,
+    .cal-table-strict th,
+    .cal-table-strict td,
+    .horario-scroll th,
+    .horario-scroll td,
+    .tabla-responsive th,
+    .tabla-responsive td {
+        white-space: nowrap;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+        vertical-align: middle;
+    }
+
+    .tabla-usuarios,
+    .tabla-estudiantes {
+        min-width: 1100px !important;
+    }
+
+    .tabla-usuarios td,
+    .tabla-estudiantes td {
+        overflow-wrap: normal !important;
+    }
+
+    .obs-tabla-wrap > table {
+        min-width: 980px;
+    }
+
+    .obs-shell .obs-desc-cell {
+        width: 260px;
+        max-width: 260px;
+        white-space: normal;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+    }
+
+    .obs-shell .obs-filtros-panel {
+        grid-template-columns: 1fr;
+        padding: 0.75rem;
+    }
+
+    .obs-shell .obs-filtro-item,
+    .obs-shell .obs-filtro-busqueda {
+        grid-column: auto;
+        width: 100%;
+    }
+
+    .obs-shell .obs-header-flex,
+    .obs-shell .obs-header-actions {
+        align-items: stretch;
+    }
+
+    .obs-shell .obs-header-actions .btn {
+        width: 100%;
+        min-height: 42px;
+    }
+
+    .filtros-container,
+    .filtros-grid,
+    .form-grid,
+    .cal-filtros,
+    .asist-filtros,
+    .cal-upload-grid,
+    .periodos-mini-grid,
+    .mat-grid,
+    .mat-stats,
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .filtros-container > *,
+    .filtros-grid > *,
+    .form-grid > *,
+    .cal-filtros > *,
+    .asist-filtros > *,
+    .cal-upload-grid > * {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .card-header-flex,
+    .cal-header-top,
+    .periodos-header-top,
+    .mat-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .card-header-flex .btn,
+    .cal-header-top .btn,
+    .periodos-header-top .btn,
+    .mat-header .btn {
+        width: 100%;
+        min-height: 42px;
+    }
+
+    .mat-card,
+    .mat-stat-card,
+    .periodos-mini-card {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* Los bloques largos se leen dentro de la pantalla sin empujar el layout. */
+    .content pre,
+    .content code,
+    .content .log-message,
+    .content .comunicado-contenido {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+    }
+
+    .paginacion,
+    .paginacion-controles,
+    .estudiantes-paginacion-controles {
+        max-width: 100%;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .paginacion button,
+    .estudiantes-paginacion-control {
+        min-height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tabla-container > table,
+    .asist-tabla-container > table,
+    .cal-table-strict table,
+    .horario-scroll > table {
+        min-width: 680px;
+    }
+
+    .tabla-usuarios,
+    .tabla-estudiantes {
+        min-width: 1000px !important;
+    }
+
+    .obs-tabla-wrap > table {
+        min-width: 900px;
+    }
+
+    .content .card-header-flex,
+    .content .card {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/static/css/periodos.css">
     <link rel="stylesheet" href="/static/css/observador.css">
     <link rel="stylesheet" href="/static/css/institutional-theme.css?v=20261029-module-heading-fix">
+    <link rel="stylesheet" href="/static/css/mobile-responsive.css?v=20261106-module-tables">
 </head>
 <body>
     <!-- MODAL GRADO -->
@@ -98,11 +99,15 @@
             <!-- Se genera dinámicamente -->
         </ul>
     </aside>
+    <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
 
     <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content">
         <!-- HEADER -->
         <header class="header">
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Abrir menú" aria-controls="sidebar" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
             <h2 class="header-title" id="page-title">Menú Principal</h2>
             
             <div class="header-user">
