@@ -79,7 +79,7 @@ request_database_credentials() {
 
 validate_existing_postgres() {
     local container_id
-    container_id="$(docker ps --filter "ancestor=postgres" --format '{{.ID}}' | head -n 1)"
+    container_id="$(docker ps --filter "ancestor=postgres:16" --format '{{.ID}}' | head -n 1)"
     [[ -n "${container_id}" ]] || {
         echo "Error: no se encontro un contenedor PostgreSQL ejecutandose." >&2
         echo "Inicia el contenedor existente antes de ejecutar este script." >&2
