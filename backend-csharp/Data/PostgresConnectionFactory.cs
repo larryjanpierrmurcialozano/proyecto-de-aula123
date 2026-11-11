@@ -1,3 +1,7 @@
+// BACKEND MODULE: acceso a datos
+// Este archivo define la configuracion, endpoints, modelos o consultas del backend C#.
+// Los comentarios de API se colocan junto a cada endpoint para facilitar su ubicacion.
+
 using Npgsql;
 
 namespace ProyectoGrado.Api.Data;

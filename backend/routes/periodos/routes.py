@@ -1,3 +1,7 @@
+# BACKEND MODULE: periodos
+# API de periodos academicos y cierre de ciclo.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 import os
 from flask import Blueprint, jsonify, request, session
 from utils.database import get_db
@@ -38,6 +42,8 @@ def _vaciar_archivos_directorio(ruta_base):
 	return total
 
 
+# API: POST /api/periodos/reset-ciclo
+# Funcion: Crea o guarda los periodos academicos mediante la ruta periodos reset-ciclo.
 @periodos_bp.route('/api/periodos/reset-ciclo', methods=['POST'])
 def api_periodos_reset_ciclo():
 	"""Resetea datos trabajados por docentes al cerrar ciclo académico."""
@@ -148,6 +154,8 @@ def api_periodos_reset_ciclo():
 				pass
 
 
+# API: GET /api/periodos
+# Funcion: Consulta los periodos academicos mediante la ruta periodos.
 @periodos_bp.route('/api/periodos', methods=['GET'])
 def api_periodos_listar():
 	"""Lista períodos académicos ordenados por número."""
@@ -163,6 +171,8 @@ def api_periodos_listar():
 		return _error_interno(e)
 
 
+# API: POST /api/periodos
+# Funcion: Crea o guarda los periodos academicos mediante la ruta periodos.
 @periodos_bp.route('/api/periodos', methods=['POST'])
 def api_periodo_crear():
 	"""Crea un nuevo período académico."""
@@ -215,6 +225,8 @@ def api_periodo_crear():
 		return _error_interno(e)
 
 
+# API: PUT /api/periodos/<int:id_periodo>
+# Funcion: Actualiza los periodos academicos mediante la ruta periodos id.
 @periodos_bp.route('/api/periodos/<int:id_periodo>', methods=['PUT'])
 def api_periodo_actualizar(id_periodo):
 	"""Actualiza un período existente."""
@@ -276,6 +288,8 @@ def api_periodo_actualizar(id_periodo):
 		return _error_interno(e)
 
 
+# API: PUT /api/periodos/<int:id_periodo>/estado
+# Funcion: Actualiza los periodos academicos mediante la ruta periodos id estado.
 @periodos_bp.route('/api/periodos/<int:id_periodo>/estado', methods=['PUT'])
 def api_periodo_cambiar_estado(id_periodo):
 	"""Abre o cierra un período. Solo se permite uno abierto a la vez."""
@@ -312,6 +326,8 @@ def api_periodo_cambiar_estado(id_periodo):
 		return _error_interno(e)
 
 
+# API: GET /api/periodos/resumen
+# Funcion: Consulta los periodos academicos mediante la ruta periodos resumen.
 @periodos_bp.route('/api/periodos/resumen', methods=['GET'])
 def api_periodos_resumen():
 	"""Resumen por grado y grupo del avance de notas en un período."""

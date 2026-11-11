@@ -1,3 +1,7 @@
+# BACKEND MODULE: horarios
+# API de horarios, niveles y asignaciones por grupo o grado.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ════════════════════════════════════════════════════════════════════════════════
 # BLUEPRINT: HORARIOS — CRUD de bloques horarios por grupo/docente
 # ════════════════════════════════════════════════════════════════════════════════
@@ -24,6 +28,8 @@ def _format_time(value):
 
 # ── Listar horarios (con filtros opcionales) ─────────────────────────────────
 
+# API: GET /api/horarios
+# Funcion: Consulta los horarios mediante la ruta horarios.
 @horarios_bp.route('/api/horarios', methods=['GET'])
 def api_horarios():
     """
@@ -83,6 +89,8 @@ def api_horarios():
 
 # ── Obtener un horario por id ────────────────────────────────────────────────
 
+# API: GET /api/horarios/<int:id>
+# Funcion: Consulta los horarios mediante la ruta horarios id.
 @horarios_bp.route('/api/horarios/<int:id>', methods=['GET'])
 def api_horario_get(id):
     try:
@@ -114,6 +122,8 @@ def api_horario_get(id):
 
 # ── Crear bloque de horario ──────────────────────────────────────────────────
 
+# API: POST /api/horarios
+# Funcion: Crea o guarda los horarios mediante la ruta horarios.
 @horarios_bp.route('/api/horarios', methods=['POST'])
 def api_horario_crear():
     """
@@ -227,6 +237,8 @@ def api_horario_crear():
 
 # ── Actualizar bloque ────────────────────────────────────────────────────────
 
+# API: PUT /api/horarios/<int:id>
+# Funcion: Actualiza los horarios mediante la ruta horarios id.
 @horarios_bp.route('/api/horarios/<int:id>', methods=['PUT'])
 def api_horario_update(id):
     try:
@@ -301,6 +313,8 @@ def api_horario_update(id):
 
 # ── Eliminar bloque ──────────────────────────────────────────────────────────
 
+# API: DELETE /api/horarios/<int:id>
+# Funcion: Elimina los horarios mediante la ruta horarios id.
 @horarios_bp.route('/api/horarios/<int:id>', methods=['DELETE'])
 def api_horario_delete(id):
     try:
@@ -340,6 +354,8 @@ def api_horario_delete(id):
 
 # ── Asignaciones activas de un grupo (para poblar selects) ───────────────────
 
+# API: GET /api/horarios/asignaciones-grupo/<int:grupo_id>
+# Funcion: Consulta los horarios mediante la ruta horarios asignaciones-grupo id.
 @horarios_bp.route('/api/horarios/asignaciones-grupo/<int:grupo_id>', methods=['GET'])
 def api_asignaciones_grupo(grupo_id):
     """
@@ -368,6 +384,8 @@ def api_asignaciones_grupo(grupo_id):
 
 # ── Exportar horarios a PDF ──────────────────────────────────────────────────
 
+# API: POST /api/horarios/exportar-pdf
+# Funcion: Crea o guarda los horarios mediante la ruta horarios exportar-pdf.
 @horarios_bp.route('/api/horarios/exportar-pdf', methods=['POST'])
 def api_exportar_horario_pdf():
     """
@@ -514,6 +532,8 @@ def api_exportar_horario_pdf():
         return _error_interno(e)
 
 
+# API: GET /api/horarios/asignaciones-grado/<int:grado_id>
+# Funcion: Consulta los horarios mediante la ruta horarios asignaciones-grado id.
 @horarios_bp.route('/api/horarios/asignaciones-grado/<int:grado_id>', methods=['GET'])
 def api_asignaciones_grado(grado_id):
     """
@@ -542,6 +562,8 @@ def api_asignaciones_grado(grado_id):
 
 # ── Niveles (para filtro de la UI) ───────────────────────────────────────────
 
+# API: GET /api/niveles
+# Funcion: Consulta los horarios mediante la ruta niveles.
 @horarios_bp.route('/api/niveles', methods=['GET'])
 def api_niveles():
     """Listar niveles académicos"""

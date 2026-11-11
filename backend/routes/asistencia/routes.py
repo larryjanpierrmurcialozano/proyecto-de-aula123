@@ -1,3 +1,7 @@
+# BACKEND MODULE: asistencia
+# API de asistencia, justificantes y reportes.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # ASISTENCIA — Módulo independiente de control de asistencia
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -141,6 +145,8 @@ def _bloquear_docente_si_periodo_cerrado(cursor, id_periodo):
 
     return None
 
+# API: GET /api/asistencia/filtros
+# Funcion: Consulta los registros de asistencia mediante la ruta asistencia filtros.
 @asistencia_bp.route('/api/asistencia/filtros', methods=['GET'])
 def api_asistencia_filtros():
     """Filtros para asistencia: grados + periodos (reusa misma lógica que calificaciones)."""
@@ -183,6 +189,8 @@ def api_asistencia_filtros():
         return _error_interno(e)
 
 
+# API: GET /api/asistencia/grupos/<int:grado_id>
+# Funcion: Consulta los registros de asistencia mediante la ruta asistencia grupos id.
 @asistencia_bp.route('/api/asistencia/grupos/<int:grado_id>', methods=['GET'])
 def api_asistencia_grupos(grado_id):
     """Grupos de un grado para asistencia."""
@@ -210,6 +218,8 @@ def api_asistencia_grupos(grado_id):
         return _error_interno(e)
 
 
+# API: GET /api/asistencia/materias/<int:grupo_id>
+# Funcion: Consulta los registros de asistencia mediante la ruta asistencia materias id.
 @asistencia_bp.route('/api/asistencia/materias/<int:grupo_id>', methods=['GET'])
 def api_asistencia_materias(grupo_id):
     """Materias para un grupo (filtradas por docente si aplica)."""
@@ -253,6 +263,8 @@ def api_asistencia_materias(grupo_id):
         return _error_interno(e)
 
 
+# API: GET /api/asistencia/tabla
+# Funcion: Consulta los registros de asistencia mediante la ruta asistencia tabla.
 @asistencia_bp.route('/api/asistencia/tabla', methods=['GET'])
 def api_asistencia_tabla():
     """Cargar tabla de asistencia para una fecha. Devuelve estudiantes + estado actual si ya existe sesión."""
@@ -329,6 +341,8 @@ def api_asistencia_tabla():
         return _error_interno(e)
 
 
+# API: POST /api/asistencia/guardar
+# Funcion: Crea o guarda los registros de asistencia mediante la ruta asistencia guardar.
 @asistencia_bp.route('/api/asistencia/guardar', methods=['POST'])
 def api_asistencia_guardar():
     """Guardar/actualizar asistencia para una fecha.
@@ -597,6 +611,8 @@ def _actualizar_reportes_inasistencia(cursor, conn, ids_estudiantes, materia_id,
 
 
 @asistencia_bp.route('/api/asistencias/justificante', methods=['POST'])
+# API: POST /api/asistencia/justificante
+# Funcion: Crea o guarda los registros de asistencia mediante la ruta asistencia justificante.
 @asistencia_bp.route('/api/asistencia/justificante', methods=['POST'])
 def api_asistencia_crear_justificante():
     """Crea o actualiza justificante de ausencia y vincula su id al detalle de asistencia."""
@@ -779,6 +795,8 @@ def api_asistencia_crear_justificante():
 
 
 @asistencia_bp.route('/api/asistencias/justificantes', methods=['GET'])
+# API: GET /api/asistencia/justificantes
+# Funcion: Consulta los registros de asistencia mediante la ruta asistencia justificantes.
 @asistencia_bp.route('/api/asistencia/justificantes', methods=['GET'])
 def api_asistencia_listar_justificantes():
     """Lista justificantes por grupo/materia/periodo."""
@@ -839,6 +857,8 @@ def api_asistencia_listar_justificantes():
 
 
 @asistencia_bp.route('/api/asistencias/justificantes/<int:id_justificante>/aprobar', methods=['PUT'])
+# API: PUT /api/asistencia/justificantes/<int:id_justificante>/aprobar
+# Funcion: Actualiza los registros de asistencia mediante la ruta asistencia justificantes id aprobar.
 @asistencia_bp.route('/api/asistencia/justificantes/<int:id_justificante>/aprobar', methods=['PUT'])
 def api_asistencia_aprobar_justificante(id_justificante):
     """Aprueba o desaprueba justificante y recalcula consolidado de asistencia."""
@@ -931,6 +951,8 @@ def api_asistencia_aprobar_justificante(id_justificante):
 
 
 @asistencia_bp.route('/api/asistencias/justificantes/<int:id_justificante>/archivo', methods=['GET'])
+# API: GET /api/asistencia/justificantes/<int:id_justificante>/archivo
+# Funcion: Consulta los registros de asistencia mediante la ruta asistencia justificantes id archivo.
 @asistencia_bp.route('/api/asistencia/justificantes/<int:id_justificante>/archivo', methods=['GET'])
 def api_asistencia_ver_archivo_justificante(id_justificante):
     """Descarga o visualiza el archivo soporte de un justificante."""
@@ -959,6 +981,8 @@ def api_asistencia_ver_archivo_justificante(id_justificante):
         return _error_interno(e)
 
 
+# API: GET /api/asistencia/resumen
+# Funcion: Consulta los registros de asistencia mediante la ruta asistencia resumen.
 @asistencia_bp.route('/api/asistencia/resumen', methods=['GET'])
 def api_asistencia_resumen():
     """Resumen consolidado de asistencia por estudiante para un grupo/materia/periodo."""
@@ -1025,6 +1049,8 @@ def api_asistencia_resumen():
 # ═══════════════════════════════════════════════════════════════════════════════
 
 @asistencia_bp.route('/api/asistencia/reportes/general', methods=['GET'])
+# API: GET /api/asistencia/reportes/consolidado
+# Funcion: Consulta los registros de asistencia mediante la ruta asistencia reportes consolidado.
 @asistencia_bp.route('/api/asistencia/reportes/consolidado', methods=['GET'])
 def api_reporte_general_asistencia():
     """Genera reporte de asistencia rellenando la plantilla institucional PlantillaAsistencias_ReporteGeneral.xlsx"""

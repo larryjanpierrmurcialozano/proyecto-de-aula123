@@ -1,3 +1,7 @@
+// BACKEND MODULE: host ASP.NET Core
+// Este archivo define la configuracion, endpoints, modelos o consultas del backend C#.
+// Los comentarios de API se colocan junto a cada endpoint para facilitar su ubicacion.
+
 using Npgsql;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -173,6 +177,9 @@ app.Use(async (context, next) =>
 });
 app.UseAuthorization();
 
+// API: GET /
+// Funcion: Comprueba que el servicio ASP.NET Core esta disponible y devuelve su estado.
+
 app.MapGet("/", () => Results.Ok(new
 {
     service = "ProyectoGrado.Api",
@@ -184,6 +191,9 @@ app.MapAcademicoEndpoints();
 app.MapEstudianteEndpoints();
 app.MapDocenteEndpoints();
 app.MapHorarioEndpoints();
+
+// API: GET /api/health
+// Funcion: Comprueba la conexion con PostgreSQL y devuelve la base de datos activa.
 
 app.MapGet("/api/health", async (PostgresConnectionFactory factory, CancellationToken cancellationToken) =>
 {
@@ -203,8 +213,14 @@ app.MapGet("/api/health", async (PostgresConnectionFactory factory, Cancellation
     }
 });
 
+// API: GET /api/usuarios
+// Funcion: Lista los usuarios registrados junto con su rol.
+
 app.MapGet("/api/usuarios", async (UsuarioQueries queries, CancellationToken cancellationToken) =>
     Results.Ok(await queries.ListAsync(cancellationToken)));
+
+// API: GET /api/usuarios/{id:int}
+// Funcion: Obtiene el detalle de un usuario por su identificador.
 
 app.MapGet("/api/usuarios/{id:int}", async (
     int id,
@@ -215,8 +231,14 @@ app.MapGet("/api/usuarios/{id:int}", async (
     return usuario is null ? Results.NotFound(new { error = "Usuario no encontrado" }) : Results.Ok(usuario);
 });
 
+// API: GET /api/roles
+// Funcion: Lista los roles disponibles para asignar a usuarios.
+
 app.MapGet("/api/roles", async (UsuarioQueries queries, CancellationToken cancellationToken) =>
     Results.Ok(await queries.ListRolesAsync(cancellationToken)));
+
+// API: POST /api/usuarios
+// Funcion: Crea un usuario nuevo con sus datos personales, rol y contrasena.
 
 app.MapPost("/api/usuarios", async (
     CreateUsuarioRequest request,
@@ -233,6 +255,9 @@ app.MapPost("/api/usuarios", async (
         return Results.BadRequest(new { error = "El email o documento ya está registrado." });
     }
 });
+
+// API: PUT /api/usuarios/{id:int}
+// Funcion: Actualiza los datos, rol, estado y contrasena opcional de un usuario.
 
 app.MapPut("/api/usuarios/{id:int}", async (
     int id,
@@ -252,6 +277,9 @@ app.MapPut("/api/usuarios/{id:int}", async (
     }
 });
 
+// API: DELETE /api/usuarios/{id:int}
+// Funcion: Elimina un usuario despues de validar sus dependencias y permisos.
+
 app.MapDelete("/api/usuarios/{id:int}", async (
     int id,
     UsuarioQueries queries,
@@ -261,6 +289,9 @@ app.MapDelete("/api/usuarios/{id:int}", async (
         ? Results.NoContent()
         : Results.NotFound(new { error = "Usuario no encontrado" });
 }).RequireAuthorization(policy => policy.RequireRole("server_admin"));
+
+// API: GET /api/auth/profile
+// Funcion: Devuelve el perfil del usuario autenticado a partir de sus claims.
 
 app.MapGet("/api/auth/profile", async (
     HttpContext httpContext,
@@ -277,6 +308,9 @@ app.MapGet("/api/auth/profile", async (
         ? Results.NotFound(new { error = "Usuario no encontrado" })
         : Results.Ok(new { status = "ok", usuario = profile });
 });
+
+// API: POST /api/auth/login
+// Funcion: Valida documento y contrasena, y crea la cookie de autenticacion.
 
 app.MapPost("/api/auth/login", async (
     LoginRequest request,
@@ -304,6 +338,9 @@ app.MapPost("/api/auth/login", async (
     });
 });
 
+// API: GET /api/auth/check
+// Funcion: Comprueba si existe una sesion autenticada y devuelve sus datos basicos.
+
 app.MapGet("/api/auth/check", (HttpContext httpContext) =>
 {
     if (httpContext.User.Identity?.IsAuthenticated != true)
@@ -321,11 +358,17 @@ app.MapGet("/api/auth/check", (HttpContext httpContext) =>
     });
 });
 
+// API: POST /api/auth/logout
+// Funcion: Cierra la sesion actual y elimina la cookie de autenticacion.
+
 app.MapPost("/api/auth/logout", async (HttpContext httpContext) =>
 {
     await httpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     return Results.Ok(new { status = "ok" });
 });
+
+// API: POST /api/auth/change-password
+// Funcion: Verifica la contrasena actual y guarda la nueva contrasena.
 
 app.MapPost("/api/auth/change-password", async (
     ChangePasswordRequest request,
@@ -350,6 +393,9 @@ app.MapPost("/api/auth/change-password", async (
         _ => Results.Ok(new { status = "ok", message = "Contraseña actualizada" })
     };
 });
+
+// API: POST /api/auth/register
+// Funcion: Registra un usuario nuevo con el rol de profesor.
 
 app.MapPost("/api/auth/register", async (
     RegisterRequest request,

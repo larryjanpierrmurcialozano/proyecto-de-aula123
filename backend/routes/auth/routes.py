@@ -1,3 +1,7 @@
+# BACKEND MODULE: auth
+# API de autenticacion, sesiones, perfil y salud del servicio.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ════════════════════════════════════════════════════════════════════════════════
 # BLUEPRINT: AUTH — Páginas + Autenticación + Health + Dashboard
 # ════════════════════════════════════════════════════════════════════════════════
@@ -44,6 +48,8 @@ def register_page():
 
 # ── API Auth ─────────────────────────────────────────────────────────────────
 
+# API: POST /api/auth/login
+# Funcion: Crea o guarda la autenticacion y la sesion mediante la ruta auth login.
 @auth_bp.route('/api/auth/login', methods=['POST'])
 def api_login():
     """Login de usuario"""
@@ -91,6 +97,8 @@ def api_login():
     except Exception as e:
         return _error_interno(e)
 
+# API: POST /api/auth/register
+# Funcion: Crea o guarda la autenticacion y la sesion mediante la ruta auth register.
 @auth_bp.route('/api/auth/register', methods=['POST'])
 def api_register():
     """Registro de nuevo usuario"""
@@ -152,6 +160,8 @@ def api_register():
     except Exception as e:
         return _error_interno(e)
 
+# API: GET /api/auth/check
+# Funcion: Consulta la autenticacion y la sesion mediante la ruta auth check.
 @auth_bp.route('/api/auth/check', methods=['GET'])
 def api_check():
     """Verificar sesión activa"""
@@ -166,12 +176,16 @@ def api_check():
         'user_role': session.get('user_role')
     }), 200
 
+# API: POST /api/auth/logout
+# Funcion: Crea o guarda la autenticacion y la sesion mediante la ruta auth logout.
 @auth_bp.route('/api/auth/logout', methods=['POST'])
 def api_logout():
     """Cerrar sesión"""
     session.clear()
     return jsonify({'status': 'ok'}), 200
 
+# API: GET /api/auth/profile
+# Funcion: Consulta la autenticacion y la sesion mediante la ruta auth profile.
 @auth_bp.route('/api/auth/profile', methods=['GET'])
 def api_profile():
     """Perfil del usuario"""
@@ -207,6 +221,8 @@ def api_profile():
 """locooooooooooooooooooooooooooooooooo cambiar contraseñas ta acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa pelotudoooooooo, 
 corregir error de cambio de contraseña"""
 
+# API: POST /api/auth/change-password
+# Funcion: Crea o guarda la autenticacion y la sesion mediante la ruta auth change-password.
 @auth_bp.route('/api/auth/change-password', methods=['POST'])
 def api_change_password():
     """Cambiar contraseña del usuario actual"""
@@ -254,6 +270,8 @@ def api_change_password():
 
 # ── Health y Dashboard ───────────────────────────────────────────────────────
 
+# API: GET /api/health
+# Funcion: Consulta la autenticacion y la sesion mediante la ruta health.
 @auth_bp.route('/api/health', methods=['GET'])
 def api_health():
     """Estado de la conexión"""
@@ -267,6 +285,8 @@ def api_health():
         }), 200
     return jsonify({'status': 'error', 'message': 'Sin conexión a BD'}), 500
 
+# API: GET /api/dashboard/stats
+# Funcion: Consulta la autenticacion y la sesion mediante la ruta dashboard stats.
 @auth_bp.route('/api/dashboard/stats', methods=['GET'])
 def api_dashboard_stats():
     """Estadísticas generales para el dashboard"""

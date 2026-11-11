@@ -1,3 +1,7 @@
+# BACKEND MODULE: comunicados
+# API de comunicados institucionales.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ════════════════════════════════════════════════════════════════════════════════
 # BLUEPRINT: COMUNICADOS — CRUD de comunicados de rectoría
 # ════════════════════════════════════════════════════════════════════════════════
@@ -10,6 +14,8 @@ from utils.constants import ROLES_ADMIN_COM
 comunicados_bp = Blueprint('comunicados', __name__)
 
 
+# API: GET /api/comunicados
+# Funcion: Consulta los comunicados mediante la ruta comunicados.
 @comunicados_bp.route('/api/comunicados', methods=['GET'])
 def api_comunicados():
     """Listar comunicados - visible para personal interno"""
@@ -56,6 +62,8 @@ def api_comunicados():
         return _error_interno(e)
 
 
+# API: POST /api/comunicados
+# Funcion: Crea o guarda los comunicados mediante la ruta comunicados.
 @comunicados_bp.route('/api/comunicados', methods=['POST'])
 def api_comunicado_crear():
     """Crear comunicado - solo admins"""
@@ -94,6 +102,8 @@ def api_comunicado_crear():
         return _error_interno(e)
 
 
+# API: PUT /api/comunicados/<int:id>
+# Funcion: Actualiza los comunicados mediante la ruta comunicados id.
 @comunicados_bp.route('/api/comunicados/<int:id>', methods=['PUT'])
 def api_comunicado_editar(id):
     """Editar comunicado - solo admins"""
@@ -136,6 +146,8 @@ def api_comunicado_editar(id):
         return _error_interno(e)
 
 
+# API: DELETE /api/comunicados/<int:id>
+# Funcion: Elimina los comunicados mediante la ruta comunicados id.
 @comunicados_bp.route('/api/comunicados/<int:id>', methods=['DELETE'])
 def api_comunicado_eliminar(id):
     """Eliminar comunicado - solo admins"""

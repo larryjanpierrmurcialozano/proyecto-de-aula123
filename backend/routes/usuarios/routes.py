@@ -1,3 +1,7 @@
+# BACKEND MODULE: usuarios
+# API de usuarios, roles y administracion de cuentas.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ════════════════════════════════════════════════════════════════════════════════
 # BLUEPRINT: USUARIOS — CRUD de usuarios + Roles
 # ════════════════════════════════════════════════════════════════════════════════
@@ -19,6 +23,8 @@ usuarios_bp = Blueprint('usuarios', __name__)
 
 # ── CRUD Usuarios ────────────────────────────────────────────────────────────
 
+# API: GET /api/usuarios
+# Funcion: Consulta los usuarios y roles mediante la ruta usuarios.
 @usuarios_bp.route('/api/usuarios', methods=['GET'])
 def api_usuarios():
     """Listar todos los usuarios"""
@@ -43,6 +49,8 @@ def api_usuarios():
     except Exception as e:
         return _error_interno(e)
 
+# API: GET /api/usuarios/<int:id>
+# Funcion: Consulta los usuarios y roles mediante la ruta usuarios id.
 @usuarios_bp.route('/api/usuarios/<int:id>', methods=['GET'])
 def api_usuario_detalle(id):
     """Obtener detalle de un usuario"""
@@ -64,6 +72,8 @@ def api_usuario_detalle(id):
     except Exception as e:
         return _error_interno(e)
 
+# API: POST /api/usuarios
+# Funcion: Crea o guarda los usuarios y roles mediante la ruta usuarios.
 @usuarios_bp.route('/api/usuarios', methods=['POST'])
 def api_usuario_crear():
     """Crear nuevo usuario"""
@@ -106,6 +116,8 @@ def api_usuario_crear():
     except Exception as e:
         return _error_interno(e)
 
+# API: PUT /api/usuarios/<int:id_usuario>
+# Funcion: Actualiza los usuarios y roles mediante la ruta usuarios id.
 @usuarios_bp.route('/api/usuarios/<int:id_usuario>', methods=['PUT'])
 def api_usuario_actualizar(id_usuario):
     """Actualizar usuario"""
@@ -267,6 +279,8 @@ def api_usuario_eliminar(current_user, id_usuario):
 
 # ── Roles ────────────────────────────────────────────────────────────────────
 
+# API: GET /api/roles
+# Funcion: Consulta los usuarios y roles mediante la ruta roles.
 @usuarios_bp.route('/api/roles', methods=['GET'])
 def api_roles():
     """Listar roles"""

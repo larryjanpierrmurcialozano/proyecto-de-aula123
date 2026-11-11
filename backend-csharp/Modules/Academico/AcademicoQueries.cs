@@ -1,3 +1,7 @@
+// BACKEND MODULE: Academico
+// Este archivo define la configuracion, endpoints, modelos o consultas del backend C#.
+// Los comentarios de API se colocan junto a cada endpoint para facilitar su ubicacion.
+
 using Npgsql;
 using ProyectoGrado.Api.Data;
 
@@ -5,6 +9,7 @@ namespace ProyectoGrado.Api.Modules.Academico;
 
 public sealed class AcademicoQueries(PostgresConnectionFactory factory)
 {
+    // Lista grados con su nivel y los totales de grupos y estudiantes activos.
     public Task<IReadOnlyList<Dictionary<string, object?>>> ListGradosAsync(CancellationToken ct) =>
         QueryAsync("""
             SELECT g.id_grado, g.nombre_grado, g.numero_grado, n.nombre_nivel AS nivel,
@@ -18,6 +23,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
             ORDER BY g.numero_grado
             """, ct);
 
+    // Inserta un grado y devuelve el ID generado por PostgreSQL.
     public async Task<int> CreateGradoAsync(GradoCreateRequest request, CancellationToken ct)
     {
         const string sql = """
@@ -33,6 +39,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return Convert.ToInt32(await command.ExecuteScalarAsync(ct));
     }
 
+    // Obtiene un grado junto con el nombre de su nivel educativo.
     public async Task<Dictionary<string, object?>?> GetGradoAsync(int id, CancellationToken ct) =>
         await QuerySingleAsync("""
             SELECT g.*, n.nombre_nivel AS nivel
@@ -41,6 +48,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
             WHERE g.id_grado = $1
             """, ct, id);
 
+    // Actualiza numero, nivel y nombre del grado indicado.
     public async Task UpdateGradoAsync(int id, GradoCreateRequest request, CancellationToken ct)
     {
         const string sql = """
@@ -56,6 +64,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         await command.ExecuteNonQueryAsync(ct);
     }
 
+    // Cuenta las relaciones que impedirian eliminar el grado de forma segura.
     public async Task<(int Groups, int Assignments)> CountGradeDependenciesAsync(int id, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -69,6 +78,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return (Convert.ToInt32(reader.GetValue(0)), Convert.ToInt32(reader.GetValue(1)));
     }
 
+    // Elimina el grado; el endpoint debe comprobar antes sus dependencias.
     public async Task<bool> DeleteGradoAsync(int id, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -77,12 +87,14 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return await command.ExecuteNonQueryAsync(ct) > 0;
     }
 
+    // Lista los grupos pertenecientes a un grado especifico.
     public Task<IReadOnlyList<Dictionary<string, object?>>> ListGruposByGradoAsync(int gradoId, CancellationToken ct) =>
         QueryAsync("""
             SELECT id_grupo, codigo_grupo, capacidad_maxima
             FROM grupos WHERE id_grado = $1 ORDER BY codigo_grupo
             """, ct, gradoId);
 
+    // Lista todos los grupos con su grado y cantidad de estudiantes activos.
     public Task<IReadOnlyList<Dictionary<string, object?>>> ListGruposAsync(CancellationToken ct) =>
         QueryAsync("""
             SELECT g.id_grupo, g.codigo_grupo, g.capacidad_maxima, gr.nombre_grado, gr.id_grado,
@@ -94,6 +106,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
             ORDER BY gr.numero_grado, g.codigo_grupo
             """, ct);
 
+    // Inserta un grupo y devuelve el ID generado.
     public async Task<int> CreateGrupoAsync(GrupoRequest request, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -107,6 +120,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return Convert.ToInt32(await command.ExecuteScalarAsync(ct));
     }
 
+    // Obtiene un grupo con su grado y el total de estudiantes activos.
     public async Task<Dictionary<string, object?>?> GetGrupoAsync(int id, CancellationToken ct) =>
         await QuerySingleAsync("""
             SELECT g.id_grupo, g.codigo_grupo, g.capacidad_maxima, gr.id_grado, gr.nombre_grado,
@@ -115,6 +129,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
             WHERE g.id_grupo = $1
             """, ct, id);
 
+    // Actualiza codigo, grado y capacidad del grupo.
     public async Task UpdateGrupoAsync(int id, GrupoRequest request, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -129,6 +144,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         await command.ExecuteNonQueryAsync(ct);
     }
 
+    // Elimina un grupo; PostgreSQL protege las relaciones que aun existan.
     public async Task<bool> DeleteGrupoAsync(int id, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -137,6 +153,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return await command.ExecuteNonQueryAsync(ct) > 0;
     }
 
+    // Lista los estudiantes activos matriculados en un grupo.
     public Task<IReadOnlyList<Dictionary<string, object?>>> ListEstudiantesByGrupoAsync(int grupoId, CancellationToken ct) =>
         QueryAsync("""
             SELECT e.* FROM estudiantes e
@@ -144,6 +161,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
             ORDER BY e.apellido, e.nombre
             """, ct, grupoId);
 
+    // Lista materias con docentes activos y grados donde estan asignadas.
     public Task<IReadOnlyList<Dictionary<string, object?>>> ListMateriasAsync(CancellationToken ct) =>
         QueryAsync("""
             SELECT m.*,
@@ -158,6 +176,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
             ORDER BY m.nombre_materia
             """, ct);
 
+    // Inserta una materia y devuelve el ID generado.
     public async Task<int> CreateMateriaAsync(MateriaRequest request, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -172,6 +191,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return Convert.ToInt32(await command.ExecuteScalarAsync(ct));
     }
 
+    // Obtiene una materia y agrega sus docentes asignados activos.
     public async Task<Dictionary<string, object?>?> GetMateriaAsync(int id, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -195,9 +215,11 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return materia;
     }
 
+    // Comprueba si existe una materia antes de actualizarla o eliminarla.
     public async Task<bool> MateriaExistsAsync(int id, CancellationToken ct) =>
         await ScalarIntAsync("SELECT COUNT(*) FROM materias WHERE id_materia = $1", ct, id) > 0;
 
+    // Actualiza nombre, codigo, intensidad horaria y descripcion de la materia.
     public async Task UpdateMateriaAsync(int id, MateriaRequest request, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -214,6 +236,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         await command.ExecuteNonQueryAsync(ct);
     }
 
+    // Devuelve el motivo que impediria eliminar una materia, o null si puede eliminarse.
     public async Task<string?> GetMateriaDeleteBlockerAsync(int id, CancellationToken ct)
     {
         if (!await MateriaExistsAsync(id, ct)) return "__not_found__";
@@ -226,6 +249,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return null;
     }
 
+    // Elimina definitivamente una materia sin asignaciones, actividades ni notas dependientes.
     public async Task<bool> DeleteMateriaAsync(int id, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -234,6 +258,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return await command.ExecuteNonQueryAsync(ct) > 0;
     }
 
+    // Busca docentes disponibles para una materia y contexto academico concreto.
     public Task<IReadOnlyList<Dictionary<string, object?>>> ListDocentesDisponiblesAsync(
         int materiaId, int? gradoId, int? grupoId, CancellationToken ct) => QueryAsync("""
             SELECT u.id_usuario, CONCAT(u.nombre, ' ', u.apellido) AS nombre_completo, r.nombre_rol
@@ -246,6 +271,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
             ORDER BY u.apellido, u.nombre
             """, ct, materiaId, gradoId, grupoId);
 
+    // Valida todas las relaciones y crea una asignacion docente dentro de una transaccion.
     public async Task<(int? Id, string? Error, int Status)> CreateAsignacionAsync(
         AsignacionDocenteRequest request, CancellationToken ct)
     {
@@ -291,6 +317,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return (id, null, 201);
     }
 
+    // Desactiva una asignacion sin borrar su historial.
     public async Task<bool> DeleteAsignacionAsync(int id, CancellationToken ct)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -301,6 +328,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return await command.ExecuteNonQueryAsync(ct) > 0;
     }
 
+    // Ejecuta una consulta parametrizada y convierte todas sus filas a diccionarios.
     private async Task<IReadOnlyList<Dictionary<string, object?>>> QueryAsync(
         string sql, CancellationToken ct, params object?[] parameters)
     {
@@ -313,6 +341,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return rows;
     }
 
+    // Ejecuta una consulta parametrizada y devuelve solo la primera fila.
     private async Task<Dictionary<string, object?>?> QuerySingleAsync(
         string sql, CancellationToken ct, params object?[] parameters)
     {
@@ -320,6 +349,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return rows.FirstOrDefault();
     }
 
+    // Ejecuta una consulta escalar cuyo resultado se interpreta como entero.
     private async Task<int> ScalarIntAsync(string sql, CancellationToken ct, params object?[] parameters)
     {
         await using var connection = await factory.OpenConnectionAsync(ct);
@@ -328,6 +358,7 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return Convert.ToInt32(await command.ExecuteScalarAsync(ct));
     }
 
+    // Comprueba la existencia de una fila usando la transaccion activa.
     private static async Task<bool> ExistsAsync(
         NpgsqlConnection connection, NpgsqlTransaction transaction, string sql,
         CancellationToken ct, params object?[] parameters)
@@ -337,12 +368,14 @@ public sealed class AcademicoQueries(PostgresConnectionFactory factory)
         return await command.ExecuteScalarAsync(ct) is not null;
     }
 
+    // Agrega valores como parametros para evitar interpolar datos de la solicitud.
     private static void AddParameters(NpgsqlCommand command, object?[] parameters)
     {
         foreach (var parameter in parameters)
             command.Parameters.AddWithValue(parameter ?? DBNull.Value);
     }
 
+    // Convierte la fila actual de PostgreSQL a la forma JSON usada por la API.
     private static Dictionary<string, object?> ReadRow(NpgsqlDataReader reader)
     {
         var row = new Dictionary<string, object?>(StringComparer.Ordinal);

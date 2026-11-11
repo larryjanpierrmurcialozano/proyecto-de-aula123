@@ -1,3 +1,7 @@
+# BACKEND MODULE: legacy
+# Utilidades internas del backend.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 import os
 import io
 import json

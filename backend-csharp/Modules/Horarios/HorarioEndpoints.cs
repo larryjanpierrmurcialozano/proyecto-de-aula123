@@ -1,3 +1,7 @@
+// BACKEND MODULE: Horarios
+// Este archivo define la configuracion, endpoints, modelos o consultas del backend C#.
+// Los comentarios de API se colocan junto a cada endpoint para facilitar su ubicacion.
+
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -8,6 +12,9 @@ public static class HorarioEndpoints
     public static IEndpointRouteBuilder MapHorarioEndpoints(this IEndpointRouteBuilder endpoints)
     {
         var api = endpoints.MapGroup("/api").RequireAuthorization();
+
+        // API: GET /api/horarios
+        // Funcion: Lista horarios aplicando los filtros recibidos.
 
         api.MapGet("/horarios", async (
             [FromQuery(Name = "grupo_id")] int? groupId,
@@ -20,6 +27,9 @@ public static class HorarioEndpoints
                 horarios = await queries.ListAsync(groupId, gradeId, teacherId, ct)
             }));
 
+        // API: GET /api/horarios/{id:int}
+        // Funcion: Obtiene el detalle de un horario por su identificador.
+
         api.MapGet("/horarios/{id:int}", async (
             int id, HorarioQueries queries, CancellationToken ct) =>
         {
@@ -28,6 +38,9 @@ public static class HorarioEndpoints
                 ? Results.NotFound(new { error = "Horario no encontrado" })
                 : Results.Ok(new { status = "ok", horario });
         });
+
+        // API: POST /api/horarios
+        // Funcion: Crea un horario validando cruces de grupo y docente.
 
         api.MapPost("/horarios", async (
             HorarioRequest request, HttpContext context, HorarioQueries queries, CancellationToken ct) =>
@@ -39,6 +52,9 @@ public static class HorarioEndpoints
                 ? Results.Json(new { error = result.Error }, statusCode: result.Status)
                 : Results.Json(new { status = "ok", id_horario = result.Id }, statusCode: result.Status);
         });
+
+        // API: PUT /api/horarios/{id:int}
+        // Funcion: Actualiza un horario y vuelve a validar sus cruces.
 
         api.MapPut("/horarios/{id:int}", async (
             int id, HorarioRequest request, HttpContext context,
@@ -53,6 +69,9 @@ public static class HorarioEndpoints
                 : Results.Ok(new { status = "ok" });
         });
 
+        // API: DELETE /api/horarios/{id:int}
+        // Funcion: Elimina un horario existente.
+
         api.MapDelete("/horarios/{id:int}", async (
             int id, HttpContext context, HorarioQueries queries, CancellationToken ct) =>
             await queries.DeleteAsync(
@@ -61,6 +80,9 @@ public static class HorarioEndpoints
                 ? Results.Ok(new { status = "ok" })
                 : Results.NotFound(new { error = "Horario no encontrado" }));
 
+        // API: GET /api/horarios/asignaciones-grupo/{groupId:int}
+        // Funcion: Lista las asignaciones de horario de un grupo.
+
         api.MapGet("/horarios/asignaciones-grupo/{groupId:int}", async (
             int groupId, HorarioQueries queries, CancellationToken ct) => Results.Ok(new
             {
@@ -68,12 +90,18 @@ public static class HorarioEndpoints
                 asignaciones = await queries.ListGroupAssignmentsAsync(groupId, ct)
             }));
 
+        // API: GET /api/horarios/asignaciones-grado/{gradeId:int}
+        // Funcion: Lista las asignaciones de horario de todos los grupos de un grado.
+
         api.MapGet("/horarios/asignaciones-grado/{gradeId:int}", async (
             int gradeId, HorarioQueries queries, CancellationToken ct) => Results.Ok(new
             {
                 status = "ok",
                 asignaciones = await queries.ListGradeAssignmentsAsync(gradeId, ct)
             }));
+
+        // API: GET /api/niveles
+        // Funcion: Lista los niveles academicos disponibles.
 
         api.MapGet("/niveles", async (HorarioQueries queries, CancellationToken ct) =>
             Results.Ok(new { status = "ok", niveles = await queries.ListLevelsAsync(ct) }));

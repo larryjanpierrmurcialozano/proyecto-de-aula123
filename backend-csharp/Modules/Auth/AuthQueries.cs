@@ -1,3 +1,7 @@
+// BACKEND MODULE: Auth
+// Este archivo define la configuracion, endpoints, modelos o consultas del backend C#.
+// Los comentarios de API se colocan junto a cada endpoint para facilitar su ubicacion.
+
 using ProyectoGrado.Api.Data;
 using ProyectoGrado.Api.Modules.Usuarios;
 using System.Security.Claims;

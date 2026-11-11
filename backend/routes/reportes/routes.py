@@ -1,3 +1,7 @@
+# BACKEND MODULE: reportes
+# API de logs, reportes, boletines y envio de correos.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ════════════════════════════════════════════════════════════════════════════════
 # BLUEPRINT: REPORTES — Reportes, correos por grupo, envío de correo, logs
 # ════════════════════════════════════════════════════════════════════════════════
@@ -32,6 +36,8 @@ reportes_bp = Blueprint('reportes', __name__)
 
 # ── Logs ─────────────────────────────────────────────────────────────────────
 
+# API: GET /api/logs
+# Funcion: Consulta los reportes y boletines mediante la ruta logs.
 @reportes_bp.route('/api/logs', methods=['GET'])
 def api_logs():
     """Listar logs del sistema"""
@@ -66,6 +72,8 @@ def api_logs():
 
 # ── Obtener grupos para reportes ─────────────────────────────────────────────
 
+# API: GET /api/reportes/grupos
+# Funcion: Consulta los reportes y boletines mediante la ruta reportes grupos.
 @reportes_bp.route('/api/reportes/grupos', methods=['GET'])
 def api_obtener_grupos():
     """Obtiene todos los grupos con su información de grado asociado"""
@@ -119,6 +127,8 @@ def api_obtener_grupos():
 
 # ── Correos por grupo ────────────────────────────────────────────────────────
 
+# API: GET /api/reportes/correos-grupo/<int:id_grupo>
+# Funcion: Consulta los reportes y boletines mediante la ruta reportes correos-grupo id.
 @reportes_bp.route('/api/reportes/correos-grupo/<int:id_grupo>', methods=['GET'])
 def api_correos_por_grupo(id_grupo):
     """Obtiene todos los correos de estudiantes de un grupo específico"""
@@ -982,6 +992,8 @@ def _generar_boletin_excel(cursor, estudiante_id, periodo_id, *, save_path=None)
     return buffer
 
 
+# API: POST /api/reportes/enviar-correo
+# Funcion: Crea o guarda los reportes y boletines mediante la ruta reportes enviar-correo.
 @reportes_bp.route('/api/reportes/enviar-correo', methods=['POST'])
 def api_enviar_reporte_correo():
     """Envía un reporte por correo a uno o varios destinatarios"""
@@ -1035,6 +1047,8 @@ def api_enviar_reporte_correo():
         return _error_interno(e)
 
 
+# API: POST /api/reportes/enviar-correo-adjunto
+# Funcion: Crea o guarda los reportes y boletines mediante la ruta reportes enviar-correo-adjunto.
 @reportes_bp.route('/api/reportes/enviar-correo-adjunto', methods=['POST'])
 def api_enviar_reporte_correo_adjunto():
     """Envía un reporte por correo con archivo adjunto (PDF)."""
@@ -1121,6 +1135,8 @@ def _ruta_boletin_archivo(estudiante, numero_periodo, ext):
     return os.path.join(base_dir, filename)
 
 
+# API: POST /api/boletines/generar
+# Funcion: Crea o guarda los reportes y boletines mediante la ruta boletines generar.
 @reportes_bp.route('/api/boletines/generar', methods=['POST'])
 def api_boletin_generar_archivo():
     """Genera boletin en disco y devuelve PDF/XLSX."""
@@ -1208,6 +1224,8 @@ def api_boletin_generar_archivo():
         return _error_interno(e)
 
 
+# API: POST /api/boletines/sincronizar-grupo
+# Funcion: Crea o guarda los reportes y boletines mediante la ruta boletines sincronizar-grupo.
 @reportes_bp.route('/api/boletines/sincronizar-grupo', methods=['POST'])
 def api_boletin_sincronizar_grupo():
     """Genera/actualiza boletines para un grupo y periodo, con deteccion de cambios."""
@@ -1312,6 +1330,8 @@ def api_boletin_sincronizar_grupo():
         return _error_interno(e)
 
 
+# API: POST /api/boletines/enviar-grupo
+# Funcion: Crea o guarda los reportes y boletines mediante la ruta boletines enviar-grupo.
 @reportes_bp.route('/api/boletines/enviar-grupo', methods=['POST'])
 def api_boletin_enviar_grupo():
     """Genera boletines del grupo y los envia por correo a estudiantes con email valido."""
@@ -1408,6 +1428,8 @@ def api_boletin_enviar_grupo():
         return _error_interno(e)
 
 
+# API: POST /api/boletines/sincronizar-todo
+# Funcion: Crea o guarda los reportes y boletines mediante la ruta boletines sincronizar-todo.
 @reportes_bp.route('/api/boletines/sincronizar-todo', methods=['POST'])
 def api_boletin_sincronizar_todo():
     """Genera/actualiza boletines para todos los grupos y periodos."""

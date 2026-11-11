@@ -1,3 +1,7 @@
+// BACKEND MODULE: Usuarios
+// Este archivo define la configuracion, endpoints, modelos o consultas del backend C#.
+// Los comentarios de API se colocan junto a cada endpoint para facilitar su ubicacion.
+
 using System.ComponentModel.DataAnnotations;
 using ProyectoGrado.Api.Modules.Auth;
 

@@ -1,3 +1,7 @@
+# BACKEND MODULE: registros
+# API legacy de registros de asistencia, mantenida por compatibilidad.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ════════════════════════════════════════════════════════════════════════════════
 # BLUEPRINT: REGISTROS — Asistencia + Observador
 # ════════════════════════════════════════════════════════════════════════════════
@@ -11,6 +15,8 @@ registros_bp = Blueprint('registros', __name__)
 
 # ── Asistencia ───────────────────────────────────────────────────────────────
 
+# API: GET /api/asistencia
+# Funcion: Consulta los registros legacy de asistencia mediante la ruta asistencia.
 @registros_bp.route('/api/asistencia', methods=['GET'])
 def api_asistencia():
     """Listar asistencia"""
@@ -46,6 +52,8 @@ def api_asistencia():
         return _error_interno(e)
 
 
+# API: POST /api/asistencia
+# Funcion: Crea o guarda los registros legacy de asistencia mediante la ruta asistencia.
 @registros_bp.route('/api/asistencia', methods=['POST'])
 def api_asistencia_registrar():
     """Registrar asistencia"""

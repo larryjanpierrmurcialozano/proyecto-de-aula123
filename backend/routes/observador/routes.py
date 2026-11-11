@@ -1,3 +1,7 @@
+# BACKEND MODULE: observador
+# API del observador estudiantil y generacion de formatos.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 from flask import Blueprint, jsonify, request, session, send_file
 import io
 import os
@@ -417,6 +421,8 @@ def _obs_make_pdf_buffer(data):
 	return buffer
 
 
+# API: GET /api/observador
+# Funcion: Consulta las observaciones estudiantiles mediante la ruta observador.
 @observador_bp.route('/api/observador', methods=['GET'])
 def api_observador_listar():
 	"""Lista observaciones con datos de estudiante y usuario registrador."""
@@ -474,6 +480,8 @@ def api_observador_listar():
 		return _error_interno(e)
 
 
+# API: GET /api/observador/estudiantes
+# Funcion: Consulta las observaciones estudiantiles mediante la ruta observador estudiantes.
 @observador_bp.route('/api/observador/estudiantes', methods=['GET'])
 def api_observador_estudiantes():
 	"""Lista los estudiantes visibles para el módulo Observador."""
@@ -505,6 +513,8 @@ def api_observador_estudiantes():
 		return _error_interno(e)
 
 
+# API: POST /api/observador
+# Funcion: Crea o guarda las observaciones estudiantiles mediante la ruta observador.
 @observador_bp.route('/api/observador', methods=['POST'])
 def api_observador_crear():
 	"""Crea una observación, adaptando campos según columnas existentes."""
@@ -585,6 +595,8 @@ def api_observador_crear():
 		return _error_interno(e)
 
 
+# API: PUT /api/observador/<int:id_observacion>
+# Funcion: Actualiza las observaciones estudiantiles mediante la ruta observador id.
 @observador_bp.route('/api/observador/<int:id_observacion>', methods=['PUT'])
 def api_observador_actualizar(id_observacion):
 	"""Actualiza una observación existente."""
@@ -679,6 +691,8 @@ def api_observador_actualizar(id_observacion):
 		return _error_interno(e)
 
 
+# API: GET /api/observador/formato.pdf
+# Funcion: Consulta las observaciones estudiantiles mediante la ruta observador formato.pdf.
 @observador_bp.route('/api/observador/formato.pdf', methods=['GET'])
 def api_observador_formato_pdf_blanco():
 	"""Genera formato institucional del observador en PDF (version en blanco)."""
@@ -705,6 +719,8 @@ def api_observador_formato_pdf_blanco():
 		return _error_interno(e)
 
 
+# API: GET /api/observador/<int:id_observacion>/formato.pdf
+# Funcion: Consulta las observaciones estudiantiles mediante la ruta observador id formato.pdf.
 @observador_bp.route('/api/observador/<int:id_observacion>/formato.pdf', methods=['GET'])
 def api_observador_formato_pdf(id_observacion):
 	"""Genera formato institucional del observador en PDF con datos del registro."""
@@ -748,6 +764,8 @@ def api_observador_formato_pdf(id_observacion):
 		return _error_interno(e)
 
 
+# API: DELETE /api/observador/<int:id_observacion>
+# Funcion: Elimina las observaciones estudiantiles mediante la ruta observador id.
 @observador_bp.route('/api/observador/<int:id_observacion>', methods=['DELETE'])
 def api_observador_eliminar(id_observacion):
 	"""Elimina una observación por id."""

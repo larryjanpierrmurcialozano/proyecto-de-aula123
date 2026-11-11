@@ -1,3 +1,7 @@
+# BACKEND MODULE: academico
+# API de grados, grupos, materias y asignaciones docentes.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ════════════════════════════════════════════════════════════════════════════════
 # BLUEPRINT: ACADÉMICO — Grados, Grupos, Materias, Asignaciones, Períodos,
 #                      Calificaciones  (Horarios → routes/horarios.py)
@@ -13,6 +17,8 @@ academico_bp = Blueprint('academico', __name__)
 
 # ── Grados ───────────────────────────────────────────────────────────────────
 
+# API: GET /api/grados
+# Funcion: Consulta la estructura academica mediante la ruta grados.
 @academico_bp.route('/api/grados', methods=['GET'])
 def api_grados():
     """Listar grados con sus grupos"""
@@ -38,6 +44,8 @@ def api_grados():
         return _error_interno(e)
 
 
+# API: POST /api/grados
+# Funcion: Crea o guarda la estructura academica mediante la ruta grados.
 @academico_bp.route('/api/grados', methods=['POST'])
 def api_grado_crear():
     """Crear grado"""
@@ -59,6 +67,8 @@ def api_grado_crear():
         return _error_interno(e)
 
 
+# API: GET /api/grados/<int:id>
+# Funcion: Consulta la estructura academica mediante la ruta grados id.
 @academico_bp.route('/api/grados/<int:id>', methods=['GET'])
 def api_grado_get(id):
     """Obtener grado por id"""
@@ -81,6 +91,8 @@ def api_grado_get(id):
         return _error_interno(e)
 
 
+# API: PUT /api/grados/<int:id>
+# Funcion: Actualiza la estructura academica mediante la ruta grados id.
 @academico_bp.route('/api/grados/<int:id>', methods=['PUT'])
 def api_grado_update(id):
     """Actualizar grado"""
@@ -102,6 +114,8 @@ def api_grado_update(id):
         return _error_interno(e)
 
 
+# API: DELETE /api/grados/<int:id>
+# Funcion: Elimina la estructura academica mediante la ruta grados id.
 @academico_bp.route('/api/grados/<int:id>', methods=['DELETE'])
 def api_grado_delete(id):
     """Eliminar grado"""
@@ -130,6 +144,8 @@ def api_grado_delete(id):
         return _error_interno(e)
 
 
+# API: GET /api/grados/<int:grado_id>/grupos
+# Funcion: Consulta la estructura academica mediante la ruta grados id grupos.
 @academico_bp.route('/api/grados/<int:grado_id>/grupos', methods=['GET'])
 def api_grupos_por_grado(grado_id):
     """Obtener grupos de un grado"""
@@ -149,6 +165,8 @@ def api_grupos_por_grado(grado_id):
 
 # ── Grupos ───────────────────────────────────────────────────────────────────
 
+# API: GET /api/grupos
+# Funcion: Consulta la estructura academica mediante la ruta grupos.
 @academico_bp.route('/api/grupos', methods=['GET'])
 def api_grupos():
     """Listar todos los grupos"""
@@ -172,6 +190,8 @@ def api_grupos():
         return _error_interno(e)
 
 
+# API: POST /api/grupos
+# Funcion: Crea o guarda la estructura academica mediante la ruta grupos.
 @academico_bp.route('/api/grupos', methods=['POST'])
 def api_grupo_crear():
     """Crear grupo"""
@@ -191,6 +211,8 @@ def api_grupo_crear():
         return _error_interno(e)
 
 
+# API: GET /api/grupos/<int:id>
+# Funcion: Consulta la estructura academica mediante la ruta grupos id.
 @academico_bp.route('/api/grupos/<int:id>', methods=['GET'])
 def api_grupo_get(id):
     """Obtener un grupo por id"""
@@ -214,6 +236,8 @@ def api_grupo_get(id):
         return _error_interno(e)
 
 
+# API: PUT /api/grupos/<int:id>
+# Funcion: Actualiza la estructura academica mediante la ruta grupos id.
 @academico_bp.route('/api/grupos/<int:id>', methods=['PUT'])
 def api_grupo_update(id):
     """Actualizar grupo"""
@@ -233,6 +257,8 @@ def api_grupo_update(id):
         return _error_interno(e)
 
 
+# API: DELETE /api/grupos/<int:id>
+# Funcion: Elimina la estructura academica mediante la ruta grupos id.
 @academico_bp.route('/api/grupos/<int:id>', methods=['DELETE'])
 def api_grupo_delete(id):
     """Eliminar grupo"""
@@ -252,6 +278,8 @@ def api_grupo_delete(id):
         return _error_interno(e)
 
 
+# API: GET /api/grupos/<int:id>/estudiantes
+# Funcion: Consulta la estructura academica mediante la ruta grupos id estudiantes.
 @academico_bp.route('/api/grupos/<int:id>/estudiantes', methods=['GET'])
 def api_grupo_estudiantes(id):
     """Estudiantes de un grupo"""
@@ -272,6 +300,8 @@ def api_grupo_estudiantes(id):
 
 # ── Materias ─────────────────────────────────────────────────────────────────
 
+# API: GET /api/materias
+# Funcion: Consulta la estructura academica mediante la ruta materias.
 @academico_bp.route('/api/materias', methods=['GET'])
 def api_materias():
     """Listar materias con grados asociados"""
@@ -298,6 +328,8 @@ def api_materias():
         return _error_interno(e)
 
 
+# API: POST /api/materias
+# Funcion: Crea o guarda la estructura academica mediante la ruta materias.
 @academico_bp.route('/api/materias', methods=['POST'])
 def api_materia_crear():
     """Crear materia"""
@@ -319,6 +351,8 @@ def api_materia_crear():
         return _error_interno(e)
 
 
+# API: GET /api/materias/<int:id>
+# Funcion: Consulta la estructura academica mediante la ruta materias id.
 @academico_bp.route('/api/materias/<int:id>', methods=['GET'])
 def api_materia_detalle(id):
     """Detalle de una materia con docentes asignados"""
@@ -355,6 +389,8 @@ def api_materia_detalle(id):
         return _error_interno(e)
 
 
+# API: PUT /api/materias/<int:id>
+# Funcion: Actualiza la estructura academica mediante la ruta materias id.
 @academico_bp.route('/api/materias/<int:id>', methods=['PUT'])
 def api_materia_editar(id):
     """Editar materia"""
@@ -383,6 +419,8 @@ def api_materia_editar(id):
         return _error_interno(e)
 
 
+# API: DELETE /api/materias/<int:id>
+# Funcion: Elimina la estructura academica mediante la ruta materias id.
 @academico_bp.route('/api/materias/<int:id>', methods=['DELETE'])
 def api_materia_eliminar(id):
     """Eliminar materia"""
@@ -425,6 +463,8 @@ def api_materia_eliminar(id):
         return _error_interno(e)
 
 
+# API: GET /api/materias/<int:materia_id>/docentes-disponibles
+# Funcion: Consulta la estructura academica mediante la ruta materias id docentes-disponibles.
 @academico_bp.route('/api/materias/<int:materia_id>/docentes-disponibles', methods=['GET'])
 def api_docentes_disponibles_materia(materia_id):
     """Obtener docentes disponibles para asignar a una materia"""
@@ -460,6 +500,8 @@ def api_docentes_disponibles_materia(materia_id):
 
 # ── Asignaciones docente ─────────────────────────────────────────────────────
 
+# API: POST /api/asignaciones-docente
+# Funcion: Crea o guarda la estructura academica mediante la ruta asignaciones-docente.
 @academico_bp.route('/api/asignaciones-docente', methods=['POST'])
 def api_asignacion_crear():
     """Crear asignación docente a materia-grado"""
@@ -534,6 +576,8 @@ def api_asignacion_crear():
         return _error_interno(e)
 
 
+# API: DELETE /api/asignaciones-docente/<int:id>
+# Funcion: Elimina la estructura academica mediante la ruta asignaciones-docente id.
 @academico_bp.route('/api/asignaciones-docente/<int:id>', methods=['DELETE'])
 def api_asignacion_eliminar(id):
     """Eliminar asignación docente"""

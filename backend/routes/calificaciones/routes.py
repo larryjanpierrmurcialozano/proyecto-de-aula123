@@ -1,3 +1,7 @@
+# BACKEND MODULE: calificaciones
+# API de calificaciones, actividades, planillas y periodos.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # Se requiere que se crean 4 carpetas para cuatro periodos y dentro de cada carpeta crear los documentos correspondientes que ya estén diseñados (Los excels importados ya definidos).
 # 
 # indicaciones by larry.ai.chan.uwu.rmppnochas3000 :D 
@@ -1022,6 +1026,8 @@ def _generar_planilla_desde_plantilla(grupo_id, materia_id, periodo_id, fecha_ac
             conn.close()
 
 
+# API: POST /api/calificaciones/plantilla/generar
+# Funcion: Crea o guarda las calificaciones y planillas mediante la ruta calificaciones plantilla generar.
 @calificaciones_bp.route('/api/calificaciones/plantilla/generar', methods=['POST'])
 def api_generar_plantilla_desde_base():
     """
@@ -1286,6 +1292,8 @@ def _crear_excel_fisico(grado_id, grupo_id, materia_id, periodo_id=1, force_recr
 
 
 # Ruta de utilidad: devolver estructura de carpetas y archivos bajo PLANILLAS_DIR
+# API: GET /api/calificaciones/estructura_carpetas
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones estructura_carpetas.
 @calificaciones_bp.route('/api/calificaciones/estructura_carpetas', methods=['GET'])
 def api_estructura_carpetas():
     try:
@@ -1298,6 +1306,8 @@ def api_estructura_carpetas():
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/estructura_carpetas/public
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones estructura_carpetas public.
 @calificaciones_bp.route('/api/calificaciones/estructura_carpetas/public', methods=['GET'])
 def api_estructura_carpetas_public():
     """Endpoint público de diagnóstico: lista la estructura de `PLANILLAS_DIR` sin requerir sesión.
@@ -1432,6 +1442,8 @@ def _actualizar_sync_log(grupo_id, materia_id, periodo_id):
 
 # ── 1. SINCRONIZADOR MASIVO (Desde la DB hacia el sistema local) ────────
 
+# API: POST /api/calificaciones/sincronizar_carpetas
+# Funcion: Crea o guarda las calificaciones y planillas mediante la ruta calificaciones sincronizar_carpetas.
 @calificaciones_bp.route('/api/calificaciones/sincronizar_carpetas', methods=['POST'])
 def api_sincronizar_carpetas():
     """
@@ -1618,6 +1630,8 @@ def api_sincronizar_carpetas():
 
 # ── 2. GENERADOR DE PLANILLAS EXCEL CONGELADA (Offline First) ────────────────
 
+# API: GET /api/calificaciones/generar_planilla
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones generar_planilla.
 @calificaciones_bp.route('/api/calificaciones/generar_planilla', methods=['GET'])
 def api_generar_planilla():
     """
@@ -1677,6 +1691,8 @@ def api_generar_planilla():
         return _error_interno(e)
 
 # ── NUEVA RUTA: LEER EXCEL PARA PANTALLA (Grilla Web) ────────────────────────
+# API: GET /api/calificaciones/leer_planilla
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones leer_planilla.
 @calificaciones_bp.route('/api/calificaciones/leer_planilla', methods=['GET'])
 def api_leer_planilla():
     grado_id = request.args.get('grado_id')
@@ -1711,6 +1727,8 @@ def api_leer_planilla():
          return _error_interno(e)
 
 # ── NUEVA RUTA: GUARDAR DESDE PANTALLA WEB DIRECTO ─────────────────────────────
+# API: POST /api/calificaciones/guardar_planilla_web
+# Funcion: Crea o guarda las calificaciones y planillas mediante la ruta calificaciones guardar_planilla_web.
 @calificaciones_bp.route('/api/calificaciones/guardar_planilla_web', methods=['POST'])
 def api_guardar_planilla_web():
     data_json = request.get_json()
@@ -1844,6 +1862,8 @@ def api_guardar_planilla_web():
 
 # ── 3. SUBIDA Y PROCESAMIENTO CON HISTORIAL (El Archivador Inmortal) ─────────
 
+# API: POST /api/calificaciones/subir_planilla
+# Funcion: Crea o guarda las calificaciones y planillas mediante la ruta calificaciones subir_planilla.
 @calificaciones_bp.route('/api/calificaciones/subir_planilla', methods=['POST'])
 def api_subir_planilla():
     """
@@ -2091,6 +2111,8 @@ def api_subir_planilla():
 
 # ── 4. TABLA EN LÍNEA (DINÁMICA) ──────────────────────────────────────────────
 
+# API: GET /api/calificaciones/filtros
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones filtros.
 @calificaciones_bp.route('/api/calificaciones/filtros', methods=['GET'])
 def api_calificaciones_filtros():
     """Datos base para filtros de la tabla de registro de notas.
@@ -2130,6 +2152,8 @@ def api_calificaciones_filtros():
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/grupos/<int:grado_id>
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones grupos id.
 @calificaciones_bp.route('/api/calificaciones/grupos/<int:grado_id>', methods=['GET'])
 def api_calificaciones_grupos(grado_id):
     """Grupos de un grado específico.
@@ -2164,6 +2188,8 @@ def api_calificaciones_grupos(grado_id):
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/materias/<int:grupo_id>
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones materias id.
 @calificaciones_bp.route('/api/calificaciones/materias/<int:grupo_id>', methods=['GET'])
 def api_calificaciones_materias(grupo_id):
     """Lista materias con asignacion docente activa para el grupo."""
@@ -2207,6 +2233,8 @@ def api_calificaciones_materias(grupo_id):
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/tabla
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones tabla.
 @calificaciones_bp.route('/api/calificaciones/tabla', methods=['GET'])
 def api_calificaciones_tabla():
     """Retorna estudiantes, actividades y notas para renderizar tabla tipo Excel."""
@@ -2285,6 +2313,8 @@ def api_calificaciones_tabla():
         return _error_interno(e)
 
 
+# API: POST /api/calificaciones/actividades
+# Funcion: Crea o guarda las calificaciones y planillas mediante la ruta calificaciones actividades.
 @calificaciones_bp.route('/api/calificaciones/actividades', methods=['POST'])
 def api_calificaciones_actividad_crear():
     data = request.get_json() or {}
@@ -2366,6 +2396,10 @@ def api_calificaciones_actividad_crear():
         return _error_interno(e)
 
 
+# API: PUT /api/calificaciones/actividades/<int:id_actividad>
+
+# Funcion: Actualiza las calificaciones y planillas mediante la ruta calificaciones actividades id.
+
 @calificaciones_bp.route('/api/calificaciones/actividades/<int:id_actividad>', methods=['PUT'])
 
 def api_calificaciones_actividad_actualizar(id_actividad):
@@ -2439,6 +2473,8 @@ def api_calificaciones_actividad_actualizar(id_actividad):
         return _error_interno(e)
 
 
+# API: DELETE /api/calificaciones/actividades/<int:id_actividad>
+# Funcion: Elimina las calificaciones y planillas mediante la ruta calificaciones actividades id.
 @calificaciones_bp.route('/api/calificaciones/actividades/<int:id_actividad>', methods=['DELETE'])
 def api_calificaciones_actividad_eliminar(id_actividad):
     try:
@@ -2492,6 +2528,8 @@ def api_calificaciones_actividad_eliminar(id_actividad):
         return _error_interno(e)
 
 
+# API: POST /api/calificaciones/notas
+# Funcion: Crea o guarda las calificaciones y planillas mediante la ruta calificaciones notas.
 @calificaciones_bp.route('/api/calificaciones/notas', methods=['POST'])
 def api_calificaciones_nota_guardar():
     data = request.get_json() or {}
@@ -2538,6 +2576,8 @@ def api_calificaciones_nota_guardar():
         return _error_interno(e)
 
 
+# API: POST /api/calificaciones/notas/lote
+# Funcion: Crea o guarda las calificaciones y planillas mediante la ruta calificaciones notas lote.
 @calificaciones_bp.route('/api/calificaciones/notas/lote', methods=['POST'])
 def api_calificaciones_notas_lote():
     data = request.get_json() or {}
@@ -2604,6 +2644,8 @@ def api_calificaciones_notas_lote():
     except Exception as e:
         return _error_interno(e)
     
+# API: GET /api/calificaciones/descargar/institucional
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones descargar institucional.
 @calificaciones_bp.route('/api/calificaciones/descargar/institucional', methods=['GET'])
 def descargar_planilla_institucional():
     """Genera la planilla usando la plantilla Excel con diseño institucional."""
@@ -2676,6 +2718,8 @@ def descargar_planilla_institucional():
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/acuerdo-pedagogico
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones acuerdo-pedagogico.
 @calificaciones_bp.route('/api/calificaciones/acuerdo-pedagogico', methods=['GET'])
 def api_acuerdo_pedagogico_info():
     grupo_id = _to_int(request.args.get('grupo_id'))
@@ -2698,6 +2742,8 @@ def api_acuerdo_pedagogico_info():
     }), 200
 
 
+# API: POST /api/calificaciones/acuerdo-pedagogico
+# Funcion: Crea o guarda las calificaciones y planillas mediante la ruta calificaciones acuerdo-pedagogico.
 @calificaciones_bp.route('/api/calificaciones/acuerdo-pedagogico', methods=['POST'])
 def api_acuerdo_pedagogico_subir():
     grupo_id = _to_int(request.form.get('grupo_id'))
@@ -2765,6 +2811,8 @@ def api_acuerdo_pedagogico_subir():
             conn.close()
 
 
+# API: GET /api/calificaciones/acuerdo-pedagogico/ver
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones acuerdo-pedagogico ver.
 @calificaciones_bp.route('/api/calificaciones/acuerdo-pedagogico/ver', methods=['GET'])
 def api_acuerdo_pedagogico_ver():
     grupo_id = _to_int(request.args.get('grupo_id'))
@@ -2799,6 +2847,8 @@ def api_acuerdo_pedagogico_ver():
 # NUEVAS RUTAS: GESTIÓN DE ESTRUCTURA DE PERIODOS
 # ═══════════════════════════════════════════════════════════════════════════════
 
+# API: GET /api/calificaciones/periodos/estructura
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones periodos estructura.
 @calificaciones_bp.route('/api/calificaciones/periodos/estructura', methods=['GET'])
 def api_periodos_estructura():
     """
@@ -2860,6 +2910,8 @@ def api_periodos_estructura():
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/periodos/listar
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones periodos listar.
 @calificaciones_bp.route('/api/calificaciones/periodos/listar', methods=['GET'])
 def api_periodos_listar():
     """
@@ -2903,6 +2955,8 @@ def api_periodos_listar():
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/periodos/descargar/<path:ruta_archivo>
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones periodos descargar id.
 @calificaciones_bp.route('/api/calificaciones/periodos/descargar/<path:ruta_archivo>', methods=['GET'])
 def api_periodos_descargar(ruta_archivo):
     """
@@ -2934,6 +2988,8 @@ def api_periodos_descargar(ruta_archivo):
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/periodos/info
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones periodos info.
 @calificaciones_bp.route('/api/calificaciones/periodos/info', methods=['GET'])
 def api_periodos_info():
     """
@@ -2990,6 +3046,8 @@ def api_periodos_info():
 # FASE 2: ENDPOINTS DE DESCARGA POR PERÍODO
 # ════════════════════════════════════════════════════════════════════════════════
 
+# API: GET /api/calificaciones/periodos/<int:periodo_id>/listar
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones periodos id listar.
 @calificaciones_bp.route('/api/calificaciones/periodos/<int:periodo_id>/listar', methods=['GET'])
 def api_listar_periodo(periodo_id):
     """Lista todos los archivos Excel de un período específico."""
@@ -3059,6 +3117,8 @@ def api_listar_periodo(periodo_id):
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/periodos/descargar_archivo
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones periodos descargar_archivo.
 @calificaciones_bp.route('/api/calificaciones/periodos/descargar_archivo', methods=['GET'])
 def api_descargar_archivo_periodo():
     """
@@ -3097,6 +3157,8 @@ def api_descargar_archivo_periodo():
         return _error_interno(e)
 
 
+# API: GET /api/calificaciones/periodos/<int:periodo_id>/descargar_zip
+# Funcion: Consulta las calificaciones y planillas mediante la ruta calificaciones periodos id descargar_zip.
 @calificaciones_bp.route('/api/calificaciones/periodos/<int:periodo_id>/descargar_zip', methods=['GET'])
 def api_descargar_zip_periodo(periodo_id):
     """Descarga todos los archivos Excel de un período comprimidos en ZIP."""

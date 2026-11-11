@@ -1,3 +1,7 @@
+# BACKEND MODULE: docentes
+# API de docentes, asignaciones y consultas del panel docente.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ════════════════════════════════════════════════════════════════════════════════
 # BLUEPRINT: DOCENTES — Admin + Panel del docente
 # ════════════════════════════════════════════════════════════════════════════════
@@ -13,6 +17,8 @@ docentes_bp = Blueprint('docentes', __name__)
 
 # ── Admin de docentes ────────────────────────────────────────────────────────
 
+# API: GET /api/docentes
+# Funcion: Consulta los docentes y sus asignaciones mediante la ruta docentes.
 @docentes_bp.route('/api/docentes', methods=['GET'])
 def api_docentes():
     """Listar docentes con sus asignaciones"""
@@ -42,6 +48,8 @@ def api_docentes():
         return _error_interno(e)
 
 
+# API: GET /api/docentes/disponibles
+# Funcion: Consulta los docentes y sus asignaciones mediante la ruta docentes disponibles.
 @docentes_bp.route('/api/docentes/disponibles', methods=['GET'])
 def api_docentes_disponibles():
     """Lista simple de usuarios con rol Profesor activos para selección"""
@@ -123,6 +131,8 @@ def api_docente_actualizar_estado(current_user, id):
                 pass
 
 
+# API: GET /api/docentes/<int:id>/asignaciones
+# Funcion: Consulta los docentes y sus asignaciones mediante la ruta docentes id asignaciones.
 @docentes_bp.route('/api/docentes/<int:id>/asignaciones', methods=['GET'])
 def api_docente_asignaciones(id):
     """Asignaciones de un docente"""
@@ -145,6 +155,8 @@ def api_docente_asignaciones(id):
         return _error_interno(e)
 
 
+# API: POST /api/docentes/<int:id>/asignaciones
+# Funcion: Crea o guarda los docentes y sus asignaciones mediante la ruta docentes id asignaciones.
 @docentes_bp.route('/api/docentes/<int:id>/asignaciones', methods=['POST'])
 def api_docente_guardar_asignaciones(id):
     """Sincroniza asignaciones activas y conserva como inactivas las retiradas."""
@@ -290,6 +302,8 @@ def api_docente_guardar_asignaciones(id):
         return jsonify({'error': 'No se guardaron las asignaciones. Verifica los datos y revisa el terminal Flask si el problema continúa.'}), 500
 
 
+# API: GET /api/docentes/<int:id>/grados-grupos
+# Funcion: Consulta los docentes y sus asignaciones mediante la ruta docentes id grados-grupos.
 @docentes_bp.route('/api/docentes/<int:id>/grados-grupos', methods=['GET'])
 def api_docente_grados_grupos(id):
     """Obtener grados y grupos donde el docente tiene asignaciones activas"""
@@ -334,6 +348,8 @@ def api_docente_grados_grupos(id):
 
 # ── Panel del docente (mis-materias, mi-horario) ─────────────────────────────
 
+# API: GET /api/docente/mis-materias
+# Funcion: Consulta los docentes y sus asignaciones mediante la ruta docente mis-materias.
 @docentes_bp.route('/api/docente/mis-materias', methods=['GET'])
 def api_docente_mis_materias():
     """Materias del docente actual"""
@@ -361,6 +377,8 @@ def api_docente_mis_materias():
         return _error_interno(e)
 
 
+# API: GET /api/docente/mi-horario
+# Funcion: Consulta los docentes y sus asignaciones mediante la ruta docente mi-horario.
 @docentes_bp.route('/api/docente/mi-horario', methods=['GET'])
 def api_docente_mi_horario():
     """Horario del docente actual"""

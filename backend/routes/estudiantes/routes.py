@@ -1,3 +1,7 @@
+# BACKEND MODULE: estudiantes
+# API de estudiantes y su informacion academica.
+# Las funciones publicas y endpoints de este archivo se documentan junto a su implementacion.
+
 # ════════════════════════════════════════════════════════════════════════════════
 # BLUEPRINT: ESTUDIANTES — CRUD de estudiantes
 # ════════════════════════════════════════════════════════════════════════════════
@@ -15,6 +19,8 @@ from utils.helpers import (
 estudiantes_bp = Blueprint('estudiantes', __name__)
 
 
+# API: GET /api/estudiantes
+# Funcion: Consulta los estudiantes mediante la ruta estudiantes.
 @estudiantes_bp.route('/api/estudiantes', methods=['GET'])
 def api_estudiantes():
     """Listar estudiantes"""
@@ -36,6 +42,8 @@ def api_estudiantes():
         return _error_interno(e)
 
 
+# API: GET /api/estudiantes/<int:id>
+# Funcion: Consulta los estudiantes mediante la ruta estudiantes id.
 @estudiantes_bp.route('/api/estudiantes/<int:id>', methods=['GET'])
 def api_estudiante_detalle(id):
     """Detalle de estudiante"""
@@ -57,6 +65,8 @@ def api_estudiante_detalle(id):
         return _error_interno(e)
 
 
+# API: POST /api/estudiantes
+# Funcion: Crea o guarda los estudiantes mediante la ruta estudiantes.
 @estudiantes_bp.route('/api/estudiantes', methods=['POST'])
 def api_estudiante_crear():
     """Crear estudiante"""
@@ -107,6 +117,8 @@ def api_estudiante_crear():
         return _error_interno(e)
 
 
+# API: PUT /api/estudiantes/<int:id>
+# Funcion: Actualiza los estudiantes mediante la ruta estudiantes id.
 @estudiantes_bp.route('/api/estudiantes/<int:id>', methods=['PUT'])
 def api_estudiante_actualizar(id):
     """Actualizar estudiante"""
@@ -158,6 +170,8 @@ def api_estudiante_actualizar(id):
         return _error_interno(e)
 
 
+# API: DELETE /api/estudiantes/<int:id>
+# Funcion: Elimina los estudiantes mediante la ruta estudiantes id.
 @estudiantes_bp.route('/api/estudiantes/<int:id>', methods=['DELETE'])
 def api_estudiante_eliminar(id):
     """Eliminar estudiante fisicamente y limpiar dependencias relacionadas"""
