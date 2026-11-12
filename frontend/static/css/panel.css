@@ -264,8 +264,7 @@ a, button, .btn, .sidebar-item, .modal-close, label[for] {
     height: 55px;
 }
 
-.sidebar:hover ~ .header,
-.sidebar:hover + .main-content .header {
+.sidebar:hover ~ .main-content .header {
     left: 230px;
     width: calc(100% - 230px);
 }
@@ -2554,8 +2553,7 @@ tr:hover {
     }
 
     .header,
-    .sidebar:hover ~ .header,
-    .sidebar:hover + .main-content .header {
+    .sidebar:hover ~ .main-content .header {
         left: 0;
         width: 100%;
         height: 62px;
